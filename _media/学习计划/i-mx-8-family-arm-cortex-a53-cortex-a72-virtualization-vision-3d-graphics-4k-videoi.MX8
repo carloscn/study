@@ -1,0 +1,2020 @@
+<!DOCTYPE html>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>i.MX 8 Family Applications Processor | Arm Cortex-A53/A72/M4 | NXP Semiconductors</title>
+ <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="Description" content="The i.MX 8 processor are built on the Arm Cortex-A53 core with advanced media processing, secure domain partitioning and innovative vision processing." />
+	<meta name="Keywords" content="vision processing, ltimedia, Arm, Cortex-A53, Cortex-A72" />
+	<meta name="Created_Cms" content="2016-11-10T17:42:04Z" />
+	<meta name="Revised_Cms" content="2022-01-27T23:58:34Z" />
+	<meta property="twitter:site" name="twitter:site"  content="@NXP" />
+	<meta property="og:type" name="og:type"  content="website" />
+	<meta property="og:url" name="og:url"  content="https://www.nxp.com/products/processors-and-microcontrollers/arm-processors/i-mx-applications-processors/i-mx-8-processors/i-mx-8-family-arm-cortex-a53-cortex-a72-virtualization-vision-3d-graphics-4k-video:i.MX8" />
+	<meta property="og:locale" name="og:locale"  content="en_US" />
+	<meta property="twitter:title" name="twitter:title"  content="i.MX 8 Family Applications Processor | Arm Cortex-A53/A72/M4" />
+	<meta property="twitter:card" name="twitter:card"  content="summary" />
+	<meta property="twitter:creator" name="twitter:creator"  content="@NXP" />
+	<meta property="twitter:description" name="twitter:description"  content="The i.MX 8 processor are built on the Arm Cortex-A53 core with advanced media processing, secure domain partitioning and innovative vision processing." />
+	<meta property="og:title" name="og:title"  content="i.MX 8 Family Applications Processor | Arm Cortex-A53/A72/M4" />
+	<meta property="og:description" name="og:description"  content="The i.MX 8 processor are built on the Arm Cortex-A53 core with advanced media processing, secure domain partitioning and innovative vision processing." />
+	<meta name="templateType" content="devices" />
+	<meta name="Asset_Type" content="Products" />
+	<meta name="pageNodeId" content="0150521586ZrDR7188" />
+	<meta name="Code" content="i.MX8" />
+	<meta name="Asset Id" content="1478795698647736706258" />
+	<meta name="Title" content="i.MX 8 Family – Arm<sup>®</sup> Cortex<sup>®</sup>-A53, Cortex-A72, Virtualization, Vision, 3D Graphics, 4K Video" />
+	<meta name="App Type Category" content="Infotainment and In-Vehicle Experience,Healthcare,Payment,Home Entertainment,Building Control,Wearables,Transportation,Home Appliances,Powertrain and Vehicle Dynamics,Power and Energy,Home Control and Security,Aerospace and Mobile Robotics,Factory Automation,Identification" />
+<script type="text/javascript">var domainlocale="en";</script><style type="text/css">
+          
+          .iw_container
+          {
+            max-width:800px !important;
+            margin-left: auto !important;
+            margin-right: auto !important;
+          }
+          .iw_stretch
+          {
+            min-width: 100% !important;
+          }
+        </style>
+<link href="/lsds/iwov-resources/grid/bootstrap.css" type="text/css" rel="stylesheet">
+<!--ls:begin[custom-meta-data]-->
+<meta name="template" content="PSP_Overview_2017Q3">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<!--ls:end[custom-meta-data]-->
+<meta name="vpath" content="">
+<meta name="page-locale-name" content="">
+<!--ls:begin[script]-->
+<script type="text/javascript" src="/lsds/resources/scripts/jquery.min3.1.js" data-tg-desktop_or_tablet_or_phone="show"></script>
+<!--ls:end[script]-->
+<!--ls:begin[script]--><script type="text/javascript" src="/lsds/resources/scripts/bootstrap.min.3.3.7.js" data-tg-desktop_or_tablet_or_phone="show"></script>
+<!--ls:end[script]-->
+<!--ls:begin[script]--><script type="text/javascript" src="/lsds/resources/scripts/jquery.mmenu.all.min.js" data-tg-desktop_or_tablet_or_phone="show"></script>
+<!--ls:end[script]-->
+<!--ls:begin[script]--><script type="text/javascript" src="/lsds/resources/scripts/analytics/webanalytics.js" data-tg-desktop_or_tablet_or_phone="show"></script>
+<!--ls:end[script]-->
+<!--ls:begin[stylesheet]-->
+<link type="text/css" href="/lsds/resources/css/nxp-web.min.css" rel="stylesheet" data-tg-desktop_or_tablet_or_phone="show">
+<!--ls:end[stylesheet]-->
+<!--ls:begin[stylesheet]-->
+<link type="text/css" href="/lsds/resources/css/nxp_containers_no_left_nav.css" rel="stylesheet" data-tg-desktop_or_tablet_or_phone="show">
+<!--ls:end[stylesheet]-->
+<!--ls:begin[script]-->
+<script type="text/javascript" src="/lsds/resources/scripts/common/PSPsRemoveTargetApps.js" data-tg-desktop_or_tablet_or_phone="show"></script>
+<!--ls:end[script]-->
+<link data-tg-desktop_or_tablet_or_phone="show" rel="stylesheet" href="/resources/css/nxp_containers.css" type="text/css">
+<link rel="canonical" href="https://www.nxp.com/products/processors-and-microcontrollers/arm-processors/i-mx-applications-processors/i-mx-8-processors/i-mx-8-family-arm-cortex-a53-cortex-a72-virtualization-vision-3d-graphics-4k-video:i.MX8"/>
+<script src="//assets.adobedtm.com/launch-ENfc50003a4794497d8543816e283aeae8.min.js" async></script>
+                              <script>!function(a){var e="https://s.go-mpulse.net/boomerang/",t="addEventListener";if("False"=="True")a.BOOMR_config=a.BOOMR_config||{},a.BOOMR_config.PageParams=a.BOOMR_config.PageParams||{},a.BOOMR_config.PageParams.pci=!0,e="https://s2.go-mpulse.net/boomerang/";if(window.BOOMR_API_key="9A5SG-ZLHFG-266XZ-3SBXK-MAXXJ",function(){function n(e){a.BOOMR_onload=e&&e.timeStamp||(new Date).getTime()}if(!a.BOOMR||!a.BOOMR.version&&!a.BOOMR.snippetExecuted){a.BOOMR=a.BOOMR||{},a.BOOMR.snippetExecuted=!0;var i,_,o,r=document.createElement("iframe");if(a[t])a[t]("load",n,!1);else if(a.attachEvent)a.attachEvent("onload",n);r.src="javascript:void(0)",r.title="",r.role="presentation",(r.frameElement||r).style.cssText="width:0;height:0;border:0;display:none;",o=document.getElementsByTagName("script")[0],o.parentNode.insertBefore(r,o);try{_=r.contentWindow.document}catch(O){i=document.domain,r.src="javascript:var d=document.open();d.domain='"+i+"';void(0);",_=r.contentWindow.document}_.open()._l=function(){var a=this.createElement("script");if(i)this.domain=i;a.id="boomr-if-as",a.src=e+"9A5SG-ZLHFG-266XZ-3SBXK-MAXXJ",BOOMR_lstart=(new Date).getTime(),this.body.appendChild(a)},_.write("<bo"+'dy onload="document._l();">'),_.close()}}(),"".length>0)if(a&&"performance"in a&&a.performance&&"function"==typeof a.performance.setResourceTimingBufferSize)a.performance.setResourceTimingBufferSize();!function(){if(BOOMR=a.BOOMR||{},BOOMR.plugins=BOOMR.plugins||{},!BOOMR.plugins.AK){var e=""=="true"?1:0,t="",n="zoxq3qtij5yriyqdgosa-f-92743c64d-clientnsv4-s.akamaihd.net",i="false"=="true"?2:1,_={"ak.v":"32","ak.cp":"1136550","ak.ai":parseInt("266333",10),"ak.ol":"0","ak.cr":3,"ak.ipv":4,"ak.proto":"h2","ak.rid":"18d8eebf","ak.r":28987,"ak.a2":e,"ak.m":"h","ak.n":"essl","ak.bpcip":"203.175.13.0","ak.cport":40069,"ak.gh":"23.13.219.158","ak.quicv":"","ak.tlsv":"tls1.3","ak.0rtt":"","ak.csrc":"-","ak.acc":"","ak.t":"1644376996","ak.ak":"hOBiQwZUYzCg5VSAfCLimQ==Knxpff/36EbpspiXCPkQTtiRO6FJpSI1MZSI0a68FKIh+GOJ5e9XvmwZPZOUfLfLt+Vv9qq1q6mDGtzjCdOfhfhTwEPuy9WuZOMlC3uESZKqqTEkuHTGbQec7OqKvXxi+jZgZe8ix/3v/NfLm1LrIcJhljtSyPXL3ZH+yiTJGams6pYSDsBKFQ95wjGxSXflnCfM0AwRMQcjHtiC5zH5BzBoUP43ch168dF/cecTHMLF6u2HO1GaPZxHx2NfdzekTaeroTrA+O4EnNIt2fMJP9DAv5Qn0vuv8ZGNDXx4918evBbXs4XHvBOBnzd9RP7S/VLXv6PxjxBp+rm6k1Z9weP2g2FQPJch2VHHeGI1Sp/0Gw4amV9guJln/i8mhzDmylNkL2uHh2k8H7AB6T6ZSKHJ2VzbM9PZTQQPDuh7BlM=","ak.pv":"173","ak.dpoabenc":"","ak.tf":i};if(""!==t)_["ak.ruds"]=t;var o={i:!1,av:function(e){var t="http.initiator";if(e&&(!e[t]||"spa_hard"===e[t]))_["ak.feo"]=void 0!==a.aFeoApplied?1:0,BOOMR.addVar(_)},rv:function(){var a=["ak.bpcip","ak.cport","ak.cr","ak.csrc","ak.gh","ak.ipv","ak.m","ak.n","ak.ol","ak.proto","ak.quicv","ak.tlsv","ak.0rtt","ak.r","ak.acc","ak.t","ak.tf"];BOOMR.removeVar(a)}};BOOMR.plugins.AK={akVars:_,akDNSPreFetchDomain:n,init:function(){if(!o.i){var a=BOOMR.subscribe;a("before_beacon",o.av,null,null),a("onbeacon",o.rv,null,null),o.i=!0}return this},is_complete:function(){return!0}}}}()}(window);</script></head>
+<body>
+<!--ls:begin[body]--><script type="text/javascript">
+	var s_site_platform = "normal";
+	var LANG_CD_LIST = "zh-Hans,ja,ko,cn,jp,kr";
+	var URL_DOMAIN = "www.nxp.com";
+	var URL_MAJOR_DOMAIN= "null";
+ var CACHE_URL_DOMAINS = ["cache.nxp.com", "www.nxp.com", "www.nxp.com"];
+	var s_vt_id  = getCookieForSiteCatalyst("freescale_visitor_id");
+var s_normal_site ="normal";
+	if(s_site_platform == s_normal_site) {
+		s_site_platform = "full";
+	}	var s_do_pagecall = true;
+		var s_searchQryTxt = "";
+	var s_searchResultCnt = "";
+		var s_searchFilter = "";
+			if(s_searchResultCnt == '' || s_searchResultCnt == "0"){
+		s_searchResultCnt = "zero";
+	}
+	var s_currentUrl = document.URL;
+	var searchLabel = null;
+	var code = null;
+	var type = null;
+	var nodeId = null;
+	var partnerId = null;
+	var partNumber = null;
+var partNumber1 = null;
+var packageId = null;
+var orderablePartNum = null;
+var yid = null;
+var pageLoadRule  = "";
+var pageEvents  = "";
+var sourceType  = "";
+var pageLocalTitle  = "i.MX 8 Family – Arm<sup>®</sup> Cortex<sup>®</sup>-A53, Cortex-A72, Virtualization, Vision, 3D Graphics, 4K Video";
+	var  pageCategory = "PSP";
+	var summaryPageType = "";
+	var sourceId  = "";
+	isDTMEnabledFlag = isDTMEnabled(); 
+pageLoadRule = pageLoadRule == "" ? "General":pageLoadRule;s_currentUrl = getCleanPageURL();
+if(searchLabel != null) s_currentUrl = s_currentUrl +'?searchLabel=' + searchLabel;
+if(partnerId != null) s_currentUrl = s_currentUrl +'?partnerId=' + partnerId;
+if(partNumber != null) s_currentUrl = s_currentUrl +'?PART_NUMBER=' + partNumber;
+if(partNumber1 != null) s_currentUrl = s_currentUrl +'?partnumber=' + partNumber1;
+if(packageId != null) s_currentUrl = s_currentUrl +'?packageId=' + packageId;
+if(orderablePartNum != null) s_currentUrl = s_currentUrl +'?orderablePartNum=' + orderablePartNum;
+ digitalData.pageInfo.pageLoadRule=pageLoadRule;
+digitalData.pageInfo.pageName ="Product Summary:i.MX 8 Family &#8211; ARM<sup>&#174;</sup> Cortex<sup>&#174;</sup>-A53, C... | i.MX8";
+digitalData.pageInfo.pageURLClean = s_currentUrl;
+digitalData.pageInfo.pageType ="Product Summary";
+	digitalData.pageInfo.siteSection1 = "Products";
+	digitalData.pageInfo.siteSection2 = "Microcontrollers and Processors";
+	digitalData.pageInfo.siteSection3 = "Arm Processors";
+	digitalData.pageInfo.siteSection4 = "i.MX Applications Processors based on ARM<sup>&#174;</sup> Cores";
+	digitalData.pageInfo.siteSection5 = "i.MX 8 Series Applications Processors: Multicore, ARM Cortex-A72, Cortex-A53, Cortex A-35, Cortex-M4 cores";
+	digitalData.pageInfo.siteSection6 = "i.MX 8 Family – ARM<sup>®</sup> Cortex<sup>®</sup>-A53, Cortex-A72, Virtualization, Vision, 3D Graphics, 4K Video | i.MX8";
+var eventPathing = "";
+var eVar57 = "";
+eventPathing = "D=pageName";
+if (typeof(eVar57) != "undefined" && eVar57.indexOf("Rich Media Component") != -1) {
+eventPathing = eVar57;
+}
+ digitalData.pageInfo.pageEventPathing = eventPathing;
+digitalData.pageInfo.summaryPageType ="PSP";
+digitalData.pageInfo.pageTab = "Overview";
+digitalData.pageInfo.nodeID = "0150521586ZrDR7188";	
+digitalData.pageInfo.assetID = "1478795698647736706258";
+digitalData.pageInfo.securedAsset ="";
+digitalData.pageInfo.localTitle="i.MX 8 Family – Arm<sup>®</sup> Cortex<sup>®</sup>-A53, Cortex-A72, Virtualization, Vision, 3D Graphics, 4K Video";
+digitalData.pageInfo.pageCodeID = "i.MX8"
+digitalData.pageInfo.pageTemplateType = "";
+digitalData.pageInfo.pageCategory = pageCategory;
+if(typeof getProdview == 'function'){
+	if(getProdview()){
+		if(digitalData.pageInfo.pageEvents == '')
+			digitalData.pageInfo.pageEvents = 'event44';
+		else
+			digitalData.pageInfo.pageEvents = digitalData.pageInfo.pageEvents + ',' + 'event44';
+	}
+}
+var s_contentFinder = getContentFinding(document.referrer, document.URL);
+digitalData.pageInfo.contentFinding = s_contentFinder;
+digitalData.userInfo = {};
+digitalData.userInfo.fslVisitorID = s_vt_id;
+digitalData.siteInfo = {};
+digitalData.siteInfo.sitePlatform = s_site_platform;
+digitalData.siteInfo.lang = "en";
+</script><input id="recordHistoryTime" type="hidden" name="recordHistroryTime" value="10"/>
+<input id="recordHistoryCommand" type="hidden" name="recordHistroryCommand" value="BROWSE_WEBPAGE"/>
+<input id="pageNodeId" type="hidden" name="pageNodeId" value="0150521586ZrDR7188"/>
+<input id="pageType" type="hidden" name="pageType" value="product"/>
+<input id="recrdHistDwnlodComnd" type="hidden" name="recrdHistDwnlodComnd" value="DOWNLOAD"/>
+<input id="webActivityParentID" type="hidden" name="webActivityParentID" value="null"/>
+<input id="webActivityParentType" type="hidden" name="webActivityParentType" value="null"/>
+<input id="webActivityAssetType" type="hidden" name="webActivityParentType" value="PSP"/>
+<input id="recordActivityCommand" type="hidden" name="recordActivityCommand" value="RECORD_WEB_ACTIVITY"/>
+<input id="webActivityAssetID" type="hidden" name="webActivityAssetID" value="1478795698647736706258"/>
+<input id="sechighlight" type="hidden" name="sechighlight" value="productsmenu"/>
+<div class="iw_viewport-wrapper nxp-wrapper"><div class="container-fluid iw_section" id="sectionirs5dxuw"> 
+ <div class="row iw_row iw_stretch" id="rowirs5dxux"> 
+  <div class="iw_columns col-lg-12" id="colirs5dxuy"> 
+   <div class="iw_component" id="iw_comp1471030178215">
+     <noscript>
+    <div class="alert alert-warning alert-dismissible fade in text-center" role="alert">
+        For best experience this site requires Javascript to be enabled. To enable on your browser, follow our <a href="https://www.nxp.com/company/about-nxp/accessibility:ACCESSIBILITY" target="_blank" class='alert-link'>accessibility instructions</a>.<button class='close' type='button' data-dismiss='alert' aria-label='close'><span aria-hidden='true'>&times;</span></button>
+    </div>
+</noscript>
+<header class="loadnav">
+<nav id="nxp-mobile-nav"> </nav>
+
+
+  <div class="site-header">
+  <div class="site-header-inner">
+  <div class="site-header-wrapper" >
+    <!-- logo -->
+    <div class="site-logo" id="site-logo">
+      <a class="dtmcustomrulelink" href="//www.nxp.com" data-dtmaction="Header: Logo Click"  data-content-finding ="Header"  data-content-finding ="Header" data-content-subfinding ="Header: Logo" title="NXP Semiconductor">
+        <!-- <img src="//www.nxp.com/resources/images/nxp-logo.svg" onerror="this.src=//www.nxp.com/assets/images/en/logos-internal/NXP_logo.png" alt="NXP logo"> -->
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 198.58 71.89" width="92" height="33"><g id="nxp-logo"><polyline fill="#7bb1db" points="119.11 0 115.08 0 100.23 23.9 85.37 0 81.33 0 81.34 71.89 85.37 71.89 100.23 48 115.08 71.89 119.15 71.89 119.11 71.83 119.11 0"/><polyline fill="#958437" points="81.33 0 59.31 0 81.31 35.95 59.31 71.89 81.34 71.89 81.33 0"/><polyline fill="#739833" points="141.15 0 119.11 0 119.11 71.83 119.15 71.89 141.14 71.89 119.15 35.95 141.15 0"/><path fill="#c9d200" d="M172.54,0h-31.4l-22,36,22,35.94h0V56h37.17c15.6,0,20.27-12.29,20.27-23V24.57c0-14.07-5.07-24.57-26-24.57ZM178,29c0,4.26-2,9.16-7.16,9.16H141.17V17.84H169c6.66,0,9,2.77,9,7.63V29Z"/><polyline fill="#ffb500" points="81.31 35.95 59.31 0 59.3 0 59.3 43.44 22.03 0 0 0 0 71.89 22.05 71.89 22.04 28.45 59.31 71.89 81.31 35.95"/></g></svg>
+      </a>
+    </div>
+    <!-- Primary navigation -->
+    <div class="site-nav">
+    <div id="hamburger" class="navbar-toggle">
+      <span class="icon-bar top-bar"></span>
+      <span class="icon-bar middle-bar"></span>
+      <span class="icon-bar bottom-bar"></span>
+    </div>
+    <nav class="primary-nav dtmcustomrulelink" id="primaryNav" data-dtmaction="Header: Top Menu Click">
+      <a class="primary-nav-item productsmenu" data-dtmsubaction="Products" data-target="#productsMm"  data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Products</a>
+      <a class="primary-nav-item applicationsmenu" data-dtmsubaction="Applications" data-target="#applicationsMm" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Applications</a>
+      <a class="primary-nav-item design" data-dtmsubaction="Design" data-target="#designMm" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Design</a>
+      <a class="primary-nav-item trainingmenu" data-dtmsubaction="Support" data-target="#supportMm" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Support</a>
+      <a class="primary-nav-item aboutmenu" data-dtmsubaction="Company" data-target="#aboutMm" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Company</a>
+    </nav>
+    </div>
+    <!-- Primary navigation END -->
+    <!-- Search -->
+    <div class="header-search" id="search-component">
+
+    <div class="search-input" id="search-input">
+    <input type="text" id="parts" name="q" placeholder="Search..." tabindex="2" autocomplete="off" class="form-control" value="">
+    </div>
+
+
+    <!-- Primary navigation -->
+    </div>  
+    </div>
+    <!-- Secondary navigation -->
+    <ul class="secondary-nav">
+    <!-- DO NOT REMOVE || My NXP tab --> 
+    <li class="secondary-nav-item dropdown">
+        <div id="mynxp-component" >
+          <a class="secondary-nav-link mynxpmenu" data-target="#mynxpMm" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+            <span class='spin-icon icon-para-reset'></span>
+          </a>
+        </div>
+        </li>
+      <li class="secondary-nav-item dropdown">
+      <div id="language-component">
+        <a href="#" class="secondary-nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="icon-globe2"></span>Language&nbsp;<span class="icon-angle-down"></a>
+
+        </div>
+      </li>
+      <li class="secondary-nav-item"><a class="secondary-nav-link dtmcustomrulelink" href="//store.nxp.com/webapp/ecommerce.show_cart.framework" data-dtmaction="Header: Cart Click" data-content-finding ="Header" data-content-subfinding="Header: Cart"><span class="icon-cart"></span><div class="row"><div class="visible-xs">Orders</div></div></a></li>
+      <li class="secondary-nav-item" style="display:none;">
+        <div id="login-block"><a class="secondary-nav-link dtmHeaderLogin" data-toggle="dropdown" href="#" id="login-dropdown">Sign In</a></div>
+      </li>
+
+    </ul>
+  </div>
+  <div id='mobile-component'></div>
+  
+  <!-- megamenus -->
+  
+	<div class="megamenu">
+		
+	<!-- DO NOT REMOVE || My NXP tab -->       
+        <div class="megamenu-inner" id="mynxpMm">  
+        <!-- <p>My NXP mega menu</p>-->  
+        </div>
+     </div>
+</div>
+
+
+</header>
+<!-- /MOBILE NAV START -->
+<nav id="nxp-mobile-nav"></nav>
+<!-- MOBILE NAV END --> 
+   </div> 
+  </div> 
+ </div> 
+</div> 
+<div class="container-fluid iw_section" id="sectionit7914bf"> 
+ <div class="row iw_row iw_stretch" id="rowit7914bg"> 
+  <div class="iw_columns col-lg-12" id="colit7914bh"> 
+   <div class="iw_component" id="iw_comp1474120073498">
+     <!--ls:begin[component-1474120073498]--><div class="bc-container clearfix"><ul class="bc dtmcustomrulelink" data-dtmaction="Breadcrumb Click" data-content-subfinding="Breadcrumb Click"> <li><a href="/" data-dtmsubaction="Home Icon"><span class="icon-home" title="nxp.com"></span></a></li> <li>
+   <div class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" id="bc_2" href="/products/processors-and-microcontrollers:MICROCONTROLLERS-AND-PROCESSORS" data-dtmsubaction="Processors and Microcontrollers">Processors and Microcontrollers</a><ul aria-labelledby="bc_2" role="menu" class="dropdown-menu dropdown-menu-left">
+         <li role="presentation"><a data-dtmsubaction="Arm Microcontrollers" href="/products/processors-and-microcontrollers/arm-microcontrollers:ARM-MICROCONTROLLERS" role="menuitem">Arm Microcontrollers</a></li>
+         <li class="parent" role="presentation"><a data-dtmsubaction="Arm Processors" href="/products/processors-and-microcontrollers/arm-processors:ARM-PROCESSORS" role="menuitem">Arm Processors</a></li>
+         <li role="presentation"><a data-dtmsubaction="Power Architecture" href="/products/processors-and-microcontrollers/power-architecture:POWER-ARCHITECTURE" role="menuitem">Power Architecture</a></li>
+         <li role="presentation"><a data-dtmsubaction="Additional MPU/MCUs Architectures" href="/products/processors-and-microcontrollers/additional-mpu-mcus-architectures:MORE-PROCESSORS" role="menuitem">Additional MPU/MCUs Architectures</a></li>
+         <li role="presentation"><a data-dtmsubaction="Legacy MPU/MCUs" href="/products/processors-and-microcontrollers/legacy-mpu-mcus:LEGACY-MCU-MPUs" role="menuitem">Legacy MPU/MCUs</a></li>
+      </ul>
+   </div></li> <li>
+   <div class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" id="bc_2" href="/products/processors-and-microcontrollers/arm-processors:ARM-PROCESSORS" data-dtmsubaction="Arm Processors">Arm Processors</a><ul aria-labelledby="bc_2" role="menu" class="dropdown-menu dropdown-menu-left">
+         <li class="parent" role="presentation"><a data-dtmsubaction="i.MX Applications Processors" href="/products/processors-and-microcontrollers/arm-processors/i-mx-applications-processors:IMX_HOME" role="menuitem">i.MX Applications Processors</a></li>
+         <li role="presentation"><a data-dtmsubaction="Layerscape Processors" href="/products/processors-and-microcontrollers/arm-processors/layerscape-processors:QORIQ-ARM" role="menuitem">Layerscape Processors</a></li>
+         <li role="presentation"><a data-dtmsubaction="S32 Automotive Platform" href="/products/processors-and-microcontrollers/arm-processors/s32-automotive-platform:S32" role="menuitem">S32 Automotive Platform</a></li>
+         <li role="presentation"><a data-dtmsubaction="S32G Vehicle Network Processors" href="/products/processors-and-microcontrollers/arm-processors/s32g-vehicle-network-processors:S32G-PROCESSORS" role="menuitem">S32G Vehicle Network Processors</a></li>
+      </ul>
+   </div></li> <li>
+   <div class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" id="bc_2" href="/products/processors-and-microcontrollers/arm-processors/i-mx-applications-processors:IMX_HOME" data-dtmsubaction="i.MX Applications Processors">i.MX Applications Processors</a><ul aria-labelledby="bc_2" role="menu" class="dropdown-menu dropdown-menu-left">
+         <li role="presentation"><a data-dtmsubaction="i.MX RT Series" href="/products/processors-and-microcontrollers/arm-microcontrollers/i.mx-rt-series:IMX-RT-SERIES" role="menuitem">i.MX RT Series</a></li>
+         <li role="presentation"><a data-dtmsubaction="i.MX 9 Processors" href="/products/processors-and-microcontrollers/arm-processors/i-mx-applications-processors/i-mx-9-processors:IMX9-PROCESSORS" role="menuitem">i.MX 9 Processors</a></li>
+         <li class="parent" role="presentation"><a data-dtmsubaction="i.MX 8 Processors" href="/products/processors-and-microcontrollers/arm-processors/i-mx-applications-processors/i-mx-8-processors:IMX8-SERIES" role="menuitem">i.MX 8 Processors</a></li>
+         <li role="presentation"><a data-dtmsubaction="i.MX 7 Processors" href="/products/processors-and-microcontrollers/arm-processors/i-mx-applications-processors/i-mx-7-processors:IMX7-SERIES" role="menuitem">i.MX 7 Processors</a></li>
+         <li role="presentation"><a data-dtmsubaction="i.MX 6 Processors" href="/products/processors-and-microcontrollers/arm-processors/i-mx-applications-processors/i-mx-6-processors:IMX6X_SERIES" role="menuitem">i.MX 6 Processors</a></li>
+         <li role="presentation"><a data-dtmsubaction="i.MX28 Processors" href="/products/processors-and-microcontrollers/arm-processors/i-mx-applications-processors/i-mx28-processors:IMX28_FAMILY" role="menuitem">i.MX28 Processors</a></li>
+         <li role="presentation"><a data-dtmsubaction="i.MX Mature Processors" href="/products/processors-and-microcontrollers/arm-processors/i-mx-applications-processors/i-mx-mature-processors:IMX-MATURE" role="menuitem">i.MX Mature Processors</a></li>
+         <li role="presentation"><a data-dtmsubaction="Virtual Reality and 360 Videos" href="/products/processors-and-microcontrollers/arm-processors/i-mx-applications-processors/virtual-reality-and-360-videos:VIRTUAL-REALITY-AND-360-VIDEOS" role="menuitem">Virtual Reality and 360 Videos</a></li>
+         <li role="presentation"><a data-dtmsubaction="Developer Resources" href="/products/microcontrollers-and-processors/arm-based-processors-and-mcus/i.mx-applications-processors/developer-resources:IMXSW_HOME" role="menuitem">Developer Resources</a></li>
+      </ul>
+   </div></li> <li>
+   <div class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" id="bc_2" href="/products/processors-and-microcontrollers/arm-processors/i-mx-applications-processors/i-mx-8-processors:IMX8-SERIES" data-dtmsubaction="i.MX 8 Processors">i.MX 8 Processors</a><ul aria-labelledby="bc_2" role="menu" class="dropdown-menu dropdown-menu-left">
+         <li role="presentation"><a data-dtmsubaction="i.MX8M Plus" href="/products/processors-and-microcontrollers/arm-processors/i-mx-applications-processors/i-mx-8-processors/i-mx-8m-plus-arm-cortex-a53-machine-learning-vision-multimedia-and-industrial-iot:IMX8MPLUS" role="menuitem">i.MX8M Plus</a></li>
+         <li class="active" role="presentation"><a data-dtmsubaction="i.MX 8 Family &amp;#8211; Arm<sup&gt;&amp;#174;</sup&gt; Cortex<sup&gt;&amp;#174;</sup&gt;-A53, Cortex-A72, Virtualization, Vision, 3D Graphics, 4K Video " href="/products/processors-and-microcontrollers/arm-processors/i-mx-applications-processors/i-mx-8-processors/i-mx-8-family-arm-cortex-a53-cortex-a72-virtualization-vision-3d-graphics-4k-video:i.MX8" role="menuitem">i.MX8</a></li>
+         <li role="presentation"><a data-dtmsubaction="i.MX8M" href="/products/processors-and-microcontrollers/arm-processors/i-mx-applications-processors/i-mx-8-processors/i-mx-8m-family-armcortex-a53-cortex-m4-audio-voice-video:i.MX8M" role="menuitem">i.MX8M</a></li>
+         <li role="presentation"><a data-dtmsubaction="i.MX8M Mini" href="/products/processors-and-microcontrollers/arm-processors/i-mx-applications-processors/i-mx-8-processors/i-mx-8m-mini-arm-cortex-a53-cortex-m4-audio-voice-video:i.MX8MMINI" role="menuitem">i.MX8M Mini</a></li>
+         <li role="presentation"><a data-dtmsubaction="i.MX8M Nano" href="/products/processors-and-microcontrollers/arm-processors/i-mx-applications-processors/i-mx-8-processors/i-mx-8m-nano-family-arm-cortex-a53-cortex-m7:i.MX8MNANO" role="menuitem">i.MX8M Nano</a></li>
+         <li role="presentation"><a data-dtmsubaction="i.MX 8ULP Applications Processor Family" href="/products/processors-and-microcontrollers/arm-processors/i-mx-applications-processors/i-mx-8-processors/i-mx-8ulp-applications-processor-family:i.MX8ULP" role="menuitem">i.MX 8ULP Applications Processor Family</a></li>
+         <li role="presentation"><a data-dtmsubaction="i.MX 8ULP-CS Cloud Secured Applications Processors " href="/products/processors-and-microcontrollers/arm-processors/i-mx-applications-processors/i-mx-8-processors/i-mx-8ulp-cs-cloud-secured-applications-processors:i.MX8ULP-CS" role="menuitem">i.MX 8ULP-CS Cloud Secured Applications Processors </a></li>
+         <li role="presentation"><a data-dtmsubaction="i.MX 8X Family &amp;#8211; Arm<sup&gt;&amp;#174;</sup&gt; Cortex<sup&gt;&amp;#174;</sup&gt;-A35, 3D Graphics, 4K Video, DSP, Error Correcting Code on DDR" href="/products/processors-and-microcontrollers/arm-processors/i-mx-applications-processors/i-mx-8-processors/i-mx-8x-family-arm-cortex-a35-3d-graphics-4k-video-dsp-error-correcting-code-on-ddr:i.MX8X" role="menuitem">i.MX8X</a></li>
+         <li role="presentation"><a data-dtmsubaction="i.MX 8XLite" href="/products/processors-and-microcontrollers/arm-processors/i-mx-applications-processors/i-mx-8-processors/i-mx-8xlite-processors-for-telematics-v2x-and-industrial-control:iMX8XLite" role="menuitem">i.MX 8XLite</a></li>
+      </ul>
+   </div></li> <li><span>i.MX8</span></li></ul><!--googleoff: all--><!--googleon: all-->
+</div><script type="text/javascript">
+		$(document).ready(function(){
+		var nodeId = ""; 
+		if($('meta[name=pageNodeId]').length > 0){ nodeId = $('meta[name=pageNodeId]').attr('content'); } 
+		var pageCode = ""; 
+		if($('meta[name=Code]').length > 0){ pageCode = $('meta[name=Code]').attr('content'); } 
+		var authCookieData = getCookie("AuthCookie"); 
+		var SGCookieData = getCookie("SG");
+		if(NXP.isLoggedIn() && authCookieData != null && authCookieData.length > 0 && SGCookieData != null && SGCookieData.length > 0){
+		if(pageCode != 'REFDSGNHOME' && pageCode != 'PARTNERNET' && pageCode != 'DISTYNET' && nodeId != '' && pageCode != ''){
+		var nURL='/sp/data/breadcrumb?code='+pageCode+'&nodeId='+nodeId;
+		try{
+		$.ajax({ 
+		url: nURL, 
+		dataType: 'html', 
+		async: true,
+		processData: false,		
+		type: 'GET',
+		success: function(data){
+		if((data.indexOf("/security/public/login.LogoutController.sp") == -1) && (data.indexOf("bc-container") >= 0))
+			$( "div.bc-container" ).replaceWith(data);
+			$.fn.secureBreadcrumb();
+		},
+		error: function(xhr){
+			console.log("Error in breadcrumb ajax call ");
+		}, 
+		timeout: 60000 });
+		}catch(err){
+		console.log(err);
+		}}
+		}
+		});
+	</script><!--ls:end[component-1474120073498]--> 
+   </div> 
+  </div> 
+ </div> 
+</div> 
+<div class="container-fluid iw_section" id="sectionirv66237"> 
+ <div class="row iw_row iw_stretch" id="rowirv66238"> 
+  <div class="iw_columns col-lg-12" id="colirv66239"> 
+   <div class="iw_component" id="iw_comp1471212888594">
+     <!--ls:begin[component-1471212888594]--><div class="page-headline">
+   <h1 class="title">i.MX 8 Family – Arm<sup>®</sup> Cortex<sup>®</sup>-A53, Cortex-A72, Virtualization, Vision, 3D Graphics, 4K Video</h1>
+   <ul class="share-icons">
+      <div class="progressiveProfiling" style="display: none;"></div><script type="text/javascript" src="/resources/scripts/technicalUpdates/technicalUpdates.js"></script><li class="share-follow"><button class="btn btn-sm btn-default btn-follow" id="subscribe" onclick="onClickJsFollow();" style="display:none">Follow</button></li>
+      <li class="share-email"><a title="Share via Email" class="btn btn-icon-link" id="email18x"><span class="icon-mail2 dtmcustomrulelink" data-dtmaction="Social Share Email Click"></span></a></li>
+      <li class="dropdown share-dropdown"><button class="btn btn-icon-link" id="dLabel" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="icon-share2"></span></button><ul role="menu" class="dropdown-menu dropdown-menu-right" aria-labelledby="dLabel">
+            <li><a title="Share on Facebook" data-dtmsubaction="facebook" id="facebook18x"><span class="icon-facebook"></span>
+                  										Facebook
+                  									</a></li>
+            <li><a title="Share on Twitter" data-dtmsubaction="Twitter" id="twitter18x"><span class="icon-twitter2"></span>
+                  										Twitter
+                  									</a></li>
+            <li><a title="Share on LinkedIn" data-dtmsubaction="LinkedIn" id="linkedIn18x"><span class="icon-linkedin"></span>
+                  										LinkedIn
+                  									</a></li>
+            <li><a title="Printer" id="print18x" data-dtmsubaction="Printer"><span class="icon-print"></span>
+                  										Printer
+                  									</a></li>
+         </ul>
+      </li>
+   </ul>
+</div><!--ls:end[component-1471212888594]--> 
+   </div> 
+  </div> 
+ </div> 
+</div> 
+<div class="container-fluid iw_section" id="sectionirv6623b"> 
+ <div class="row iw_row iw_stretch" id="rowirv6623c"> 
+  <div class="iw_columns col-lg-12" id="colirv6623d"> 
+   <div class="iw_component" id="iw_comp1471212888598">
+     <!--ls:begin[component-1471212888598]--><ul class="nav nav-tabs dtmline" role="tablist" data-dtmsection="Inline Tab">
+   <li role="presentation" data-dtmname="Overview" class="active"><a href="/products/processors-and-microcontrollers/arm-processors/i-mx-applications-processors/i-mx-8-processors/i-mx-8-family-arm-cortex-a53-cortex-a72-virtualization-vision-3d-graphics-4k-video:i.MX8" aria-controls="Overview" role="tab">
+         Overview
+         </a></li>
+   <li role="presentation" data-dtmname="Documentation"><a href="/products/processors-and-microcontrollers/arm-processors/i-mx-applications-processors/i-mx-8-processors/i-mx-8-family-arm-cortex-a53-cortex-a72-virtualization-vision-3d-graphics-4k-video:i.MX8?tab=Documentation_Tab" aria-controls="Documentation" role="tab">
+         Documentation
+         </a></li>
+   <li role="presentation" data-dtmname="Tools &amp; Software"><a href="/products/processors-and-microcontrollers/arm-processors/i-mx-applications-processors/i-mx-8-processors/i-mx-8-family-arm-cortex-a53-cortex-a72-virtualization-vision-3d-graphics-4k-video:i.MX8?tab=Design_Tools_Tab" aria-controls="Tools &amp; Software" role="tab">
+         Tools &amp; Software
+         </a></li>
+   <li role="presentation" data-dtmname="Buy/Parametrics"><a href="/products/processors-and-microcontrollers/arm-processors/i-mx-applications-processors/i-mx-8-processors/i-mx-8-family-arm-cortex-a53-cortex-a72-virtualization-vision-3d-graphics-4k-video:i.MX8?tab=Buy_Parametric_Tab" aria-controls="Buy/Parametrics" role="tab">
+         Buy/Parametrics
+         </a></li>
+   <li role="presentation" data-dtmname="Package/Quality"><a href="/products/processors-and-microcontrollers/arm-processors/i-mx-applications-processors/i-mx-8-processors/i-mx-8-family-arm-cortex-a53-cortex-a72-virtualization-vision-3d-graphics-4k-video:i.MX8?tab=Package_Quality_Tab" aria-controls="Package/Quality" role="tab">
+         Package/Quality
+         </a></li>
+   <li role="presentation" data-dtmname="Training &amp; Support"><a href="/products/processors-and-microcontrollers/arm-processors/i-mx-applications-processors/i-mx-8-processors/i-mx-8-family-arm-cortex-a53-cortex-a72-virtualization-vision-3d-graphics-4k-video:i.MX8?tab=Design_Support_Tab" aria-controls="Training &amp; Support" role="tab">
+         Training &amp; Support
+         </a></li>
+</ul><!--ls:end[component-1471212888598]--> 
+   </div> 
+  </div> 
+ </div> 
+</div> 
+<div class="container-fluid iw_section" id="sectionirs5dxv4"> 
+ <div class="row iw_row iw_stretch" id="rowirs5dxv5"> 
+  <div class="iw_columns col-lg-3" id="colirs5dxv6"> 
+   <div class="iw_component" id="iw_comp1471030178223">
+     <!--ls:begin[component-1471030178223]--><aside class="hidden-xs dtmcustomrulelink" data-dtmaction="Overview tab: Page Contents click" id="contextnav">
+   <ul class="contextnav nav affix-top compressed" data-spy="affix">
+      <li>
+         <h2>Jump To</h2>
+      </li>
+      
+      
+      
+      <li><a href="#overview" data-dtmsubaction="Overview">Overview & Features</a></li>
+      
+      
+      
+      
+      <li><a href="#development-boards-and-designs" data-dtmsubaction="Development Boards and Designs">Development Boards and Designs</a></li>
+      
+      
+      <li><a href="#target-applications" data-dtmsubaction="Target Applications">Target Applications</a></li>
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      <li class="mbox-spSuggest"></li>
+   </ul>
+</aside><!--ls:end[component-1471030178223]--> 
+   </div> 
+  </div> 
+  <div class="iw_columns col-lg-9" id="colirs5dxvb"> 
+   <div class="row iw_row" id="rowj3c1yftj"> 
+    <div class="iw_columns col-lg-6" id="colj3c1yftk"> 
+     <div class="iw_component" id="iw_comp1471030178227">
+       <!--ls:begin[component-1471030178227]--><section>
+   <h2 id="overview">Overview</h2>
+   <div id="overviewExpand" class="panel-collapse collapse expand-list ovrOverridpspoverview" role="tabpanel" aria-labelledby="overviewSectionMore" aria-expanded="false">
+      <div id="overviewSectionDiv" class="dtmcustomrulelink" data-dtmaction="Overview tab: Overview Section click" data-content-subfinding="Overview tab: Overview Section"><ul>
+  <li>Fast multi-OS platform deployment via advanced full-chip hardware virtualization and domain protection</li>
+  <li>Deploy rich, fully-independent graphics content across 4x HD screens or 1x 4K screen</li>
+  <li>Incorporate Vision and Speech Recognition interactivity via a powerful vision pipeline and audio processing subsystem</li>
+  <li>Rapidly deploy multiple products by utilizing pin and power compatible packages and software friendly copy-exact IP blocks</li>
+  <li>Android<sup>™</sup>, Linux<sup>®</sup>, FreeRTOS, QNX<sup>™</sup>, Green Hills<sup>®</sup>, Dornerworks XEN<sup>™</sup></li>
+  <li>Automotive AEC-Q100 Grade 3 (-40<sup>°</sup> to 125<sup>°</sup> C Tj), Industrial (-40<sup>°</sup> to 105<sup>°</sup> C Tj)</li>
+  <li>Fully supported on NXP’s 10 and 15-year Longevity Program</li>
+</ul>
+<p>i.MX 8 applications processors are part of NXP's EdgeVerse&trade; <a href="/applications/enabling-technologies/edge-computing:EDGE-COMPUTING" target="_blank" data-dtmsubaction="Edge Computing - Link">edge computing</a> platform.</p>
+<p>
+  For additional information and sample availability, contact your local <a href="/support/support:SUPPORTHOME">NXP<sup>®</sup> Sales Office</a> or <a href="/support/sample-and-buy/distributor-network:DISTRIBUTORS">NXP Authorized Distributor.</a>
+</p></div>
+   </div>
+   <p id="overviewSectionMore" class="ui-accordion-header" role="tab"><a data-target="#overviewExpand" class="show-hide dtmcustomrulelink" data-dtmaction="Overview tab Overview Text - Expand/Collapse" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="overviewExpand"><span class="more dtmcustomrulelink" data-dtmaction="Overview tab Overview Text - Expand/Collapse">More</span><span class="less dtmcustomrulelink" data-dtmaction="Overview tab Overview Text - Expand/Collapse">Less</span></a></p>
+</section><!--ls:end[component-1471030178227]--> 
+     </div> 
+    </div> 
+    <div class="iw_columns col-lg-6" id="colj3c1yftl"> 
+     <div class="iw_component" id="iw_comp1471212888736">
+       <!--ls:begin[component-1471212888736]--><div class="desktop-show">
+   <h2 id="features" class="list-header">Features</h2>
+   <div id="featuresExpand" class="panel-collapse collapse expand-list ovrOverrid" role="tabpanel" aria-labelledby="featureSectionMore" aria-expanded="false">
+      <div id="featureSectionDiv" class="dtmCommonSection featcontent-disp-limit mobile-accordion panel-group accordion ui-accordion" style="position:relative;" data-dtmname="Features Section"><div class="panel-group accordion ui-accordion" role="tablist" aria-multiselectable="true">
+  <div class="panel panel-default">
+    <h3 id="headingOne" class="ui-accordion-header" role="tab">
+      <a href="#panel1" class="collapsed" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="panel1">Processor Complex</a>
+    </h3>
+    <div id="panel1" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne" aria-expanded="false">
+      <div class="toggle_container">
+        <ul>
+          <li>Core Complex #1: 4x Cortex-A53</li>
+          <li>Core Complex #2: 2x Cortex-A72</li>
+          <li>2x Cortex-M4F</li>
+          <li>1x HIFI4 DSP</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <h3 id="headingTwo" class="ui-accordion-header" role="tab">
+      <a href="#panel2" class="collapsed" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="panel2">Multimedia</a>
+    </h3>
+    <div id="panel2" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne" aria-expanded="false">
+      <div class="toggle_container">
+        <ul>
+          <li>16 Vec4-Shader GPU, 32 compute units OpenGL<sup>®</sup> ES 3.2 and Vulkan<sup>®</sup> support Tessellation and Geometry Shading</li>
+          <li>Split-GPU architecture enables 2x 8 Shader Cores</li>
+          <li>Vision Extensions</li>
+          <li>4k h.265 Decode, 1080p h.264 encode</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <h3 id="headingThree" class="ui-accordion-header" role="tab">
+      <a href="#panel3" class="collapsed" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="panel3">Connectivity</a>
+    </h3>
+    <div id="panel3" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne" aria-expanded="false">
+      <div class="toggle_container">
+        <ul>
+          <li>2x PCIe 3.0 (2-lane or 2x 1-lane)</li>
+          <li>dual Gigabit Ethernet with audio video bridging (AVB)</li>
+          <li>3x Flex-CAN</li>
+          <li>2x 12bit ADC (8 channels each)</li>
+          <li>1x USB 3.0, 2x USB 2.0 with PHY</li>
+          <li>3x SD 3.0 and eMMC 5.1</li>
+          <li>4x SPI, 2x ESAI, 5x SAI, 1x Keypad</li>
+          <li>5x I<sup>2</sup>C (High-speed), 8x I<sup>2</sup>C (Low-speed)</li>
+          <li>1x SPDIF, 2x MPEG-2 T/S</li>
+          <li>1x FPGA interface (QuadSPI)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <h3 id="headingFour" class="ui-accordion-header" role="tab">
+      <a href="#panel4" class="collapsed" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="panel4">Display</a>
+    </h3>
+    <div id="panel4" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne" aria-expanded="false">
+      <div class="toggle_container">
+        <ul>
+          <li>2x Display Processor Controllers with inline blending and WARP</li>
+          <li>SafeAssure Fail-over capable (per DPC)</li>
+          <li>2x 4-lane MIPI DSI</li>
+          <li>2x 4-lane MIPI CSI</li>
+          <li>2x LVDS</li>
+          <li>1x HDMI* 2.0 TX with HDCP* 2.2, 1x eDP* 1.2, 1x DP* 1.4</li>
+          <li>1x HDMI 1.4 RX with HDCP 2.2</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <h3 id="headingFive" class="ui-accordion-header" role="tab">
+      <a href="#panel5" class="collapsed" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="panel5">Security</a>
+    </h3>
+    <div id="panel5" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne" aria-expanded="false">
+      <div class="toggle_container">
+        <ul>
+          <li>High Assurance Boot, SHE</li>
+          <li>TRNG, AES-128, AES-256, 3DES, ARC4, RSA4096, SHA-1, SHA-2, SHA-256, MD-5</li>
+          <li>RSA-1024, 2048, 3072, 4096 and secure key storage</li>
+          <li>Tamper-pins (active and passive)</li>
+          <li>Inline Encryption Engine (AES-128)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel panel-default">
+    <h3 id="headingSix" class="ui-accordion-header" role="tab">
+      <a href="#panel6" class="collapsed" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="panel6">Memory</a>
+    </h3>
+    <div id="panel6" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingSix" aria-expanded="false">
+      <div class="toggle_container">
+        <ul>
+          <li>1x OctoSPI or 2x QuadSPI</li>
+          <li>SATA 3.0 (or 1x PCIe 3.0 1-lane)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel panel-default">
+    <h3 id="headingSeven" class="ui-accordion-header" role="tab">
+      <a href="#panel7" class="collapsed" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="panel7">Temperature</a>
+    </h3>
+    <div id="panel7" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingSeven" aria-expanded="false">
+      <div class="toggle_container">
+        <ul>
+          <li>Automotive AEC-Q100 Grade 3 (-40<sup>°</sup> to 125<sup>°</sup> C Tj), Industrial (-40<sup>°</sup> to 105<sup>°</sup> C Tj)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel panel-default">
+    <h3 id="headingEight" class="ui-accordion-header" role="tab">
+      <a href="#panel8" class="collapsed" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="panel8">Advanced Power Management</a>
+    </h3>
+    <div id="panel8" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingEight" aria-expanded="false">
+      <div class="toggle_container">
+        <ul>
+          <li>
+            Recommended PMIC:PF8200: Power Management integrated circuit for i.MX 8 and i.MX 8X families
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+   </div>
+   <p id="featureSectionMore" class="ui-accordion-header" role="tab"><a class="show-hide" data-target="#featuresExpand" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="featuresExpand"><span class="more dtmMoreLess" data-dtmname="Features Section" data-dtmmorelessflag="more">More</span><span class="less dtmMoreLess" data-dtmname="Features Section" data-dtmmorelessflag="less">Less</span></a></p>
+</div>
+<div class="mobile-show">
+   <div class="collapse-mobile">
+      <h2 id="features" class="mobile-accordion-head">Features</h2>
+      <div id="featureSectionDiv" class="dtmCommonSection" style="position:relative;" role="tabpanel" data-dtmname="Features Section" aria-labelledby="pspFeatures" aria-expanded="false">
+         <div id="featuresAccordion" class="mobile-accordion panel-group accordion ui-accordion" role="tablist" aria-multiselectable="true"><div class="panel-group accordion ui-accordion" role="tablist" aria-multiselectable="true">
+  <div class="panel panel-default">
+    <h3 id="headingOne" class="ui-accordion-header" role="tab">
+      <a href="#panel1" class="collapsed" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="panel1">Processor Complex</a>
+    </h3>
+    <div id="panel1" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne" aria-expanded="false">
+      <div class="toggle_container">
+        <ul>
+          <li>Core Complex #1: 4x Cortex-A53</li>
+          <li>Core Complex #2: 2x Cortex-A72</li>
+          <li>2x Cortex-M4F</li>
+          <li>1x HIFI4 DSP</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <h3 id="headingTwo" class="ui-accordion-header" role="tab">
+      <a href="#panel2" class="collapsed" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="panel2">Multimedia</a>
+    </h3>
+    <div id="panel2" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne" aria-expanded="false">
+      <div class="toggle_container">
+        <ul>
+          <li>16 Vec4-Shader GPU, 32 compute units OpenGL<sup>®</sup> ES 3.2 and Vulkan<sup>®</sup> support Tessellation and Geometry Shading</li>
+          <li>Split-GPU architecture enables 2x 8 Shader Cores</li>
+          <li>Vision Extensions</li>
+          <li>4k h.265 Decode, 1080p h.264 encode</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <h3 id="headingThree" class="ui-accordion-header" role="tab">
+      <a href="#panel3" class="collapsed" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="panel3">Connectivity</a>
+    </h3>
+    <div id="panel3" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne" aria-expanded="false">
+      <div class="toggle_container">
+        <ul>
+          <li>2x PCIe 3.0 (2-lane or 2x 1-lane)</li>
+          <li>dual Gigabit Ethernet with audio video bridging (AVB)</li>
+          <li>3x Flex-CAN</li>
+          <li>2x 12bit ADC (8 channels each)</li>
+          <li>1x USB 3.0, 2x USB 2.0 with PHY</li>
+          <li>3x SD 3.0 and eMMC 5.1</li>
+          <li>4x SPI, 2x ESAI, 5x SAI, 1x Keypad</li>
+          <li>5x I<sup>2</sup>C (High-speed), 8x I<sup>2</sup>C (Low-speed)</li>
+          <li>1x SPDIF, 2x MPEG-2 T/S</li>
+          <li>1x FPGA interface (QuadSPI)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <h3 id="headingFour" class="ui-accordion-header" role="tab">
+      <a href="#panel4" class="collapsed" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="panel4">Display</a>
+    </h3>
+    <div id="panel4" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne" aria-expanded="false">
+      <div class="toggle_container">
+        <ul>
+          <li>2x Display Processor Controllers with inline blending and WARP</li>
+          <li>SafeAssure Fail-over capable (per DPC)</li>
+          <li>2x 4-lane MIPI DSI</li>
+          <li>2x 4-lane MIPI CSI</li>
+          <li>2x LVDS</li>
+          <li>1x HDMI* 2.0 TX with HDCP* 2.2, 1x eDP* 1.2, 1x DP* 1.4</li>
+          <li>1x HDMI 1.4 RX with HDCP 2.2</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <h3 id="headingFive" class="ui-accordion-header" role="tab">
+      <a href="#panel5" class="collapsed" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="panel5">Security</a>
+    </h3>
+    <div id="panel5" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne" aria-expanded="false">
+      <div class="toggle_container">
+        <ul>
+          <li>High Assurance Boot, SHE</li>
+          <li>TRNG, AES-128, AES-256, 3DES, ARC4, RSA4096, SHA-1, SHA-2, SHA-256, MD-5</li>
+          <li>RSA-1024, 2048, 3072, 4096 and secure key storage</li>
+          <li>Tamper-pins (active and passive)</li>
+          <li>Inline Encryption Engine (AES-128)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel panel-default">
+    <h3 id="headingSix" class="ui-accordion-header" role="tab">
+      <a href="#panel6" class="collapsed" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="panel6">Memory</a>
+    </h3>
+    <div id="panel6" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingSix" aria-expanded="false">
+      <div class="toggle_container">
+        <ul>
+          <li>1x OctoSPI or 2x QuadSPI</li>
+          <li>SATA 3.0 (or 1x PCIe 3.0 1-lane)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel panel-default">
+    <h3 id="headingSeven" class="ui-accordion-header" role="tab">
+      <a href="#panel7" class="collapsed" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="panel7">Temperature</a>
+    </h3>
+    <div id="panel7" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingSeven" aria-expanded="false">
+      <div class="toggle_container">
+        <ul>
+          <li>Automotive AEC-Q100 Grade 3 (-40<sup>°</sup> to 125<sup>°</sup> C Tj), Industrial (-40<sup>°</sup> to 105<sup>°</sup> C Tj)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel panel-default">
+    <h3 id="headingEight" class="ui-accordion-header" role="tab">
+      <a href="#panel8" class="collapsed" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="panel8">Advanced Power Management</a>
+    </h3>
+    <div id="panel8" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingEight" aria-expanded="false">
+      <div class="toggle_container">
+        <ul>
+          <li>
+            Recommended PMIC:PF8200: Power Management integrated circuit for i.MX 8 and i.MX 8X families
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+      </div>
+   </div>
+</div><!--ls:end[component-1471212888736]--> 
+     </div> 
+    </div> 
+   </div> 
+   <div class="iw_component" id="iw_comp1471820484658">
+     <!--ls:begin[component-1471820484658]--><div class="row">
+   <div id="dataSheetDiv" class="col-xs-6 col-md-3 dtmcustomrulelink mainCTAbtn" data-dtmaction="Data Sheet Button - Overview tab" data-content-subfinding="Data Sheet Button" data-dtmname="Data Sheet Button" data-ignoresubcf="Y"><a class="btn btn-block btn-md btn-data-sheet" href="/products/processors-and-microcontrollers/arm-processors/i-mx-applications-processors/i-mx-8-processors/i-mx-8-family-arm-cortex-a53-cortex-a72-virtualization-vision-3d-graphics-4k-video:i.MX8?&amp;tab=Documentation_Tab&amp;linkline=Data-Sheet">Data Sheets</a></div>
+   <div id="applicationNoteDiv" class="col-xs-6 col-md-3 dtmcustomrulelink mainCTAbtn" data-dtmaction="Application Notes Button - Overview tab" data-content-subfinding="Application Notes Button" data-dtmname="Application Notes Button" data-ignoresubcf="Y"><a class="btn btn-block btn-md btn-app-notes" href="/products/processors-and-microcontrollers/arm-processors/i-mx-applications-processors/i-mx-8-processors/i-mx-8-family-arm-cortex-a53-cortex-a72-virtualization-vision-3d-graphics-4k-video:i.MX8?&amp;tab=Documentation_Tab&amp;linkline=Application-Note">Application Notes</a></div>
+   <div id="buyDiv" class="col-xs-6 col-md-3 dtmcustomrulelink mainCTAbtn" data-dtmaction="Buy Button - Overview tab" data-ignoresubcf="Y" data-dtmName="Buy Button"><a class="btn btn-block btn-orange" href="/products/processors-and-microcontrollers/arm-processors/i-mx-applications-processors/i-mx-8-processors/i-mx-8-family-arm-cortex-a53-cortex-a72-virtualization-vision-3d-graphics-4k-video:i.MX8?tab=Buy_Parametric_Tab&amp;amp;fromSearch=false" onclick=""><span class="icon-para-cart"></span>
+         				Buy
+         			</a></div><script type="text/javascript">
+			function getPVData(){
+				if(document.getElementById("similarSampleCTAbtn") !== null){
+					document.getElementById("similarSampleCTAbtn").style.display = 'none';
+					var data = getCookie("PV");
+					if(data != null){
+						if(data == "1"){
+							document.getElementById("similarSampleCTAbtn").style.display = 'block';
+						}
+					}
+				}
+			}
+			window.onload = getPVData;
+		</script></div><!--ls:end[component-1471820484658]--> 
+   </div> 
+   <div class="iw_component" id="iw_comp1471257772965">
+     <!--ls:begin[component-1471257772965]--><script>
+  function explainDiagram(text){
+  var isVisible = $('.desktop-show').is(':visible');
+  console.log("explainDiagram");
+$(".blockDetails").each(function(x){
+	$(this).html(text);
+	 console.log("blockDetails");
+});
+if(!isVisible)
+{
+$(".blockDetailsMobile").each(function(x){
+	$(this).html(text);
+	 console.log("blockDetailsMobile");
+});
+// $('#blockDetailsMobile').html(text);
+}
+
+}
+
+ </script><div class="desktop-show">
+   <div id="rich-media-component" class="richMediaCarouselDesktop">
+      <div id="slideshow-1" class="-slides">
+         <div class="cycle-slideshow" data-cycle-fx="scrollHorz" data-cycle-manual-speed="250" data-cycle-speed="250" data-cycle-allow-wrap="true" data-cycle-center-horz="true" data-cycle-center-vert="true" data-cycle-slides="&gt;div" data-cycle-auto-height="calc" data-cycle-paused="true"><span class="loading-slideshow"><span class="icon-para-reset spin-icon"></span></span><span class="cycle-prev"><span class="center-arrows"></span></span><span class="cycle-next"><span class="center-arrows"></span></span><div>
+               <h2>i.MX 8 Family Block Diagram</h2><a onclick="return trackRichMediaPageView('i.MX 8 Family Block Diagram','i.MX8','IMX8-FAMILY-BD')" data-media="Image" data-bdg="false" data-title="i.MX 8 Family Block Diagram" data-code="i.MX8" href="#nogo" data-toggle="modal" data-target="#modal-01" data-dtmaction="Rich Media Component - Main Window Click" data-dtmsubaction="i.MX 8 Family Block Diagram"><img alt="i.MX 8 Family Block Diagram" src="/assets/images/en/block-diagrams/IMX8-FAMILY-BD.jpg"></a><div class="-zoom-indicator"></div>
+            </div>
+            <div>
+               <h2>i.MX 8QM Software Ecosystem</h2><a onclick="return trackRichMediaPageView('i.MX 8QM Software Ecosystem','i.MX8','I.MX-8QM–SOFTWARE-STACK-IMG')" data-media="Image" data-bdg="false" data-title="i.MX 8QM Software Ecosystem" data-code="i.MX8" href="#nogo" data-toggle="modal" data-target="#modal-02" data-dtmaction="Rich Media Component - Main Window Click" data-dtmsubaction="i.MX 8QM Software Ecosystem"><img alt="i.MX 8QM Software Ecosystem" src="/assets/images/en/block-diagrams/I.MX-8QM%E2%80%93SOFTWARE-STACK-IMG.png"></a><div class="-zoom-indicator"></div>
+            </div>
+            <div>
+               <h2>Next-gen Connected eCockpit for Safer Experiences that Inform and Entertain
+                  											
+               </h2><a data-media="Video" data-bdg="false" data-code="NEXT-GEN-ECOCKPIT-EXPERIENCE" data-title="Next-gen Connected eCockpit for Safer Experiences that Inform and Entertain" href="/video/next-gen-connected-ecockpit-for-safer-experiences-that-inform-and-entertain:NEXT-GEN-ECOCKPIT-EXPERIENCE">
+                  <div class="-thumbVideoWrapper"><img alt="Next-gen Connected eCockpit for Safer Experiences that Inform and Entertain thumbnail" src="/videos/poster/NEXT-GEN-ECOCKPIT-EXPERIENCE.jpg"></div></a></div>
+            <div>
+               <h2>Smart Retail AI Demo - NXP, Basler, Congatec and Irida Labs
+                  											
+               </h2><a data-media="Video" data-bdg="false" data-code="EW_Shopping_AI" data-title="Smart Retail AI Demo - NXP, Basler, Congatec and Irida Labs" href="/video/smart-retail-ai-demo-nxp-basler-congatec-and-irida-labs:EW_Shopping_AI">
+                  <div class="-thumbVideoWrapper"><img alt="Smart Retail AI Demo - NXP, Basler, Congatec and Irida Labs thumbnail" src="/videos/poster/EW_Shopping_AI.jpg"></div></a></div>
+            <div>
+               <h2>i.MX Automotive Infotainment Platform
+                  											
+               </h2><a data-media="Video" data-bdg="false" data-code="AUTOMOTIVE-INFOTAINMENT-VID" data-title="i.MX Automotive Infotainment Platform" href="/video/i-mx-automotive-infotainment-platform:AUTOMOTIVE-INFOTAINMENT-VID">
+                  <div class="-thumbVideoWrapper"><img alt="i.MX Automotive Infotainment Platform thumbnail" src="/videos/poster/AUTOMOTIVE-INFOTAINMENT-VID.jpg"></div></a></div>
+            <div>
+               <h2>i.MX 8-based Neural Networks for Object Recognition
+                  											
+               </h2><a data-media="Video" data-bdg="false" data-code="NEURAL-NETWORKS-VID" data-title="i.MX 8-based Neural Networks for Object Recognition" href="/video/i-mx-8-based-neural-networks-for-object-recognition:NEURAL-NETWORKS-VID">
+                  <div class="-thumbVideoWrapper"><img alt="i.MX 8-based Neural Networks for Object Recognition thumbnail" src="/videos/poster/NEURAL-NETWORKS-VID.jpg"></div></a></div>
+            <div>
+               <h2>Transfer Learning Between Edge Nodes
+                  											
+               </h2><a data-media="Video" data-bdg="false" data-code="TRANSFER-LEARNING-EDGE-NODES" data-title="Transfer Learning Between Edge Nodes" href="/video/transfer-learning-between-edge-nodes:TRANSFER-LEARNING-EDGE-NODES">
+                  <div class="-thumbVideoWrapper"><img alt="Transfer Learning Between Edge Nodes thumbnail" src="/videos/poster/TRANSFER-LEARNING-EDGE-NODES.jpg"></div></a></div>
+            <div>
+               <h2>Food Classification on i.MX8 + RT1050
+                  											
+               </h2><a data-media="Video" data-bdg="false" data-code="i.MX8-AND-RT1050-FOOD-CLASSIFICATION" data-title="Food Classification on i.MX8 + RT1050" href="/video/food-classification-on-i-mx8-plus-rt1050:i.MX8-AND-RT1050-FOOD-CLASSIFICATION">
+                  <div class="-thumbVideoWrapper"><img alt="Food Classification on i.MX8 + RT1050 thumbnail" src="/videos/poster/i.MX8-AND-RT1050-FOOD-CLASSIFICATION.jpg"></div></a></div>
+            <div>
+               <h2>Your Future Driver Experience Built on i.MX 8 and i.MX 8X Applications Processors 
+                  											
+               </h2><a data-media="Video" data-bdg="false" data-code="ECOCKPIT-KYLE-FOX" data-title="Your Future Driver Experience Built on i.MX 8 and i.MX 8X Applications Processors " href="/video/your-future-driver-experience-built-on-i-mx-8-and-i-mx-8x-applications-processors:ECOCKPIT-KYLE-FOX">
+                  <div class="-thumbVideoWrapper"><img alt="Your Future Driver Experience Built on i.MX 8 and i.MX 8X Applications Processors  thumbnail" src="/videos/poster/ECOCKPIT-KYLE-FOX.jpg"></div></a></div>
+            <div>
+               <h2>i.MX 8M Quad at Embedded World 2019
+                  											
+               </h2><a data-media="Video" data-bdg="false" data-code="EW-IMX-8M-QUAD-AUTO" data-title="i.MX 8M Quad at Embedded World 2019" href="/video/i-mx-8m-quad-at-embedded-world-2019:EW-IMX-8M-QUAD-AUTO">
+                  <div class="-thumbVideoWrapper"><img alt="i.MX 8M Quad at Embedded World 2019 thumbnail" src="/videos/poster/EW-IMX-8M-QUAD-AUTO.jpg"></div></a></div>
+            <div>
+               <h2>From Simply Smart to Truly Intelligent: Edge Computing with i.MX and Layerscape Processors Enables Future Technology
+                  											
+               </h2><a data-media="Video" data-bdg="false" data-code="EDGE-COMPUTING-LAYERSCAPE" data-title="From Simply Smart to Truly Intelligent: Edge Computing with i.MX and Layerscape Processors Enables Future Technology" href="/video/from-simply-smart-to-truly-intelligent-edge-computing-with-i-mx-and-layerscape-processors-enables-future-technology:EDGE-COMPUTING-LAYERSCAPE">
+                  <div class="-thumbVideoWrapper"><img alt="From Simply Smart to Truly Intelligent: Edge Computing with i.MX and Layerscape Processors Enables Future Technology thumbnail" src="/videos/poster/EDGE-COMPUTING-LAYERSCAPE.jpg"></div></a></div>
+            <div>
+               <h2>The Case for FD-SOI Technology - New Products from NXP
+                  											
+               </h2><a data-media="Video" data-bdg="false" data-code="CASA-FOR-FD-SOI-TECH" data-title="The Case for FD-SOI Technology - New Products from NXP" href="/video/the-case-for-fd-soi-technology-new-products-from-nxp:CASA-FOR-FD-SOI-TECH">
+                  <div class="-thumbVideoWrapper"><img alt="The Case for FD-SOI Technology - New Products from NXP thumbnail" src="/videos/poster/CASA-FOR-FD-SOI-TECH.jpg"></div></a></div>
+            <div>
+               <h2>Super eCockpits - The Future of Automotive Infotainment
+                  											
+               </h2><a data-media="Video" data-bdg="false" data-code="ECOCKPIT-KYLE-FOX-VID" data-title="Super eCockpits - The Future of Automotive Infotainment" href="/video/super-ecockpits-the-future-of-automotive-infotainment:ECOCKPIT-KYLE-FOX-VID">
+                  <div class="-thumbVideoWrapper"><img alt="Super eCockpits - The Future of Automotive Infotainment thumbnail" src="/videos/poster/ECOCKPIT-KYLE-FOX-VID.jpg"></div></a></div>
+         </div>
+      </div>
+      <div id="slideshow-1-carousel" class="-carousel">
+         <div class="cycle-prev-1 strip-cycle"><a href="#nogo" class="cycle-prev1 disabled"><span class="center-arrows icon-angle-left cycle-prev"></span></a></div>
+         <div class="cycle-next-1 strip-cycle"><a href="#nogo" class="cycle-next1"><span class="center-arrows icon-angle-right cycle-next"></span></a></div>
+         <ul id="cycle-2" style="overflow:hidden; position: relative;" class="cycle-slideshow" data-cycle-slides="li" data-cycle-timeout="0" data-cycle-prev="#slideshow-1-carousel .cycle-prev1" data-cycle-next="#slideshow-1-carousel .cycle-next1" data-cycle-fx="carousel" data-cycle-allow-wrap="false" data-cycle-manual-speed="100" data-cycle-carousel-visible="0" data-cycle-speed="100" data-cycle-carousel-fluid="true" data-cycle-auto-height="calc" data-cycle-paused="true">
+            <li data-media="Image" data-bdg="false" data-title="i.MX 8 Family Block Diagram" data-code="i.MX8">
+               <div><img src="/assets/images/en/block-diagrams/IMX8-FAMILY-BD.jpg" alt="i.MX 8 Family Block Diagram"></div>
+               <div class="rich-media-caption">
+                  									i.MX 8 Family Block Diagram
+                  									
+               </div>
+            </li>
+            <li data-media="Image" data-bdg="false" data-title="i.MX 8QM Software Ecosystem" data-code="i.MX8">
+               <div><img src="/assets/images/en/block-diagrams/I.MX-8QM%E2%80%93SOFTWARE-STACK-IMG.png" alt="i.MX 8QM Software Ecosystem"></div>
+               <div class="rich-media-caption">
+                  									i.MX 8QM Software Ecosystem
+                  									
+               </div>
+            </li>
+            <li data-media="Video" data-bdg="false" data-code="NEXT-GEN-ECOCKPIT-EXPERIENCE" data-title="Next-gen Connected eCockpit for Safer Experiences that Inform and Entertain">
+               <div class="videoThumbnail"><img src="/videos/thumbnail/NEXT-GEN-ECOCKPIT-EXPERIENCE.jpg" alt="Next-gen Connected eCockpit for Safer Experiences that Inform and Entertain"></div>
+               <div class="rich-media-caption">
+                  									Next-gen Connected eCockpit for Safer Experiences that Inform and Entertain 
+                  									
+               </div>
+            </li>
+            <li data-media="Video" data-bdg="false" data-code="EW_Shopping_AI" data-title="Smart Retail AI Demo - NXP, Basler, Congatec and Irida Labs">
+               <div class="videoThumbnail"><img src="/videos/thumbnail/EW_Shopping_AI.jpg" alt="Smart Retail AI Demo - NXP, Basler, Congatec and Irida Labs"></div>
+               <div class="rich-media-caption">
+                  									Smart Retail AI Demo - NXP, Basler, Congatec and Irida Labs 
+                  									
+               </div>
+            </li>
+            <li data-media="Video" data-bdg="false" data-code="AUTOMOTIVE-INFOTAINMENT-VID" data-title="i.MX Automotive Infotainment Platform">
+               <div class="videoThumbnail"><img src="/videos/thumbnail/AUTOMOTIVE-INFOTAINMENT-VID.jpg" alt="i.MX Automotive Infotainment Platform"></div>
+               <div class="rich-media-caption">
+                  									i.MX Automotive Infotainment Platform 
+                  									
+               </div>
+            </li>
+            <li data-media="Video" data-bdg="false" data-code="NEURAL-NETWORKS-VID" data-title="i.MX 8-based Neural Networks for Object Recognition">
+               <div class="videoThumbnail"><img src="/videos/thumbnail/NEURAL-NETWORKS-VID.jpg" alt="i.MX 8-based Neural Networks for Object Recognition"></div>
+               <div class="rich-media-caption">
+                  									i.MX 8-based Neural Networks for Object Recognition 
+                  									
+               </div>
+            </li>
+            <li data-media="Video" data-bdg="false" data-code="TRANSFER-LEARNING-EDGE-NODES" data-title="Transfer Learning Between Edge Nodes">
+               <div class="videoThumbnail"><img src="/videos/thumbnail/TRANSFER-LEARNING-EDGE-NODES.jpg" alt="Transfer Learning Between Edge Nodes"></div>
+               <div class="rich-media-caption">
+                  									Transfer Learning Between Edge Nodes 
+                  									
+               </div>
+            </li>
+            <li data-media="Video" data-bdg="false" data-code="i.MX8-AND-RT1050-FOOD-CLASSIFICATION" data-title="Food Classification on i.MX8 + RT1050">
+               <div class="videoThumbnail"><img src="/videos/thumbnail/i.MX8-AND-RT1050-FOOD-CLASSIFICATION.jpg" alt="Food Classification on i.MX8 + RT1050"></div>
+               <div class="rich-media-caption">
+                  									Food Classification on i.MX8 + RT1050 
+                  									
+               </div>
+            </li>
+            <li data-media="Video" data-bdg="false" data-code="ECOCKPIT-KYLE-FOX" data-title="Your Future Driver Experience Built on i.MX 8 and i.MX 8X Applications Processors ">
+               <div class="videoThumbnail"><img src="/videos/thumbnail/ECOCKPIT-KYLE-FOX.jpg" alt="Your Future Driver Experience Built on i.MX 8 and i.MX 8X Applications Processors "></div>
+               <div class="rich-media-caption">
+                  									Your Future Driver Experience Built on i.MX 8 and i.MX 8X Applications Processors 
+                  									
+               </div>
+            </li>
+            <li data-media="Video" data-bdg="false" data-code="EW-IMX-8M-QUAD-AUTO" data-title="i.MX 8M Quad at Embedded World 2019">
+               <div class="videoThumbnail"><img src="/videos/thumbnail/EW-IMX-8M-QUAD-AUTO.jpg" alt="i.MX 8M Quad at Embedded World 2019"></div>
+               <div class="rich-media-caption">
+                  									i.MX 8M Quad at Embedded World 2019 
+                  									
+               </div>
+            </li>
+            <li data-media="Video" data-bdg="false" data-code="EDGE-COMPUTING-LAYERSCAPE" data-title="From Simply Smart to Truly Intelligent: Edge Computing with i.MX and Layerscape Processors Enables Future Technology">
+               <div class="videoThumbnail"><img src="/videos/thumbnail/EDGE-COMPUTING-LAYERSCAPE.jpg" alt="From Simply Smart to Truly Intelligent: Edge Computing with i.MX and Layerscape Processors Enables Future Technology"></div>
+               <div class="rich-media-caption">
+                  									From Simply Smart to Truly Intelligent: Edge Computing with i.MX and Layerscape Processors Enables Future Technology 
+                  									
+               </div>
+            </li>
+            <li data-media="Video" data-bdg="false" data-code="CASA-FOR-FD-SOI-TECH" data-title="The Case for FD-SOI Technology - New Products from NXP">
+               <div class="videoThumbnail"><img src="/videos/thumbnail/CASA-FOR-FD-SOI-TECH.jpg" alt="The Case for FD-SOI Technology - New Products from NXP"></div>
+               <div class="rich-media-caption">
+                  									The Case for FD-SOI Technology - New Products from NXP 
+                  									
+               </div>
+            </li>
+            <li data-media="Video" data-bdg="false" data-code="ECOCKPIT-KYLE-FOX-VID" data-title="Super eCockpits - The Future of Automotive Infotainment">
+               <div class="videoThumbnail"><img src="/videos/thumbnail/ECOCKPIT-KYLE-FOX-VID.jpg" alt="Super eCockpits - The Future of Automotive Infotainment"></div>
+               <div class="rich-media-caption">
+                  									Super eCockpits - The Future of Automotive Infotainment 
+                  									
+               </div>
+            </li>
+         </ul>
+      </div>
+      <div class="modal fade" id="modal-01" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+         <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+               <div class="modal-header"><button type="button" class="btn pull-right" data-dismiss="modal" aria-label="Close">Close</button><h2 class="modal-title" id="myModalLabel">
+                     											i.MX 8 Family Block Diagram
+                     										
+                  </h2>
+               </div>
+               <div class="modal-body"><img alt="i.MX 8 Family Block Diagram" src="/assets/images/en/block-diagrams/IMX8-FAMILY-BD.jpg"></div>
+            </div>
+         </div>
+      </div>
+      <div class="modal fade" id="modal-02" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+         <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+               <div class="modal-header"><button type="button" class="btn pull-right" data-dismiss="modal" aria-label="Close">Close</button><h2 class="modal-title" id="myModalLabel">
+                     											i.MX 8QM Software Ecosystem
+                     										
+                  </h2>
+               </div>
+               <div class="modal-body"><img alt="i.MX 8QM Software Ecosystem" src="/assets/images/en/block-diagrams/I.MX-8QM%E2%80%93SOFTWARE-STACK-IMG.png"></div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+<div class="mobile-show">
+   <div class="cycle-slideshow richMediaCarouselMobile" data-cycle-swipe="true" data-cycle-fx="scrollHorz" data-cycle-timeout="0" data-cycle-prev="#prev" data-cycle-next="#next" data-cycle-slides="&gt; a" data-cycle-pager=".richMediaCarouselMobile-pager" data-cycle-auto-height="calc"><span class="loading-slideshow"><span class="icon-para-reset spin-icon"></span></span><a href="#" data-toggle="modal" data-target="#modal-1" class="-zoom-indicator">
+         <div>
+            <div class="cycle-overlay">
+               <h2>i.MX 8 Family Block Diagram</h2>
+            </div><img alt="i.MX 8 Family Block Diagram" src="/assets/images/en/block-diagrams/IMX8-FAMILY-BD.jpg"></div></a><a href="#" data-toggle="modal" data-target="#modal-2" class="-zoom-indicator">
+         <div>
+            <div class="cycle-overlay">
+               <h2>i.MX 8QM Software Ecosystem</h2>
+            </div><img alt="i.MX 8QM Software Ecosystem" src="/assets/images/en/block-diagrams/I.MX-8QM%E2%80%93SOFTWARE-STACK-IMG.png"></div></a><a href="/video/:NEXT-GEN-ECOCKPIT-EXPERIENCE" target="_blank">
+         <div>
+            <div class="cycle-overlay">
+               <h2>Next-gen Connected eCockpit for Safer Experiences that Inform and Entertain
+                  											
+               </h2>
+            </div>
+            <div class="-thumbVideoWrapper"><img src="/videos/poster/NEXT-GEN-ECOCKPIT-EXPERIENCE.jpg"></div>
+         </div></a><a href="/video/:EW_Shopping_AI" target="_blank">
+         <div>
+            <div class="cycle-overlay">
+               <h2>Smart Retail AI Demo - NXP, Basler, Congatec and Irida Labs
+                  											
+               </h2>
+            </div>
+            <div class="-thumbVideoWrapper"><img src="/videos/poster/EW_Shopping_AI.jpg"></div>
+         </div></a><a href="/video/:AUTOMOTIVE-INFOTAINMENT-VID" target="_blank">
+         <div>
+            <div class="cycle-overlay">
+               <h2>i.MX Automotive Infotainment Platform
+                  											
+               </h2>
+            </div>
+            <div class="-thumbVideoWrapper"><img src="/videos/poster/AUTOMOTIVE-INFOTAINMENT-VID.jpg"></div>
+         </div></a><a href="/video/:NEURAL-NETWORKS-VID" target="_blank">
+         <div>
+            <div class="cycle-overlay">
+               <h2>i.MX 8-based Neural Networks for Object Recognition
+                  											
+               </h2>
+            </div>
+            <div class="-thumbVideoWrapper"><img src="/videos/poster/NEURAL-NETWORKS-VID.jpg"></div>
+         </div></a><a href="/video/:TRANSFER-LEARNING-EDGE-NODES" target="_blank">
+         <div>
+            <div class="cycle-overlay">
+               <h2>Transfer Learning Between Edge Nodes
+                  											
+               </h2>
+            </div>
+            <div class="-thumbVideoWrapper"><img src="/videos/poster/TRANSFER-LEARNING-EDGE-NODES.jpg"></div>
+         </div></a><a href="/video/:i.MX8-AND-RT1050-FOOD-CLASSIFICATION" target="_blank">
+         <div>
+            <div class="cycle-overlay">
+               <h2>Food Classification on i.MX8 + RT1050
+                  											
+               </h2>
+            </div>
+            <div class="-thumbVideoWrapper"><img src="/videos/poster/i.MX8-AND-RT1050-FOOD-CLASSIFICATION.jpg"></div>
+         </div></a><a href="/video/:ECOCKPIT-KYLE-FOX" target="_blank">
+         <div>
+            <div class="cycle-overlay">
+               <h2>Your Future Driver Experience Built on i.MX 8 and i.MX 8X Applications Processors 
+                  											
+               </h2>
+            </div>
+            <div class="-thumbVideoWrapper"><img src="/videos/poster/ECOCKPIT-KYLE-FOX.jpg"></div>
+         </div></a><a href="/video/:EW-IMX-8M-QUAD-AUTO" target="_blank">
+         <div>
+            <div class="cycle-overlay">
+               <h2>i.MX 8M Quad at Embedded World 2019
+                  											
+               </h2>
+            </div>
+            <div class="-thumbVideoWrapper"><img src="/videos/poster/EW-IMX-8M-QUAD-AUTO.jpg"></div>
+         </div></a><a href="/video/:EDGE-COMPUTING-LAYERSCAPE" target="_blank">
+         <div>
+            <div class="cycle-overlay">
+               <h2>From Simply Smart to Truly Intelligent: Edge Computing with i.MX and Layerscape Processors Enables Future Technology
+                  											
+               </h2>
+            </div>
+            <div class="-thumbVideoWrapper"><img src="/videos/poster/EDGE-COMPUTING-LAYERSCAPE.jpg"></div>
+         </div></a><a href="/video/:CASA-FOR-FD-SOI-TECH" target="_blank">
+         <div>
+            <div class="cycle-overlay">
+               <h2>The Case for FD-SOI Technology - New Products from NXP
+                  											
+               </h2>
+            </div>
+            <div class="-thumbVideoWrapper"><img src="/videos/poster/CASA-FOR-FD-SOI-TECH.jpg"></div>
+         </div></a><a href="/video/:ECOCKPIT-KYLE-FOX-VID" target="_blank">
+         <div>
+            <div class="cycle-overlay">
+               <h2>Super eCockpits - The Future of Automotive Infotainment
+                  											
+               </h2>
+            </div>
+            <div class="-thumbVideoWrapper"><img src="/videos/poster/ECOCKPIT-KYLE-FOX-VID.jpg"></div>
+         </div></a></div>
+   <div class="richMediaCarouselMobile-pager"></div>
+   <div class="richMediaCarouselMobile-prevNext"><a href="#" id="prev" class="btn">Previous</a><a href="#" id="next" class="btn">Next</a></div>
+   <div class="modal fade" id="modal-1" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+      <div class="modal-dialog modal-lg">
+         <div class="modal-content">
+            <div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button><h4 class="modal-title" id="myModalLabel">i.MX 8 Family Block Diagram</h4>
+            </div>
+            <div class="modal-body"><img alt="i.MX 8 Family Block Diagram" src="/assets/images/en/block-diagrams/IMX8-FAMILY-BD.jpg"></div>
+         </div>
+      </div>
+   </div>
+   <div class="modal fade" id="modal-2" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+      <div class="modal-dialog modal-lg">
+         <div class="modal-content">
+            <div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button><h4 class="modal-title" id="myModalLabel">i.MX 8QM Software Ecosystem</h4>
+            </div>
+            <div class="modal-body"><img alt="i.MX 8QM Software Ecosystem" src="/assets/images/en/block-diagrams/I.MX-8QM%E2%80%93SOFTWARE-STACK-IMG.png"></div>
+         </div>
+      </div>
+   </div>
+</div><!--ls:end[component-1471257772965]--> 
+   </div> 
+   <div class="iw_component" id="iw_comp1474428203613">
+     <!--ls:begin[component-1474428203613]--><!--ls:end[component-1474428203613]--> 
+   </div> 
+   <div class="iw_component" id="iw_comp1498318885744">
+     <!--ls:begin[component-1498318885744]--><div class="desktop-show">
+   <h2 id="development-boards-and-designs">Development Boards and Designs</h2>
+   <div class="devBoardSlider-desktop">
+      <div class="cycle-slideshow" data-cycle-fx="carousel" data-cycle-timeout="0" data-cycle-next="#nextt602" data-cycle-prev="#prevt602" data-cycle-slides="&gt; div" data-cycle-allow-wrap="false" data-cycle-pager=".devBoardpager">
+         <div id="developmentBoardsDiv" data-dtmsection="Development Boards and Designs"><a id="developmentBoardsLink" href="/design/designs/i-mx8-software-image-signal-processing:SOFTISP-I.MX8" class="development-boards-item content dtmcustomrulelink" data-dtmaction="Overview tab: Development Boards and Designs Click" data-dtmsubaction="i.MX8 Software Image Signal Processing" data-content-subfinding="Overview tab: Development Boards and Designs"><span class="development-boards-image"><img src="/assets/images/en/logos-internal/image-not-available.svg" alt="SOFTISP-I.MX8 : i.MX8 Software Image Signal Processing thumbnail"></span><span class="development-boards-caption">i.MX8 Software Image Signal Processing</span><p class="development-boards-metadata">Designs</p></a><a id="developmentBoardsLink" href="/design/designs/i-mx-surround-view-system:SURROUND-VIEW-APPLICATION" class="development-boards-item content dtmcustomrulelink" data-dtmaction="Overview tab: Development Boards and Designs Click" data-dtmsubaction="i.MX Surround View System" data-content-subfinding="Overview tab: Development Boards and Designs"><span class="development-boards-image"><img src="/assets/images/en/photography/CS_8QM_CameraSetUp.jpg" alt="SURROUND-VIEW-APPLICATION : i.MX Surround View System thumbnail"></span><span class="development-boards-caption">i.MX Surround View System</span><p class="development-boards-metadata">Designs</p></a><a id="developmentBoardsLink" href="/design/development-boards/i-mx-evaluation-and-development-boards/i-mx-8quadmax-multisensory-enablement-kit-mek:MCIMX8QM-CPU" class="development-boards-item content dtmcustomrulelink" data-dtmaction="Overview tab: Development Boards and Designs Click" data-dtmsubaction="i.MX 8QuadMax Multisensory Enablement Kit (MEK)" data-content-subfinding="Overview tab: Development Boards and Designs"><span class="development-boards-image"><img src="/assets/images/en/dev-board-image/MX8-MEK-ANGLE2.jpg" alt="MCIMX8QM-CPU : i.MX 8QuadMax Multisensory Enablement Kit (MEK) thumbnail"></span><span class="development-boards-caption">MCIMX8QM-CPU:i.MX 8QuadMax Multisensory Enablement Kit (MEK)</span><p class="development-boards-metadata">Evaluation and Development Boards</p></a><a id="developmentBoardsLink" href="/design/development-boards/i-mx-evaluation-and-development-boards/i-mx-8m-plus-evaluation-kit-enabling-power-measurement:8MPLUSLPD4-PEVK" class="development-boards-item content dtmcustomrulelink" data-dtmaction="Overview tab: Development Boards and Designs Click" data-dtmsubaction="i.MX 8M Plus Evaluation Kit enabling Power Measurement" data-content-subfinding="Overview tab: Development Boards and Designs"><span class="development-boards-image"><img src="/assets/images/en/dev-board-image/IMX-8M-PLUS-POWER-BOARD-TOP.jpg" alt="8MPLUSLPD4-PEVK : i.MX 8M Plus Evaluation Kit enabling Power Measurement thumbnail"></span><span class="development-boards-caption">8MPLUSLPD4-PEVK:i.MX 8M Plus Evaluation Kit enabling Power Measurement</span><p class="development-boards-metadata">Evaluation and Development Boards</p></a></div>
+         <div id="developmentBoardsDiv" data-dtmsection="Development Boards and Designs"><a id="developmentBoardsLink" href="/design/development-boards/i-mx-evaluation-and-development-boards/apalis-i-mx-8-embedded-vision-starter-kit:APALIS-IMX8-KIT" class="development-boards-item content dtmcustomrulelink" data-dtmaction="Overview tab: Development Boards and Designs Click" data-dtmsubaction="Apalis i.MX 8 Embedded Vision Starter Kit" data-content-subfinding="Overview tab: Development Boards and Designs"><span class="development-boards-image"><img src="/assets/images/en/dev-board-image/APALIS-IMX8-EMBEDDED-VISION-STARTER-KIT.jpg" alt="APALIS-IMX8-KIT : Apalis i.MX 8 Embedded Vision Starter Kit thumbnail"></span><span class="development-boards-caption">Apalis i.MX 8 Embedded Vision Starter Kit</span><p class="development-boards-metadata">Evaluation and Development Boards</p></a><a id="developmentBoardsLink" href="/products/processors-and-microcontrollers/arm-processors/i-mx-applications-processors/i-mx-8-processors/laird-60-wi-fi-bluetooth-m-2-evalkit-usb-sdio-pcie-uart:LAIRD-60-SIP" class="development-boards-item content dtmcustomrulelink" data-dtmaction="Overview tab: Development Boards and Designs Click" data-dtmsubaction="Laird 60 Wi-Fi<sup&gt;&amp;reg;</sup&gt; Bluetooth<sup&gt;&amp;reg;</sup&gt; M.2 EvalKit USB SDIO PCIE UART" data-content-subfinding="Overview tab: Development Boards and Designs"><span class="development-boards-image"><img src="/assets/images/en/dev-board-image/60SeriesM2-DevBd.jpg" alt="LAIRD-60-SIP : Laird 60 Wi-Fi<sup&gt;&amp;reg;</sup&gt; Bluetooth<sup&gt;&amp;reg;</sup&gt; M.2 EvalKit USB SDIO PCIE UART thumbnail"></span><span class="development-boards-caption">Laird 60 Wi-Fi<sup>&reg;</sup> Bluetooth<sup>&reg;</sup> M.2 EvalKit USB SDIO PCIE UART</span><p class="development-boards-metadata">Evaluation and Development Boards</p></a></div>
+      </div>
+      <div class="-prevNextButtons cycle-slide" data-dtmsection="Development Boards and Designs - Scroll"><a href="#" id="prevt602" class="btn"><span class="icon-angle-left"></span></a><a href="#" id="nextt602" class="btn"><span class="icon-angle-right"></span></a></div>
+      <div class="devBoardpager dtmMoreLess" data-dtmname="Development Boards and Designs - Scroll"></div>
+   </div>
+</div>
+<div class="mobile-show">
+   <div class="devBoardSlider-mobile">
+      <div class="collapse-mobile">
+         <h2 id="development-boards-and-designs">Development Boards and Designs</h2><a href="/design/designs/i-mx8-software-image-signal-processing:SOFTISP-I.MX8" class="development-boards-item content dtmGenLink" data-dtmsection="Development Boards and Designs"><span class="development-boards-image"><img src="/assets/images/en/logos-internal/image-not-available.svg" alt="SOFTISP-I.MX8 : i.MX8 Software Image Signal Processing thumbnail"></span><span class="development-boards-caption">i.MX8 Software Image Signal Processing</span><p class="development-boards-metadata">Designs</p></a><a href="/design/designs/i-mx-surround-view-system:SURROUND-VIEW-APPLICATION" class="development-boards-item content dtmGenLink" data-dtmsection="Development Boards and Designs"><span class="development-boards-image"><img src="/assets/images/en/photography/CS_8QM_CameraSetUp.jpg" alt="SURROUND-VIEW-APPLICATION : i.MX Surround View System thumbnail"></span><span class="development-boards-caption">i.MX Surround View System</span><p class="development-boards-metadata">Designs</p></a><a href="/design/development-boards/i-mx-evaluation-and-development-boards/i-mx-8quadmax-multisensory-enablement-kit-mek:MCIMX8QM-CPU" class="development-boards-item content dtmGenLink" data-dtmsection="Development Boards and Designs"><span class="development-boards-image"><img src="/assets/images/en/dev-board-image/MX8-MEK-ANGLE2.jpg" alt="MCIMX8QM-CPU : i.MX 8QuadMax Multisensory Enablement Kit (MEK) thumbnail"></span><span class="development-boards-caption">MCIMX8QM-CPU:i.MX 8QuadMax Multisensory Enablement Kit (MEK)</span><p class="development-boards-metadata">Evaluation and Development Boards</p></a><a href="/design/development-boards/i-mx-evaluation-and-development-boards/i-mx-8m-plus-evaluation-kit-enabling-power-measurement:8MPLUSLPD4-PEVK" class="development-boards-item content dtmGenLink" data-dtmsection="Development Boards and Designs"><span class="development-boards-image"><img src="/assets/images/en/dev-board-image/IMX-8M-PLUS-POWER-BOARD-TOP.jpg" alt="8MPLUSLPD4-PEVK : i.MX 8M Plus Evaluation Kit enabling Power Measurement thumbnail"></span><span class="development-boards-caption">8MPLUSLPD4-PEVK:i.MX 8M Plus Evaluation Kit enabling Power Measurement</span><p class="development-boards-metadata">Evaluation and Development Boards</p></a><a href="/design/development-boards/i-mx-evaluation-and-development-boards/apalis-i-mx-8-embedded-vision-starter-kit:APALIS-IMX8-KIT" class="development-boards-item content dtmGenLink" data-dtmsection="Development Boards and Designs"><span class="development-boards-image"><img src="/assets/images/en/dev-board-image/APALIS-IMX8-EMBEDDED-VISION-STARTER-KIT.jpg" alt="APALIS-IMX8-KIT : Apalis i.MX 8 Embedded Vision Starter Kit thumbnail"></span><span class="development-boards-caption">Apalis i.MX 8 Embedded Vision Starter Kit</span><p class="development-boards-metadata">Evaluation and Development Boards</p></a><a href="/products/processors-and-microcontrollers/arm-processors/i-mx-applications-processors/i-mx-8-processors/laird-60-wi-fi-bluetooth-m-2-evalkit-usb-sdio-pcie-uart:LAIRD-60-SIP" class="development-boards-item content dtmGenLink" data-dtmsection="Development Boards and Designs"><span class="development-boards-image"><img src="/assets/images/en/dev-board-image/60SeriesM2-DevBd.jpg" alt="LAIRD-60-SIP : Laird 60 Wi-Fi<sup&gt;&amp;reg;</sup&gt; Bluetooth<sup&gt;&amp;reg;</sup&gt; M.2 EvalKit USB SDIO PCIE UART thumbnail"></span><span class="development-boards-caption">Laird 60 Wi-Fi<sup>&reg;</sup> Bluetooth<sup>&reg;</sup> M.2 EvalKit USB SDIO PCIE UART</span><p class="development-boards-metadata">Evaluation and Development Boards</p></a></div>
+   </div>
+</div><!--ls:end[component-1498318885744]--> 
+   </div> 
+   <div class="iw_component" id="iw_comp1559236244376">
+     <!--ls:begin[component-1559236244376]--><div id="EBS-accordion" productCode="i.MX8">.</div><!--ls:end[component-1559236244376]--> 
+   </div> 
+   <div class="iw_component" id="iw_comp1474875806775">
+     <!--ls:begin[component-1474875806775]--><div class="collapse-mobile">
+   <h2 id="target-applications">Target Applications</h2>
+   <div class="dtmcustomrulelink" data-dtmaction="Overview tab: Target Applications click" data-content-subfinding="Target Applications">
+      <h3>Automotive</h3>
+      <ol class="target-applications-list list-unstyled">
+         <li><a href="/applications/automotive/body-and-comfort/hvac:HEATING-VENTILATION-AIR-CONDITIONING">
+               				   
+               												Heating Ventilation, and Air Conditioning (HVAC)
+               											</a></li>
+         <li><a href="/applications/automotive/infotainment-and-ive/mid-to-high-infotainment-ecockpit:MID-HIGH-INFOTAINMENT-ECOCKPIT">
+               				   
+               												Mid to High Infotainment / eCockpit
+               											</a></li>
+         <li><a href="/applications/automotive/powertrain-vehicle-dynamics/motorcycle-engine-control-unit-ecu-and-small-engine-control:MOTORCYCLE-ECU-SMALL-ENGINE-CONTROL">
+               				   
+               												Motorcycle Engine Control Unit (ECU) and Small Engine Control
+               											</a></li>
+      </ol>
+      <h3>Industrial</h3>
+      <ol class="target-applications-list list-unstyled">
+         <li><a href="/applications/industrial/aerospace-and-mobile-robotics/3-phase-ac-induction-motor:AC-MOTORS">
+               				   
+               												3-Phase AC Induction Motor
+               											</a></li>
+         <li><a href="/applications/smart-home/smart-appliance/air-conditioning-ac:AIR-CONDITIONING">
+               				   
+               												Air Conditioning (AC)
+               											</a></li>
+         <li><a href="/applications/industrial/factory-automation/anomaly-detection:ANOMALY-DETECTION">
+               				   
+               												Anomaly Detection
+               											</a></li>
+         <li><a href="/applications/industrial/aerospace-and-mobile-robotics/avionics:AVIONICS">
+               				   
+               												Avionics
+               											</a></li>
+         <li><a href="/applications/industrial/aerospace-and-mobile-robotics/brushless-dc-motor-bldc-control:BRUSHLESS-DC-MOTORS">
+               				   
+               												Brushless DC Motor (BLDC) Control
+               											</a></li>
+         <li><a href="/applications/industrial/building-control/building-safety:BUILDING-SAFETY">
+               				   
+               												Building Safety
+               											</a></li>
+         <li><a href="/applications/smart-city/access/building-security:BUILDING-SECURITY">
+               				   
+               												Building Security
+               											</a></li>
+         <li><a href="/applications/industrial/power-and-energy/electricity-generation:ELECTRICITY-GENERATION">
+               				   
+               												Electricity Generation
+               											</a></li>
+         <li><a href="/applications/smart-city/infrastructure/energy-gateway:METERING-DATA-CONCENTRATOR">
+               				   
+               												Energy Gateway
+               											</a></li>
+         <li><a href="/applications/industrial/power-and-energy/heat-metering:HEAT-METERING">
+               				   
+               												Heat Metering
+               											</a></li>
+         <li><a href="/applications/industrial/factory-automation/industrial-control-:INDUSTRIAL-CONTROL">
+               				   
+               												Industrial Control
+               											</a></li>
+         <li><a href="/applications/industrial/factory-automation/industrial-hmi:INDUSTRIAL-HMI">
+               				   
+               												Industrial HMI
+               											</a></li>
+         <li><a href="/applications/industrial/aerospace-and-mobile-robotics/intermediate-flight-controller:INTERMEDIATE-FLIGHT-CONTROLLER">
+               				   
+               												Intermediate Flight Controller
+               											</a></li>
+         <li><a href="/applications/industrial/healthcare/medical-imaging:MEDICAL-IMAGING">
+               				   
+               												Medical Imaging
+               											</a></li>
+         <li><a href="/applications/industrial/aerospace-and-mobile-robotics/motion-control-and-robotics:MOTION-CONTROL-ROBOTICS">
+               				   
+               												Motion Control and Robotics
+               											</a></li>
+         <li><a href="/applications/industrial/aerospace-and-mobile-robotics/motor-drives:MOTOR-DRIVES">
+               				   
+               												Motor Drives
+               											</a></li>
+         <li><a href="/applications/industrial/aerospace-and-mobile-robotics/pmsm:PMSM-MOTORS">
+               				   
+               												Permanent Magnet Synchronous Motor (PMSM)
+               											</a></li>
+         <li><a href="/applications/smart-home/home-control-and-security/smart-power-socket-and-light-switch:SMART-POWER-SOCKET-LIGHT">
+               				   
+               												Smart Power Socket and Light Switch
+               											</a></li>
+         <li><a href="/applications/industrial/aerospace-and-mobile-robotics/vision-advanced-sensing-and-processing-board:ADVANCED-SENSING-BOARD">
+               				   
+               												Vision, Advanced Sensing and Processing Board
+               											</a></li>
+      </ol>
+      <h3>Mobile</h3>
+      <ol class="target-applications-list list-unstyled">
+         <li><a href="/applications/mobile/wearables/hearables:HEARABLES">
+               				   
+               												Hearables
+               											</a></li>
+         <li><a href="/applications/mobile/wearables/smart-watch:SMARTWATCH">
+               				   
+               												Smart Watch
+               											</a></li>
+      </ol>
+      <h3>Smart City</h3>
+      <ol class="target-applications-list list-unstyled">
+         <li><a href="/applications/smart-city/transportation/automatic-vehicle-identification:AUTOMATIC-VEHICLE-ID">
+               				   
+               												Automatic Vehicle Identification
+               											</a></li>
+         <li><a href="/applications/smart-city/retail/fleet-management:FLEET-MANAGEMENT">
+               				   
+               												Fleet Management
+               											</a></li>
+      </ol>
+      <h3>Smart Home</h3>
+      <ol class="target-applications-list list-unstyled">
+         <li><a href="/applications/smart-home/home-control-and-security/home-security-and-surveillance:HOME-SECURITY-SURVEILLANCE">
+               				   
+               												Home Security and Surveillance
+               											</a></li>
+         <li><a href="/applications/smart-home/home-control-and-security/in-home-energy-display:IN-HOME-ENERGY-DISPLAY">
+               				   
+               												In-Home Energy Display
+               											</a></li>
+         <li><a href="/applications/smart-home/smart-appliance/major-home-appliances:MAJOR-HOME-APPLIANCE">
+               				   
+               												Major Home Appliances
+               											</a></li>
+         <li><a href="/applications/smart-home/smart-appliance/robotic-appliance:ROBOTIC-APPLIANCE">
+               				   
+               												Robotic Appliance
+               											</a></li>
+         <li><a href="/applications/smart-home/smart-appliance/small-and-medium-appliances:SMALL-MEDIUM-APPLIANCE">
+               				   
+               												Small and Medium Appliances
+               											</a></li>
+      </ol>
+   </div>
+</div><!--ls:end[component-1474875806775]--> 
+   </div> 
+   <div class="iw_component" id="iw_comp1474622602895">
+     <!--ls:begin[component-1474622602895]--><div class="collapse-mobile"></div><!--ls:end[component-1474622602895]--> 
+   </div> 
+   <div class="iw_component" id="iw_comp1579102478195">
+     <!--ls:begin[component-1579102478195]--><script>
+
+	var crossJSONURL='/webapp/crossSellWidget.sp';
+
+	$(document).ready(function(){
+		//$('#stepTwo').attr('disabled', 'disabled');
+		$("#recommended-peripherals-results").hide();
+		$('#results-alert').hide();
+		
+		// Hide Step filters if no Application is found
+		var appCount = document.getElementById("stepOne").length;
+		
+		if(appCount < 2) {
+			$("#steps_container").hide();
+		}		 
+		
+		var appLen = '';
+		appLen = document.getElementById("stepOne").length;
+		/*if(appLen == 2){
+			var opt = '';
+			var ddlArray= new Array();
+			var ddl = document.getElementById('stepOne');
+			for (i = 0; i < ddl.options.length; i++) {
+				ddlArray[i] = ddl .options[i].value;
+			}
+
+			opt = '<option value="'+ddlArray[1]+'">'+ddlArray[1]+'</option>';
+		
+			var selectobject=document.getElementById("stepOne");
+			for (var i=0; i<selectobject.length; i++){
+				selectobject.remove(i);
+			}
+		
+			$('#stepOne').append(opt);
+			//$('#stepOne').attr('disabled', 'disabled');
+		
+			var pspCode=$('#pCode').val();
+			var app=$('#stepOne option:selected').val();
+			pspCode=encodeURIComponent(pspCode);
+			app=encodeURIComponent(app);
+			var nURL=crossJSONURL+'?code='+pspCode+'&app='+app;
+			
+			$.ajax({
+				type:"POST",
+				url:nURL,
+				dataType:"xml",
+				//async:false,
+				success:function(data){
+					populateDropDown(data.documentElement,'#stepTwo');
+				}
+			})	
+		}else{ */
+			// for application dropdown
+			$('#stepOne').bind('change', function(){
+				stepOneFunction("event")
+			});
+
+			stepOneFunction("load");
+		
+
+		//for peripheral dropdown
+		$('#stepTwo').bind('change', function(){
+			stepTwoFunction("event");
+		});
+	
+	});
+
+	function stepOneFunction(fromW){
+
+		var pspCode=$('#pCode').val();
+		var app=$('#stepOne option:selected').val();
+		var peri=$('#stepTwo option:selected').val();
+		pspCode=encodeURIComponent(pspCode);
+		app=encodeURIComponent(app);
+		peri=encodeURIComponent(peri);
+		var nURL=crossJSONURL+'?code='+pspCode+'&app='+app;
+		
+		if(!!document.documentMode)
+		{
+		var isEdge = !!window.StyleMedia;
+		}
+		
+		$('#stepTwo').find('option').not(':first').remove();
+		//$('#stepTwo').removeAttr('disabled');
+		$('#stepTwo option:first-child').attr("selected", "selected");
+
+		$('#recommended-peripherals-results').hide();
+		$('#results-alert').hide();
+		
+		if(app == ""){
+			try{
+				$("#stepTwo").val($("#stepTwo option:first").val());
+				$("#recommended-peripherals-results-desktop").empty();
+				$("#recommended-peripherals-results-mobile").empty();
+				$("#recommended-peripherals-results").hide();
+				$("#othRecProduSlider-desktop").show();
+				
+				var peri = "Choose%20a%20product%20type" ;
+				var nURL=crossJSONURL+'?code='+pspCode ;
+				
+				
+				$.ajax({
+					type:"POST",
+					url:nURL,
+					//async:false,
+					success:function(data){
+						getFinalResult(data.documentElement,'#recommended-peripherals-results',app,peri);
+					}
+				})
+				
+				
+				
+			}catch(err){
+			}
+		} else {
+
+			$.ajax({
+				type:"POST",
+				url:nURL,
+				dataType:"xml",
+				//async:false,
+				success:function(data){
+					populateDropDown(data.documentElement,'#stepTwo');
+					
+					if(fromW == "load"){
+		
+						var locStepTwo = localStorage['Cross_Sell_Applications_Selector_Widget_Drop_down_Peripheral'];
+						if(locStepTwo != ""){
+							$("#stepTwo").val(locStepTwo);
+							stepTwoFunction("load");
+						}
+				
+					}else if(fromW == "default"){
+						var stepTwoLen = $('#stepTwo > option').length;
+						if(stepTwoLen > 1){
+							$("#stepTwo").val($("#stepTwo option").eq(1).val());
+							stepTwoFunction(fromW);
+						}
+					}
+				}
+			})
+		}
+	}
+
+	function stepTwoFunction(fromW){
+
+		var pspCode=$('#pCode').val();
+		var app=$('#stepOne option:selected').val();
+		var peri=$('#stepTwo option:selected').val();
+
+		if(fromW == "event"){
+			localStorage['Cross_Sell_Applications_Selector_Widget_Drop_down_Peripheral'] = peri;	
+		}
+
+		$('#recommended-peripherals-results').hide();
+		$('#results-alert').hide();
+		pspCode=encodeURIComponent(pspCode);
+		app=encodeURIComponent(app);
+		peri=encodeURIComponent(peri);
+		var nURL=crossJSONURL+'?code='+pspCode+'&app='+app+'&peri='+peri;
+
+
+		if(peri == "Choose%20a%20product%20type" || peri == "Choose a product type" || peri == "%E9%80%89%E6%8B%A9%E4%B8%80%E4%B8%AA%E4%BA%A7%E5%93%81%E7%B1%BB%E5%88%AB"){
+				nURL=crossJSONURL+'?code='+pspCode+'&app='+app;
+				console.log("peri : Choose a product type");
+				}
+
+
+
+		$.ajax({
+			type:"POST",
+			url:nURL,
+			//async:false,
+			success:function(data){
+			getFinalResult(data.documentElement,'#recommended-peripherals-results',app,peri);
+			}
+		})
+	}
+
+	function populateDropDown(result, id){
+
+		var option='';
+
+		if(id==="#stepTwo"){
+			var x = result.getElementsByTagName("Text");
+			if(x.length > 1){
+				//$('#stepTwo').removeAttr('disabled');
+			}
+		
+			$(id).html('<option selected="">Choose a product type</option>');
+
+			for(var i=0;i < x.length;i++){
+				var subClass = '';
+				subClass = x[i].getAttribute("class");
+				if(subClass!= null){
+					option = '<option value="'+x[i].getAttribute("value")+'" class="subopt">'+x[i].getAttribute("langName")+'</option>';
+					$(id).append(option);
+				}else{
+					option = '<option value="'+x[i].getAttribute("value")+'">'+x[i].getAttribute("langName")+'</option>';
+					$(id).append(option);
+				}
+			}
+			
+			if(x.length == 1){
+
+				var subClass = '';
+				subClass = x[0].getAttribute("class");
+				if(subClass!= null){
+					option = '<option value="'+x[0].getAttribute("value")+'" selected class="subopt">'+x[0].getAttribute("langName")+'</option>';
+					$(id).append(option);
+				}else{
+					option = '<option value="'+x[0].getAttribute("value")+'" selected >'+x[0].getAttribute("langName")+'</option>';
+					$(id).append(option);
+				}
+
+				var pspCode=$('#pCode').val();
+				var app=$('#stepOne option:selected').val();
+				var peri=$('#stepTwo option:selected').val();
+				localStorage['Cross_Sell_Applications_Selector_Widget_Drop_down_Peripheral'] = peri;
+				pspCode=encodeURIComponent(pspCode);
+				app=encodeURIComponent(app);
+				peri=encodeURIComponent(peri);
+				var nURL=crossJSONURL+'?code='+pspCode+'&app='+app+'&peri='+peri;
+
+				$.ajax({
+					type:"POST",
+					url:nURL,
+					//async:false,
+					success:function(data){
+						getFinalResult(data.documentElement,'#recommended-peripherals-results',app,peri);
+					}
+				})
+				//$('#stepTwo').attr('disabled', 'disabled');
+			} else {
+			
+				var pspCode=$('#pCode').val();
+				var app=$('#stepOne option:selected').val();
+				var peri=$('#stepTwo option:selected').val();
+				pspCode=encodeURIComponent(pspCode);
+				app=encodeURIComponent(app);
+				peri=encodeURIComponent(peri);
+				var nURL=crossJSONURL+'?code='+pspCode+'&app='+app;
+
+				$.ajax({
+					type:"POST",
+					url:nURL,
+					//async:false,
+					success:function(data){
+						getFinalResult(data.documentElement,'#recommended-peripherals-results',app,peri);
+					}
+				})
+			
+			
+			
+			}
+		}
+		$(id).trigger("Data-Populated");
+	}
+
+
+
+	function getFinalResult(res,id,app,peri){
+
+		if(id == '#recommended-peripherals-results'){
+
+			var list = '';
+			var litag = '';
+			var len = '';
+			var x = '';
+			var i=0 ;
+			var j=0;
+			var mn=1;
+			var counter=0 ;
+			var compJSONLen = 0 ;
+			var totalLen = 0 ;
+			var p = 1 ;
+			
+			var compJSONParse = "";
+			var compJSONParse =JSON.parse(JSON.stringify('{complementaryProducts:[{"code":"VR5500","src":"/assets/images/en/chip-images/sot684-23_3d.gif","description":"High Voltage PMIC with Multiple SMPS","url":"/products/power-management/pmics-and-sbcs/safety-sbcs/high-voltage-pmic-with-multiple-smps:VR5500"},{"code":"i.MX8M","src":"/assets/images/en/chip-images/sot1840-3_3d.gif","description":"i.MX 8M Family - Arm<sup>&#174;<\/sup>&#160;Cortex<sup>&#174;<\/sup>-A53, Cortex-M4, Audio, Voice, Video","notdisplaycode":"Y","url":"/products/processors-and-microcontrollers/arm-processors/i-mx-applications-processors/i-mx-8-processors/i-mx-8m-family-armcortex-a53-cortex-m4-audio-voice-video:i.MX8M"},{"code":"PF8101-PF8201","src":"/assets/images/en/chip-images/sot684-21_DD_SC_3d.gif","description":"9-Channel Power Management Integrated Circuit (PMIC) for High-Performance Processing Applications","url":"/products/power-management/pmics-and-sbcs/pmics/9-channel-power-management-integrated-circuit-pmic-for-high-performance-processing-applications:PF8101-PF8201"},{"code":"PF5024","src":"/assets/images/en/chip-images/sot618-14_3d.gif","description":"Multi-Channel (4) PMIC for Automotive Applications &#8211; 4 High Power, Fit for ASIL B Safety Level","url":"/products/power-management/pmics-and-sbcs/pmics/multi-channel-4-pmic-for-automotive-applications-4-high-power-fit-for-asil-b-safety-level:PF5024"},{"code":"PF7100","src":"/assets/images/en/chip-images/sot619-27_D_3d.gif","description":"7-Channel Power Management Integrated Circuit for High Performance Applications, Fit for ASIL B Safety Level","url":"/products/power-management/pmics-and-sbcs/pmics/7-channel-power-management-integrated-circuit-for-high-performance-applications-fit-for-asil-b-safety-level:PF7100"},{"code":"PF5020","src":"/assets/images/en/chip-images/sot618-14_3d.gif","description":"Multi-Channel (5) PMIC for Automotive Applications &#8211; 4 High Power and 1 Low Power, Fit for ASIL-B Safety Level","url":"/products/power-management/pmics-and-sbcs/pmics/multi-channel-5-pmic-for-automotive-applications-4-high-power-and-1-low-power-fit-for-asil-b-safety-level:PF5020"},{"code":"PF8100-PF8200","src":"/assets/images/en/chip-images/sot684-21_DD_SC_3d.gif","description":"12-Channel Power Management Integrated Circuit (PMIC) for  High-Performance Processing Applications","url":"/products/power-management/pmics-and-sbcs/pmics/12-channel-power-management-integrated-circuit-pmic-for-high-performance-processing-applications:PF8100-PF8200"},{"code":"i.MX8","src":"/assets/images/en/chip-images/sot1899-1_3d.gif","description":"i.MX 8 Family &#8211; Arm<sup>&#174;<\/sup> Cortex<sup>&#174;<\/sup>-A53, Cortex-A72, Virtualization, Vision, 3D Graphics, 4K Video ","notdisplaycode":"Y","url":"/products/processors-and-microcontrollers/arm-processors/i-mx-applications-processors/i-mx-8-processors/i-mx-8-family-arm-cortex-a53-cortex-a72-virtualization-vision-3d-graphics-4k-video:i.MX8"}]}'));
+			
+
+			if(peri == "Choose%20a%20product%20type" || peri == "%E9%80%89%E6%8B%A9%E4%B8%80%E4%B8%AA%E4%BA%A7%E5%93%81%E7%B1%BB%E5%88%AB"){
+			
+			x = res.getElementsByTagName("Results");
+			
+			}else{
+			
+			x = res.getElementsByTagName("Text");
+			}
+			
+		
+			len = x.length;
+			
+			
+			
+			if(compJSONParse != "" ) {
+			
+			var compJSON = JSON.parse(compJSONParse.replace("complementaryProducts","\"complementaryProduct\""));
+			
+			compJSONLen = compJSON.complementaryProduct.length ;
+			
+			
+			if(app == ""){
+			
+			totalLen = len + compJSONLen ;
+			p = compJSONLen + 1 ;
+			
+			}else{
+			
+			totalLen = len ;
+			
+			}
+			
+			}else{
+			
+			totalLen = len ;
+			
+			}
+			
+			console.log(" The count : "+len);
+			
+			document.getElementById("recommended-peripherals-results-desktop").innerHTML = '';
+			document.getElementById("recommended-peripherals-results-mobile").innerHTML = '';
+			document.getElementById("results-alert").innerHTML = '';
+			
+			var finaldiv = '';
+			var myDiv = "";
+			
+			var div1 = '<div id="comp_prod_results_list" class="cycle-slideshow" data-cycle-fx="carousel" data-cycle-timeout="0" data-cycle-next="#next3" data-cycle-prev="#prev3" data-cycle-slides="> div" data-cycle-allow-wrap="false" data-cycle-pager="#othRecProdpager1" data-items="'+totalLen+'" >';
+	
+			var div4 ='<div class="-prevNextButtons cycle-slide" data-dtmsection="Cross Sell Applications Selector Widget - Scroll"><a href="#" id="prev3" class="btn"><span class="icon-angle-left"></span></a><a href="#" id="next3" data-items="'+totalLen+'"  class="btn"><span class="icon-angle-right"></span></a></div>';
+			
+			div4 = div4 + '<div id="othRecProdpager1" class="othRecProdpager dtmMoreLess" data-dtmname="Cross Sell Applications Selector Widget - Scroll"></div>';
+			
+			var outerDiv = '<div name="comp_prod_results_divs" data-dtmsection="Cross Sell Applications Selector Widget" >';
+			var outerDivEnd = '</div>';
+			
+			var mobileFinal = '';
+			var tagMob = '';
+			
+			
+			while (mn <= totalLen){
+	
+				if(mn%4 == 1){
+					myDiv = myDiv + outerDiv;
+				}
+				
+				if(app != "" ){
+				
+				compJSONLen = 0;
+				
+				}
+				
+				if (mn <= compJSONLen ){
+				
+				if(app == "" ){
+				tag = '<a href="'+compJSON.complementaryProduct[mn-1].url+'" class="other-recommended-products-item content dtmcustomrulelink" data-dtmaction="Overview tab: Cross Sell Applications Selector Widget Result click" data-content-subfinding="Overview tab: Cross Sell Applications Selector Widget Result" ><span class="complimentary-products-image" ><img src="'+compJSON.complementaryProduct[mn-1].src+'"></span><span class="other-recommended-products-caption" >'+compJSON.complementaryProduct[mn-1].code+':'+compJSON.complementaryProduct[mn-1].description+'</span></a>';
+				
+				tagMob = '<li><a href="'+compJSON.complementaryProduct[mn-1].url+'" class="other-recommended-products-item content" ><span class="other-recommended-products-caption" >'+compJSON.complementaryProduct[mn-1].code+':'+compJSON.complementaryProduct[mn-1].description+'</span></a></li>';
+				
+				}
+				
+				}else {
+				
+				var aVal ='';
+				var valData = x[mn-p].getAttribute("donotdisplaycode");
+				if(valData!='Y'){
+					aVal=x[mn-p].getAttribute("name")+':';
+				} else {
+					aVal='';
+				}
+			
+				tag = '<a id="crossSell_Product" href="'+x[mn-p].getAttribute("value")+'" class="other-recommended-products-item content dtmcustomrulelink" data-dtmaction="Overview tab: Cross Sell Applications Selector Widget Result click" data-content-subfinding="Overview tab: Cross Sell Applications Selector Widget Result" ><span class="complimentary-products-image" ><img src="'+x[mn-p].getAttribute("imageUrl")+'"></span><span class="other-recommended-products-caption" >'+aVal+''+x[mn-p].getAttribute("title")+'</span></a>';
+				
+				tagMob = '<li><a id="crossSell_Product" href="'+x[mn-p].getAttribute("value")+'" class="other-recommended-products-item content" ><span class="other-recommended-products-caption" >'+aVal+''+x[mn-p].getAttribute("title")+'</span></a></li>';
+				
+				}
+				
+				myDiv = myDiv + tag;
+				mobileFinal = mobileFinal + tagMob;
+
+				if(mn%4 == 0 || mn == totalLen){
+					myDiv = myDiv + outerDivEnd;
+				}
+		
+				mn++;
+			}
+	
+			finaldiv = div1 + myDiv + outerDivEnd;
+			if(totalLen > 4){
+				finaldiv = finaldiv + div4 ;
+			}
+			mobileFinal = "<ul>" + mobileFinal + "</ul>"
+
+			$("#recommended-peripherals-results-desktop").empty();
+			$("#recommended-peripherals-results-desktop").html(finaldiv);
+			
+			$("#recommended-peripherals-results-mobile").empty();
+			$("#recommended-peripherals-results-mobile").html(mobileFinal);
+			
+			$("#comp_prod_results_list").cycle();
+	
+			var comp_prod_results_divs = $('div[name=comp_prod_results_divs]');
+			for(kn=0; kn < comp_prod_results_divs.length; kn++){
+				$(comp_prod_results_divs[kn]).css('opacity', '1');
+			}
+
+			if(len == 1){
+				var ele = document.getElementById("results-alert");
+				$('#results-alert').append('<span id="peripheral-count" class="icon-checkmark-circle2"></span> ' +len+' product found.');
+			}else{
+				$('#results-alert').append('<span id="peripheral-count" class="icon-checkmark-circle2"></span> ' +len+'  products found.');
+			}
+
+			$("#results-alert").hide();
+			$("#othRecProduSlider-desktop").hide();
+			$("#recommended-peripherals-results").show();
+	
+	
+			var wa_filters='';
+			wa_filters = "Application: " + app;
+			wa_filters+= " | " + "Peripheral: " + peri;
+			var res = wa_filters.replace(/%20/g, ' ');
+			if(document.readyState === 'complete')
+			{
+			trackGenericPageAction("Overview Tab: Cross Sell Applications Selector Widget Menu Results Returned",res,"Overview Tab: Cross Sell Applications Selector Widget Menu Results Returned","Browse","","N");
+			}
+		}
+	}
+
+</script><input type="hidden" id="pCode" value="i.MX8"><input type="hidden" id="subApp" value=""><input type="hidden" id="subPeriBkup" value="NULL"><div id="compl_prod_section_main" class="collapse-mobile">
+   <h2 id="compl_prod_section">Complementary products for your application</h2>
+   <div class="recommended-peripherals">
+      <div id="steps_container" class="well">
+         <form class="form-horizontal" role="form" action="/lsds/en/summary-pages/PSP_Overview_2017Q3.page?submit=true&amp;componentID=1579102478195" method="post">
+            <div class="row">
+               <div class="col-md-6 ">
+                  <div class="form-group"><label for="stepOne" class="control-label" style="">Step 1:</label><select id="stepOne" class="form-control dtmSelect" style="" data-dtmname="Cross Sell Applications Selector Widget Drop Down Application">
+                        <option value="">Choose your application</option>
+                        <option value="Technologies - All">Technologies - All</option>
+                        <option value="Technologies - All~~Safety" class="subopt">Safety</option>
+                        <option value="Technologies - All~~Security" class="subopt">Security</option>
+                        <option value="Technologies - All~~Edge Computing" class="subopt">Edge Computing</option>
+                        <option value="Mobile - All">Mobile - All</option>
+                        <option value="Mobile - All~~Portable" class="subopt">Portable</option>
+                        <option value="Mobile - All~~Accessories" class="subopt">Accessories</option>
+                        <option value="Communication Infrastructure - All">Communication Infrastructure - All</option>
+                        <option value="Communication Infrastructure - All~~Enterprise Networking" class="subopt">Enterprise Networking</option>
+                        <option value="Automotive - All">Automotive - All</option>
+                        <option value="Automotive - All~~ADAS and Highly Automated Driving" class="subopt">ADAS and Highly Automated Driving</option>
+                        <option value="Automotive - All~~Body and Comfort" class="subopt">Body and Comfort</option>
+                        <option value="Automotive - All~~Powertrain and Vehicle Dynamics" class="subopt">Powertrain and Vehicle Dynamics</option>
+                        <option value="Automotive - All~~Vehicle Networking" class="subopt">Vehicle Networking</option>
+                        <option value="Industrial - All">Industrial - All</option>
+                        <option value="Industrial - All~~Building Control" class="subopt">Building Control</option>
+                        <option value="Industrial - All~~Aerospace and Mobile Robotics" class="subopt">Aerospace and Mobile Robotics</option>
+                        <option value="Industrial - All~~Factory Automation" class="subopt">Factory Automation</option>
+                        <option value="Industrial - All~~Power and Energy" class="subopt">Power and Energy</option>
+                        <option value="Smart City - All">Smart City - All</option>
+                        <option value="Smart City - All~~Access" class="subopt">Access</option></select></div>
+               </div>
+               <div class="col-md-6">
+                  <div class="form-group"><label for="stepTwo" class="control-label">Step 2:</label><select id="stepTwo" class="form-control dtmSelect" data-dtmname="Cross Sell Applications Selector Widget Drop down Peripheral">
+                        <option value="">Choose a product type</option></select></div>
+               </div>
+            </div>
+         </form>
+      </div>
+      <div id="results-alert" class="alert alert-success fade in alert-dismissable"></div>
+      <div id="recommended-peripherals-results" class="recommended-peripherals-results" style="display: none" data-dtmname="Cross Sell Applications Selector Widget Result">
+         <div class="othRecProduSlider-desktop desktop-show" id="recommended-peripherals-results-desktop"></div>
+         <div class="othRecProduSlider-mobile mobile-show" id="recommended-peripherals-results-mobile"></div>
+      </div>
+   </div>
+</div>
+<div class="other-recommended-products">
+   <div id="othRecProduSlider-desktop">
+      <div class="desktop-show">
+         <h2 id="other-recommended-products">Other Recommended Products</h2>
+         <div class="othRecProduSlider-desktop">
+            <div class="cycle-slideshow" data-cycle-fx="carousel" data-cycle-timeout="0" data-cycle-next="#next3" data-cycle-prev="#prev3" data-cycle-slides="&gt; div" data-cycle-allow-wrap="false" data-cycle-pager=".othRecProdpager">
+               <div data-dtmsection="Other Recommended Products"><a href="/products/power-management/pmics-and-sbcs/safety-sbcs/high-voltage-pmic-with-multiple-smps:VR5500" class="other-recommended-products-item content content"><span class="complimentary-products-image"><img src="/assets/images/en/chip-images/sot684-23_3d.gif"></span><span class="other-recommended-products-caption">
+                        				
+                        				VR5500
+                        				:
+                        				High Voltage PMIC with Multiple SMPS
+                        				
+                        			</span></a><a href="/products/processors-and-microcontrollers/arm-processors/i-mx-applications-processors/i-mx-8-processors/i-mx-8m-family-armcortex-a53-cortex-m4-audio-voice-video:i.MX8M" class="other-recommended-products-item content content"><span class="complimentary-products-image"><img src="/assets/images/en/chip-images/sot1840-3_3d.gif"></span><span class="other-recommended-products-caption">
+                        				
+                        				i.MX 8M Family - Arm<sup>&#174;</sup>&#160;Cortex<sup>&#174;</sup>-A53, Cortex-M4, Audio, Voice, Video
+                        				
+                        				</span></a><a href="/products/power-management/pmics-and-sbcs/pmics/9-channel-power-management-integrated-circuit-pmic-for-high-performance-processing-applications:PF8101-PF8201" class="other-recommended-products-item content content"><span class="complimentary-products-image"><img src="/assets/images/en/chip-images/sot684-21_DD_SC_3d.gif"></span><span class="other-recommended-products-caption">
+                        				
+                        				PF8101-PF8201
+                        				:
+                        				9-Channel Power Management Integrated Circuit (PMIC) for High-Performance Processing Applications
+                        				
+                        			</span></a><a href="/products/power-management/pmics-and-sbcs/pmics/multi-channel-4-pmic-for-automotive-applications-4-high-power-fit-for-asil-b-safety-level:PF5024" class="other-recommended-products-item content content"><span class="complimentary-products-image"><img src="/assets/images/en/chip-images/sot618-14_3d.gif"></span><span class="other-recommended-products-caption">
+                        				
+                        				PF5024
+                        				:
+                        				Multi-Channel (4) PMIC for Automotive Applications &#8211; 4 High Power, Fit for ASIL B Safety Level
+                        				
+                        			</span></a></div>
+               <div data-dtmsection="Other Recommended Products"><a href="/products/power-management/pmics-and-sbcs/pmics/7-channel-power-management-integrated-circuit-for-high-performance-applications-fit-for-asil-b-safety-level:PF7100" class="other-recommended-products-item content content"><span class="complimentary-products-image"><img src="/assets/images/en/chip-images/sot619-27_D_3d.gif"></span><span class="other-recommended-products-caption">
+                        				
+                        				PF7100
+                        				:
+                        				7-Channel Power Management Integrated Circuit for High Performance Applications, Fit for ASIL B Safety Level
+                        				
+                        			</span></a><a href="/products/power-management/pmics-and-sbcs/pmics/multi-channel-5-pmic-for-automotive-applications-4-high-power-and-1-low-power-fit-for-asil-b-safety-level:PF5020" class="other-recommended-products-item content content"><span class="complimentary-products-image"><img src="/assets/images/en/chip-images/sot618-14_3d.gif"></span><span class="other-recommended-products-caption">
+                        				
+                        				PF5020
+                        				:
+                        				Multi-Channel (5) PMIC for Automotive Applications &#8211; 4 High Power and 1 Low Power, Fit for ASIL-B Safety Level
+                        				
+                        			</span></a><a href="/products/power-management/pmics-and-sbcs/pmics/12-channel-power-management-integrated-circuit-pmic-for-high-performance-processing-applications:PF8100-PF8200" class="other-recommended-products-item content content"><span class="complimentary-products-image"><img src="/assets/images/en/chip-images/sot684-21_DD_SC_3d.gif"></span><span class="other-recommended-products-caption">
+                        				
+                        				PF8100-PF8200
+                        				:
+                        				12-Channel Power Management Integrated Circuit (PMIC) for  High-Performance Processing Applications
+                        				
+                        			</span></a><a href="/products/processors-and-microcontrollers/arm-processors/i-mx-applications-processors/i-mx-8-processors/i-mx-8-family-arm-cortex-a53-cortex-a72-virtualization-vision-3d-graphics-4k-video:i.MX8" class="other-recommended-products-item content content"><span class="complimentary-products-image"><img src="/assets/images/en/chip-images/sot1899-1_3d.gif"></span><span class="other-recommended-products-caption">
+                        				
+                        				i.MX 8 Family &#8211; Arm<sup>&#174;</sup> Cortex<sup>&#174;</sup>-A53, Cortex-A72, Virtualization, Vision, 3D Graphics, 4K Video 
+                        				
+                        				</span></a></div>
+            </div>
+            <div class="-prevNextButtons cycle-slide" data-dtmsection="Other Recommended Products - Scroll"><a href="#" id="prev3" class="btn"><span class="icon-angle-left"></span></a><a href="#" id="next3" class="btn"><span class="icon-angle-right"></span></a></div>
+            <div class="othRecProdpager dtmMoreLess" data-dtmname="Other Recommended Products - Scroll"></div>
+         </div>
+      </div>
+      <div class="mobile-show">
+         <div class="othRecProduSlider-mobile">
+            <ul>
+               <li><a href="/products/power-management/pmics-and-sbcs/safety-sbcs/high-voltage-pmic-with-multiple-smps:VR5500" class="other-recommended-products-item content"><span class="other-recommended-products-caption">
+                        													
+                        												VR5500
+                        												:
+                        											High Voltage PMIC with Multiple SMPS
+                        												
+                        												</span></a></li>
+            </ul>
+            <ul>
+               <li><a href="/products/processors-and-microcontrollers/arm-processors/i-mx-applications-processors/i-mx-8-processors/i-mx-8m-family-armcortex-a53-cortex-m4-audio-voice-video:i.MX8M" class="other-recommended-products-item content"><span class="other-recommended-products-caption">
+                        												
+                        													i.MX 8M Family - Arm<sup>&#174;</sup>&#160;Cortex<sup>&#174;</sup>-A53, Cortex-M4, Audio, Voice, Video
+                        													
+                        												</span></a></li>
+            </ul>
+            <ul>
+               <li><a href="/products/power-management/pmics-and-sbcs/pmics/9-channel-power-management-integrated-circuit-pmic-for-high-performance-processing-applications:PF8101-PF8201" class="other-recommended-products-item content"><span class="other-recommended-products-caption">
+                        													
+                        												PF8101-PF8201
+                        												:
+                        											9-Channel Power Management Integrated Circuit (PMIC) for High-Performance Processing Applications
+                        												
+                        												</span></a></li>
+            </ul>
+            <ul>
+               <li><a href="/products/power-management/pmics-and-sbcs/pmics/multi-channel-4-pmic-for-automotive-applications-4-high-power-fit-for-asil-b-safety-level:PF5024" class="other-recommended-products-item content"><span class="other-recommended-products-caption">
+                        													
+                        												PF5024
+                        												:
+                        											Multi-Channel (4) PMIC for Automotive Applications &#8211; 4 High Power, Fit for ASIL B Safety Level
+                        												
+                        												</span></a></li>
+            </ul>
+            <ul>
+               <li><a href="/products/power-management/pmics-and-sbcs/pmics/7-channel-power-management-integrated-circuit-for-high-performance-applications-fit-for-asil-b-safety-level:PF7100" class="other-recommended-products-item content"><span class="other-recommended-products-caption">
+                        													
+                        												PF7100
+                        												:
+                        											7-Channel Power Management Integrated Circuit for High Performance Applications, Fit for ASIL B Safety Level
+                        												
+                        												</span></a></li>
+            </ul>
+            <ul>
+               <li><a href="/products/power-management/pmics-and-sbcs/pmics/multi-channel-5-pmic-for-automotive-applications-4-high-power-and-1-low-power-fit-for-asil-b-safety-level:PF5020" class="other-recommended-products-item content"><span class="other-recommended-products-caption">
+                        													
+                        												PF5020
+                        												:
+                        											Multi-Channel (5) PMIC for Automotive Applications &#8211; 4 High Power and 1 Low Power, Fit for ASIL-B Safety Level
+                        												
+                        												</span></a></li>
+            </ul>
+            <ul>
+               <li><a href="/products/power-management/pmics-and-sbcs/pmics/12-channel-power-management-integrated-circuit-pmic-for-high-performance-processing-applications:PF8100-PF8200" class="other-recommended-products-item content"><span class="other-recommended-products-caption">
+                        													
+                        												PF8100-PF8200
+                        												:
+                        											12-Channel Power Management Integrated Circuit (PMIC) for  High-Performance Processing Applications
+                        												
+                        												</span></a></li>
+            </ul>
+            <ul>
+               <li><a href="/products/processors-and-microcontrollers/arm-processors/i-mx-applications-processors/i-mx-8-processors/i-mx-8-family-arm-cortex-a53-cortex-a72-virtualization-vision-3d-graphics-4k-video:i.MX8" class="other-recommended-products-item content"><span class="other-recommended-products-caption">
+                        												
+                        													i.MX 8 Family &#8211; Arm<sup>&#174;</sup> Cortex<sup>&#174;</sup>-A53, Cortex-A72, Virtualization, Vision, 3D Graphics, 4K Video 
+                        													
+                        												</span></a></li>
+            </ul>
+         </div>
+      </div>
+   </div>
+</div><!--ls:end[component-1579102478195]--> 
+   </div> 
+   <div class="iw_component" id="iw_comp1471864782975">
+     <!--ls:begin[component-1471864782975]--><!--ls:end[component-1471864782975]--> 
+   </div> 
+   <div class="iw_component" id="iw_comp1474525162100">
+     <!--ls:begin[component-1474525162100]--><!--ls:end[component-1474525162100]--> 
+   </div> 
+   <div class="iw_component" id="iw_comp1477064486771">
+     <!--ls:begin[component-1477064486771]--><!--ls:end[component-1477064486771]--> 
+   </div> 
+   <div class="iw_component" id="iw_comp1474068514557">
+     <!--ls:begin[component-1474068514557]--><!--ls:end[component-1474068514557]--> 
+   </div> 
+   <div class="iw_component" id="iw_comp1474068514558">
+     <!--ls:begin[component-1474068514558]--><!--ls:end[component-1474068514558]--> 
+   </div> 
+   <div class="iw_component" id="iw_comp1501689321204">
+     <!--ls:begin[component-1501689321204]--><!--ls:end[component-1501689321204]--> 
+   </div> 
+  </div> 
+ </div> 
+</div> 
+<div class="container-fluid iw_section" id="sectionirs5dxv0"> 
+ <div class="row iw_row iw_stretch" id="rowirs5dxv1"> 
+  <div class="iw_columns col-lg-12" id="colirs5dxv2"> 
+   <div class="iw_component" id="iw_comp1471030178219">
+     
+<footer class="loadnav">
+  <div class="footer-inner footer-en">
+    <div id="newsContainer"></div>
+    <figure class="footer-logo">
+      <a href="//uat.nxp.com"><svg height="33" viewbox="0 0 198.58 71.89" width="92" xmlns="http://www.w3.org/2000/svg">
+          <g id="nxp-logo">
+            <polyline fill="#7bb1db"
+              points="119.11 0 115.08 0 100.23 23.9 85.37 0 81.33 0 81.34 71.89 85.37 71.89 100.23 48 115.08 71.89 119.15 71.89 119.11 71.83 119.11 0">
+            </polyline>
+            <polyline fill="#958437" points="81.33 0 59.31 0 81.31 35.95 59.31 71.89 81.34 71.89 81.33 0"></polyline>
+            <polyline fill="#739833"
+              points="141.15 0 119.11 0 119.11 71.83 119.15 71.89 141.14 71.89 119.15 35.95 141.15 0"></polyline>
+            <path
+              d="M172.54,0h-31.4l-22,36,22,35.94h0V56h37.17c15.6,0,20.27-12.29,20.27-23V24.57c0-14.07-5.07-24.57-26-24.57ZM178,29c0,4.26-2,9.16-7.16,9.16H141.17V17.84H169c6.66,0,9,2.77,9,7.63V29Z"
+              fill="#c9d200"></path>
+            <polyline fill="#ffb500"
+              points="81.31 35.95 59.31 0 59.3 0 59.3 43.44 22.03 0 0 0 0 71.89 22.05 71.89 22.04 28.45 59.31 71.89 81.31 35.95">
+            </polyline>
+          </g>
+        </svg></a>
+    </figure>
+    <div class="row footer-row">
+      <div class="col-sm-9">
+        <ul class="footer-nav-primary dtmcustomrulelink" data-content-finding="Footer"
+          data-content-subfinding="Footer: About NXP" data-dtmaction="Footer: About NXP Link Click">
+          <li>
+            <a data-dtmsubaction="About NXP" href="//uat.nxp.com/company/our-company/about-nxp:ABOUT-NXP">About NXP</a>
+          </li>
+          <li>
+            <a data-dtmsubaction="Careers" href="//uat.nxp.com/about/careers-at-nxp:CAREERS">Careers</a>
+          </li>
+          <li>
+            <a data-dtmsubaction="Investor Relations" href="//investors.nxp.com/">Investors</a>
+          </li>
+          <li>
+            <a data-dtmsubaction="Media Center" href="//media.nxp.com">Media</a>
+          </li>
+          <li>
+            <a data-dtmsubaction="Contact Us" href="//uat.nxp.com/company/contact-us:CONTACTUS">Contact</a>
+          </li>
+          <li>
+            <a data-dtmsubaction="Subscribe" href="//contact.nxp.com/Subscription-Center">Subscribe</a>
+          </li>
+        </ul>
+      </div>
+      <div class="col-sm-3">
+        <ul class="footer-nav-social dtmcustomrulelink" data-content-finding="Footer"
+          data-content-subfinding="Footer: Follow Us" data-dtmaction="Footer: Follow Us Icon Click">
+          <li>
+            <a data-dtmsubaction="Twitter" href="//twitter.com/NXP"><svg height="22" id="twitter" viewbox="0 0 50 40"
+                width="28" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M15.9,40c18.6,0,28.7-15.4,28.7-28.7c0-0.4,0-0.9,0-1.3c2-1.4,3.7-3.2,5-5.2c-1.8,0.8-3.8,1.4-5.8,1.6c2.1-1.3,3.7-3.2,4.4-5.6c-2,1.2-4.2,2-6.4,2.5C38-0.9,31.6-1.1,27.5,2.8c-2.6,2.5-3.7,6.1-2.9,9.7C16.5,12,8.9,8.2,3.8,1.9C1.1,6.5,2.5,12.4,6.9,15.3c-1.6,0-3.2-0.5-4.6-1.3c0,0,0,0.1,0,0.1c0,4.8,3.4,8.9,8.1,9.9c-1.5,0.4-3,0.5-4.6,0.2c1.3,4.1,5.1,6.9,9.4,7c-3.6,2.8-8,4.3-12.5,4.3c-0.8,0-1.6-0.1-2.4-0.1C5,38.4,10.4,40,15.9,40">
+                </path>
+              </svg></a>
+          </li>
+          <li>
+            <a data-dtmsubaction="LinkedIn" href="//linkedin.com/company/nxp-semiconductors"><svg height="24"
+                id="linkedin" viewbox="0 0 40 40" width="24" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M9,40H0.7V13.3H9V40z M4.8,9.7C2.2,9.7,0,7.5,0,4.8S2.2,0,4.8,0s4.8,2.2,4.8,4.8S7.5,9.7,4.8,9.7zM40,40h-8.3 V27c0-3.1-0.1-7.1-4.3-7.1c-4.3,0-5,3.4-5,6.8V40h-8.3V13.3h8v3.6h0.1c1.1-2.1,3.8-4.3,7.8-4.3c8.4,0,9.9,5.5,9.9,12.7L40,40L40,40L40,40z">
+                </path>
+              </svg></a>
+          </li>
+          <li>
+            <a data-dtmsubaction="Facebook" href="//facebook.com/NXPsemi"><svg height="24" id="facebook"
+                viewbox="0 0 22 40" width="14" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M20.3,22.5l1.1-7.2h-6.9v-4.7c0-2,1-3.9,4.1-3.9h3.2V0.5c0,0-2.9-0.5-5.6-0.5c-5.7,0-9.5,3.5-9.5,9.7v5.5H0.2v7.2h6.4V40h7.8V22.5H20.3z">
+                </path>
+              </svg></a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="row footer-row">
+      <div class="col-sm-7">
+        <ul class="footer-nav-legal dtmcustomrulelink" data-content-finding="Footer"
+          data-content-subfinding="Footer: Privacy" data-dtmaction="Footer: Privacy Link Click">
+          <li>
+            <a data-dtmsubaction="Privacy" href="//uat.nxp.com/about/privacy:PRIVACYPRACTICES">Privacy</a>
+          </li>
+          <li>
+            <a data-dtmsubaction="Terms of Use" href="//uat.nxp.com/about/terms-of-use:TERMSOFUSE">Terms of Use</a>
+          </li>
+          <li>
+            <a data-dtmsubaction="Terms of Sale"
+              href="//uat.nxp.com/about/our-standard-terms-and-conditions-of-sale-counter-offer:TERMSCONDITIONSSALE">Terms
+              of Sale</a>
+          </li>
+          <li>
+            <a data-dtmsubaction="Slavery and Human Trafficking Statement"
+              href="//uat.nxp.com/company/our-company/about-nxp/corporate-responsibility/social-responsibility/statement-on-slavery-and-human-trafficking:RESPECTING-HUMAN-RIGHTS">Slavery
+              and Human Trafficking Statement</a>
+          </li>
+          <li>
+            <a data-dtmsubaction="Accessibility"
+              href="//uat.nxp.comnxp.com/company/our-company/about-nxp/accessibility:ACCESSIBILITY">Accessibility</a>
+          </li>
+        </ul>
+      </div>
+      <div class="col-sm-5">
+        <p class="footer-license">©2006-2020 NXP Semiconductors. All rights reserved.</p>
+      </div>
+    </div>
+  </div>
+</footer>
+ 
+   </div> 
+  </div> 
+ </div> 
+</div></div><!--ls:end[body]--><!--ls:begin[page_track]--><!--ls:end[page_track]--><script data-tg-desktop_or_tablet_or_phone="show" src="/resources/scripts/nxp-cms/global-bundle.js" type="text/javascript"></script><script data-tg-desktop_or_tablet_or_phone="show" src="/resources/scripts/analytics/webanalytics_download.js" type="text/javascript"></script></body>
+</html>
