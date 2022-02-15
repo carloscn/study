@@ -76,7 +76,10 @@ immediate-pre-index: `STR Xd, [Xn|SP, #<simm>]!`
   ; What's value of x2? And the value in 0x400000 address?  
   ```
 
-  
+
+### MOV指令
+
+
 
 ## GDB-Tips
 
