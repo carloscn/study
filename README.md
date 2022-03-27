@@ -1,113 +1,47 @@
 # 2022 SP Promotion
 
-时间2月中旬-6月中旬，学习scope需要包含以下内容：
+## 1 plan and scope
 
-* ARM64
-* Linux kernel
-* Compiler linker
+时间2月中旬-6月中旬，学习scope需要包含以下内容，任务跟进使用Git Project管理。
 
-设备以树莓派4b设备为主（[Raspberry Pi Documentation](https://www.raspberrypi.com/documentation/))，穿插学习法，ARM64和Linux内容有很大的相关性.
+* ARM64 : https://github.com/users/carloscn/projects/2
+* Linux kernel: https://github.com/users/carloscn/projects/4
+* Compiler linker: https://github.com/users/carloscn/projects/3
 
-### ARM64
+## 2 weekly summary
 
-总共40.5h，计划每天2h的视频理论学习时间50h（包含笔记时间），需要25天时间
+### 2.1 3月18 - 3月27日
 
-* [x] 课程介绍
-* [x] ARM处理器介绍和ARMv8概述
-* [x] 使用QEMU+树莓派4+JLINK搭建调试环境
-* [x] ARM64汇编：存储指令
-* ARM64汇编：算数和移位
-* ARM64汇编：比较和跳转
-* ARM64汇编：其他重要指令
-* ARM64汇编：汇编一些易错点
-* GUN AS汇编器介绍
-* LD链接器
-* 内嵌汇编
-* ARM64异常处理
-* ARM64异常处理之终端处理
-* GIC中断控制器
-* ARMv8内存管理
-* MMU实验讲解
-* cache和TLB基础知识
-* cache一致性-part1
-* 解读armv8芯片手册cache
-* cache实验讲解
-* TLB基础知识
-* 内存屏障基础知识
-* 解读armv8手册中的内存屏障
-* 缓存一致性和内存屏障
-* 原子操作
-* 浮点指令
-* NEO适量优化
-* 可扩展矢量计算SVE/SVE2
-* GICv3中断控制器和ITS服务
-* 深入理解SMMUv3和IOMMU驱动
-* SMMU之SVA
-* 深入理解AXI5以及AXI5-Lite总线
-* 深入理解ACE以及ACE-Lite总线
+总体上本周收获不小，而且非常惊叹的是，linux elf居然和ARM64的指令集互相联系和交应起来，加深了知识的理解。下周是在ARM中国工作的最后一周，有一些交接工作事宜，没有办法全身心的投入学习，下周安排任务比较轻松，能输出两课时就行。
 
-### Linux Kernel
+#### 2.1.1 本周总结：
 
-* 奔跑吧Linux内核 
-* Linux内核视频
+###### 2.1.1.1 [ARM64]
 
-### Compiler Linker
+* 指令集，学习完毕运算指令集
+* 指令集，学习完毕跳转和比较还有返回指令集
+* 指令集，其他一些重要的指令集
 
-* 静态：编译和链接
-* 静态：目标文件里都有什么
-* 静态链接
-* PE/COFF-windows格式
-* 动态：动态装载与进程
-* 动态链接
-* Linux共享库的组织
-* windows的动态链接
-* 内存
-* 运行库
-* 系统调用API
-* 运行库的实现
+###### 2.1.1.2 [Linux Userspace]
 
-## 计划表单
+* ELF-静态链接
+* Linux-多线程与同步
+* Linux-进程通信之管道
 
-  
+###### 2.1.1.3 [Embedded]
 
-| Time Line    | ARM64                                 | Linux Kernel   | Linker                 | 实验环境 |
-| ------------ | ------------------------------------- | -------------- | ---------------------- | -------- |
-| 9-Feb        | * 课程介绍                            | 内核简介       |                        |          |
-| 10-Feb       | * ARM处理器介绍和ARMv8概述            | 内核出发       |                        |          |
-| 11/12/13-Feb | *  使用QEMU+树莓派4+JLINK搭建调试环境 |                |                        |          |
-| 2.14-2.16    | * ARM64汇编：存储指令                 |                | 编译与链接             |          |
-| 3.18         | * ARM64汇编：算数和移位               |                | 目标文件有什么         |          |
-| 3.19         | * ARM64汇编：比较和跳转               |                | 静态链接               |          |
-| 3.20         | * ARM64汇编：其他重要指令             |                | 可执行文件的装载和进程 |          |
-|              | * ARM64汇编：汇编一些易错点           |                | Linux共性库的组织      |          |
-|              | * GUN AS汇编器介绍                    | 中断和异常     |                        |          |
-|              | * LD链接器                            | 内存寻址       | 内存                   |          |
-|              | * 内嵌汇编                            | 内存管理       |                        |          |
-|              | * ARM64异常处理                       |                |                        |          |
-|              | * ARM64异常处理之终端处理             |                |                        |          |
-|              | * GIC中断控制器                       |                |                        |          |
-|              | * ARMv8内存管理                       |                |                        |          |
-|              | * MMU实验讲解                         |                |                        |          |
-|              | * cache和TLB基础知识                  | 内核同步       |                        |          |
-|              | * cache一致性-part1                   | 进程           |                        |          |
-|              | * 解读armv8芯片手册cache              | 进程调度       |                        |          |
-|              | * cache实验讲解                       | 进程通信       |                        |          |
-|              | * TLB基础知识                         | 进程地址空间   |                        |          |
-|              | * 内存屏障基础知识                    |                |                        |          |
-|              | * 解读armv8手册中的内存屏障           |                |                        |          |
-|              | * 缓存一致性和内存屏障                |                |                        |          |
-|              | * 原子操作                            | 定时测量       |                        |          |
-|              | * 浮点指令                            | 系统调用       | 动态链接               |          |
-|              | * NEO适量优化                         | 信号           | 运行库                 |          |
-|              | * 可扩展矢量计算SVE/SVE2              | 虚拟文件系统   | 系统调用和API          |          |
-|              | * GICv3中断控制器和ITS服务            | IO体系设备驱动 | 运行库的实现           |          |
-|              | * 深入理解SMMUv3和IOMMU驱动           | 块设备驱动     |                        |          |
-|              | * SMMU之SVA                           | 页高速缓存     |                        |          |
-|              | *  深入理解AXI5以及AXI5-Lite总线      | 访问文件       |                        |          |
-|              | * 深入理解ACE以及ACE-Lite总线         |                |                        |          |
+* 在MACBOOK上搭建ARMv8架构的arm开发环境
 
-## 参考资料
+#### 2.1.2 下周计划：
 
-1. ARM手册： https://developer.arm.com/documentation/ddi0487/latest
+###### 2.1.2.1 [ARM64]
 
-2. 工具： https://github.com/NaoTu/DesktopNaotu/releases/tag/v3.2.3
+* 总结：汇编遇到的坑
+
+###### 2.1.2.2 [Linux Userspace]
+
+* Linux进程通信机制-信号量、共享内存和消息队列(System V IPC)
+
+###### 2.1.2.3 [Embedded]
+
+* Git工程整理
