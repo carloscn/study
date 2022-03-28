@@ -3,6 +3,7 @@
 * 信号量 (sem) ： 管理资源的访问
 * 共享内存 (shm)： 高效的数据分享
 * 消息队列 (msg)：在进程之间简易的传数据的方法
+* 互斥算法（Dekker, Peterson, Filter, Szymanski, Lamport面包店算法)
 
  IPC（Inter-Process Communication，进程间通讯）包含三种通信方式，信号量、共享内存和消息队列。在linux编程里面可以有两个不同的标准，一个是SYSTEM-V标准，一个是POSIX标准。以下是两个标准之间的区别[^1]。简单的说，POSIX更轻量，常面向于线程；SYSTEM-V更重一些，需要深陷Linux内核之中，面向于进程。
 
@@ -45,9 +46,17 @@ Following table lists the differences between System V IPC and POSIX IPC[^2].
 >
 >**System V IPC不是随进程持续的，是随内核持续的。**
 
-**上面是摘录的，下面谈下我的理解：**我们在Linux编程里面，关于线程可以使用pthread_mutex, spinlock这些工具，这些工具都是在一个进程中的，守护的是进程内部的资源，因此作者提到随进程持续的概念；而两个无关进程之间对于访问同一个资源，比如文件，也是可能会有临界区，只是相比于进程内部的临界区，扩展到了系统内部的临界区，因此这里有随内核持续的概念。这也是为什么POSIX是一个轻量级的常用于线程的，而System V IPC是一个深陷内核的常用于进程的标准。
+**上面是摘录的，下面谈下我的理解：**我们在Linux编程里面，关于线程可以使用pthread_mutex, spinlock这些工具，这些工具都是在一个进程中的，守护的是进程内部的资源，因此作者提到随进程持续的概念；而两个无关进程之间对于访问同一个资源，比如文件，也是可能会有临界区，只是相比于进程内部的临界区，扩展到了系统内部的临界区，因此这里有随内核持续的概念。这也是为什么POSIX是一个轻量级的常用于线程的，而System V IPC是一个深陷内核的常用于进程的标准。我相信IPC在进程层级和线程层级既有相似的点也有不同的点。
 
+## 2. 信号量
 
+在[Linux-用户空间-多线程与同步](https://github.com/carloscn/blog/issues/9)中，引用了sem_xxx()的接口，根据上面的信息我们也可以知道这是POSIX IPC的接口。我们在那个文章中并没有阐述信号量和spinlock的区别，在网上大多数人只谈论到信号量和锁之间的用法上的区别，或者是意义上的区别。我这里想更进一步的解释信号量的实现和锁是有差别的。
+
+* 互斥锁用于互斥（弹走另一个线程），信号量用于同步（不同的level，不同的同步）[^10]
+* 独占访问1，可以使用Dekker算法，但是算法依赖于spinlock忙等待，极大的耗费CPU资源（传统设备）。
+* 独占访问2，高级一点硬件上面支持独占访问（ARMv8独占指令LDXR/STXR，ARM的独占监视器机制）[^12]，可以原子性的增加寄存器的值，节约了CPU的资源[^11]。
+* spin_lock底层实现在ARM架构上面使用了内存独占的LDXR和STXR指令，也使用了WFE指令，让ARM进入到低功耗状态[^10][^11], 而x86架构是PAUSE指令。
+* 在信号量内也使用了spin_lock，但是是raw_spinlock （arch_spin_lock）[^10][^13]。raw_spinlock禁止内核抢占，然后调用spin_lock。
 
 
 
@@ -56,3 +65,13 @@ Following table lists the differences between System V IPC and POSIX IPC[^2].
 [^1]: [System V IPC vs POSIX IPC - Stack Overflow](https://stackoverflow.com/questions/4582968/system-v-ipc-vs-posix-ipc)
 [^2]:[System V & Posix (tutorialspoint.com)](https://www.tutorialspoint.com/inter_process_communication/inter_process_communication_system_v_posix.htm)
 [^3]:[UNIX 进程间通讯（IPC）概念（Posix，System V IPC）](https://www.cnblogs.com/Philip-Tell-Truth/p/6284475.html)
+[^4]:[临界区互斥实现：Dekker互斥算法 - 知乎 (zhihu.com)](https://zhuanlan.zhihu.com/p/122544351)
+[^5]: [操作系统原理——Dekker互斥算法详解_wsw875421872的博客-CSDN博客_dekker算法](https://blog.csdn.net/wsw875421872/article/details/17222219)
+[^6]:[如何更好理解Peterson算法？ - 知乎 (zhihu.com)](https://zhuanlan.zhihu.com/p/374287625)
+[^7]: [Peterson算法 - 维基百科，自由的百科全书 (wikipedia.org)](https://zh.wikipedia.org/wiki/Peterson算法)
+[^8]: [Szymanski算法 - 维基百科，自由的百科全书 (wikipedia.org)](https://zh.wikipedia.org/wiki/Szymanski算法)
+[^9]: [Lamport面包店算法 - 维基百科，自由的百科全书 (wikipedia.org)](https://zh.wikipedia.org/wiki/Lamport面包店算法)
+[^10]: [一文搞懂 | Linux 同步管理（上） ](https://www.modb.pro/db/130382)
+[^11]: [ARM WFI和WFE指令](http://www.wowotech.net/armv8a_arch/wfe_wfi.html)
+[^12]:[06_ARMv8_指令集_一些重要的指令 · Issue #12 · carloscn/blog (github.com)](https://github.com/carloscn/blog/issues/12)
+[^13]:[自旋锁spin_lock和raw_spin_lock](https://blog.csdn.net/DroidPhone/article/details/7395983)
