@@ -50,7 +50,7 @@ Following table lists the differences between System V IPC and POSIX IPC[^2].
 
 ## 2. 信号量
 
-在[Linux-用户空间-多线程与同步](https://github.com/carloscn/blog/issues/9)中，引用了sem_xxx()的接口，根据上面的信息我们也可以知道这是POSIX IPC的接口。我们在那个文章中并没有阐述信号量和spinlock的区别，在网上大多数人只谈论到信号量和锁之间的用法上的区别，或者是意义上的区别。我这里想更进一步的解释信号量的实现和锁是有差别的。
+在[Linux-用户空间-多线程与同步](https://github.com/carloscn/blog/issues/9)[^14]中，引用了sem_xxx()的接口，根据上面的信息我们也可以知道这是POSIX IPC的接口。我们在那个文章中并没有阐述信号量和spinlock的区别，在网上大多数人只谈论到信号量和锁之间的用法上的区别，或者是意义上的区别。我这里想更进一步的解释信号量的实现和锁是有差别的。**还有pthread_xxx里面的spinlock和内核的spinlock理念是一样的，但是调度完全不一样，pthread_xxx的可以关注这个实验[^14]。**
 
 * 互斥锁用于互斥（弹走另一个线程），信号量用于同步（不同的level，不同的同步）[^10]
 * 独占访问1，可以使用Dekker算法，但是算法依赖于spinlock忙等待，极大的耗费CPU资源（传统设备）。
@@ -75,3 +75,4 @@ Following table lists the differences between System V IPC and POSIX IPC[^2].
 [^11]: [ARM WFI和WFE指令](http://www.wowotech.net/armv8a_arch/wfe_wfi.html)
 [^12]:[06_ARMv8_指令集_一些重要的指令 · Issue #12 · carloscn/blog (github.com)](https://github.com/carloscn/blog/issues/12)
 [^13]:[自旋锁spin_lock和raw_spin_lock](https://blog.csdn.net/DroidPhone/article/details/7395983)
+[^14]:[Linux-用户空间-多线程与同步](https://github.com/carloscn/blog/issues/9)
