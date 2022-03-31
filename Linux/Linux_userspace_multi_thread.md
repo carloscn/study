@@ -173,11 +173,17 @@ spinlock和mutex在功能上是一样的，关于不同往上已经很多的资�
 
 使用spinlock的死锁场景：
 
-![image-20220322101014839](/Users/carlos/workspace/work/study-2022/Linux/_media/image-20220322101014839.png)
+<img width="1489" alt="image-20220322101014839" src="_media/159394291-728e7b0d-1418-4dab-8125-38b226a3b074-20220331200549679.png">
 
 使用mutex的死锁场景：
 
-![image-20220322101028140](/Users/carlos/workspace/work/study-2022/Linux/_media/image-20220322101028140.png)
+<img width="1429" alt="image-20220322101028140" src="_media/159394313-b41d16a6-60f4-42b2-b2a5-60efc8eaa192-20220331200549945.png">
+
+在ARMv7架构（单核imx6ULL芯片测试）
+![WeChat Image_20220329114610](_media/160529284-5d2c28d5-c8bc-47be-a469-e17784fd993a-20220331200549651.png)
+似乎CPU并没有跑满，原因暂时未知。
+
+我觉得这个文献里面对比pthread_mutex和pthread_spinlock的调度性能对比可以参考一下[^4]
 
 这里面实验为：
 
@@ -248,9 +254,31 @@ int pthread_setcanceltype(int type, int *oldtype);
   * sem_wait
   * sigwait
 
+#### 1.4.7 条件变量
+
+除了mutex和spinlock，在pthread层级接口还提供了条件变量，和mutex打配合完成更高效的线程与线程之间的同步。比如这样的场景，小明爸爸每隔三天会向桌子上放一个苹果，小明可以一天吃一个苹果，小明不知道爸爸什么时候来放苹果，所以小明的策略是写作业写一个小时就去桌子上查看一下是不是有苹果，这样效率就十分低。条件变量就可以提供一个通知机制，小明爸爸放苹果之后，通知小明去取，小明再去桌子拿苹果吃，这样显著提高效率。
+
+* 小明爸爸可以使用pthread_cond_signal或者pthread_cond_boardcast来通知小明
+* 小明可以持有pthread_cond_wait来等待爸爸的通知。
+
+```c
+int pthread_cond_init(pthread_cond_t *cond,pthread_condattr_t *cond_attr);
+int pthread_cond_wait(pthread_cond_t *cond,pthread_mutex_t *mutex);
+int pthread_cond_timewait(pthread_cond_t *cond,pthread_mutex *mutex,const timespec *abstime);
+int pthread_cond_destroy(pthread_cond_t *cond);
+int pthread_cond_signal(pthread_cond_t *cond);
+int pthread_cond_broadcast(pthread_cond_t *cond);
+```
+
+这里说下signal和boardcast的区别，大刚有两个孩子，小明和小红，大刚三天放2个苹果，小红和小明一次拿一个，并且小明和小红使用cond_wait等待着大刚的cond_signal。如果大刚使用cond_signal，那么一次只能通知一个人，而且是轮着来，这样就非常没有效率。但如果大刚使用cond_boardcast，那么小明和小红可以同时收到消息。
+
+关于条件变量的测试：https://github.com/carloscn/clab/blob/master/linux/test_thread/test_thread_cond.c
+
+这里创建了一个生产者和两个消费者，竞争cond状态。
+
 ## Ref
 
-[^1]: [linux进程/线程调度策略(SCHED_OTHER,SCHED_FIFO,SCHED_RR)](https://blog.csdn.net/u012007928/article/details/40144089)
+[^1]: [inux进程/线程调度策略(SCHED_OTHER,SCHED_FIFO,SCHED_RR)](https://blog.csdn.net/u012007928/article/details/40144089)
 [^2]: [archlinux-man-page-pthread-attr-init](https://man.archlinux.org/man/core/man-pages/pthread_attr_init.3.en)
 [^3]: [archlinux-man-page-pthread-cancel](https://man.archlinux.org/man/pthread_cancel.3) 
-
+[^4]: [Pthread_Mutex_t Vs Pthread_Spinlock_t （转载](https://www.cnblogs.com/diyunpeng/archive/2011/06/07/2074059.html)

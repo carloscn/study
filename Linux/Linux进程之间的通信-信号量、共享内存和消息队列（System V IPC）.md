@@ -5,7 +5,7 @@
 * 消息队列 (msg)：在进程之间简易的传数据的方法
 * 互斥算法（Dekker, Peterson, Filter, Szymanski, Lamport面包店算法)
 
- IPC（Inter-Process Communication，进程间通讯）包含三种通信方式，信号量、共享内存和消息队列。在linux编程里面可以有两个不同的标准，一个是SYSTEM-V标准，一个是POSIX标准。以下是两个标准之间的区别[^1]。简单的说，POSIX更轻量，常面向于线程；SYSTEM-V更重一些，需要深陷Linux内核之中，面向于进程。
+IPC（Inter-Process Communication，进程间通讯）包含三种通信方式，信号量、共享内存和消息队列。在linux编程里面可以有两个不同的标准，一个是SYSTEM-V标准，一个是POSIX标准。以下是两个标准之间的区别[^1]。简单的说，POSIX更轻量，常面向于线程；SYSTEM-V更重一些，需要深陷Linux内核之中，面向于进程。
 
 ## 1. POSIX和SYSTEM-V的区别
 
@@ -52,7 +52,7 @@ Following table lists the differences between System V IPC and POSIX IPC[^2].
 
 在[Linux-用户空间-多线程与同步](https://github.com/carloscn/blog/issues/9)[^14]中，引用了sem_xxx()的接口，根据上面的信息我们也可以知道这是POSIX IPC的接口。我们在那个文章中并没有阐述信号量和spinlock的区别，在网上大多数人只谈论到信号量和锁之间的用法上的区别，或者是意义上的区别。我这里想更进一步的解释信号量的实现和锁是有差别的。**还有pthread_xxx里面的spinlock和内核的spinlock理念是一样的，但是调度完全不一样，pthread_xxx的可以关注这个实验[^14]。**
 
-* 互斥锁用于互斥（弹走另一个线程），信号量用于同步（不同的level，不同的同步）[^10]
+* 互斥锁用于互斥（弹走另一个线程），信号量用于同步（不同的level，不同的同步）[^10]，pthread用户接口并没有提供信号量的相关接口
 * 独占访问1，可以使用Dekker算法，但是算法依赖于spinlock忙等待，极大的耗费CPU资源（传统设备）。
 * 独占访问2，高级一点硬件上面支持独占访问（ARMv8独占指令LDXR/STXR，ARM的独占监视器机制）[^12]，可以原子性的增加寄存器的值，节约了CPU的资源[^11]。
 * spin_lock底层实现在ARM架构上面使用了内存独占的LDXR和STXR指令，也使用了WFE指令，让ARM进入到低功耗状态[^10][^11], 而x86架构是PAUSE指令。
