@@ -1,4 +1,4 @@
-# Linux进程之间的通信-信号量、共享内存和消息队列（System V and POSIX IPC）
+# Linux进程之间的通信-信号量（System V and POSIX IPC）
 
 * 信号量 (sem) ： 管理资源的访问
 * 共享内存 (shm)： 高效的数据分享
@@ -58,6 +58,264 @@ Following table lists the differences between System V IPC and POSIX IPC[^2].
 * spin_lock底层实现在ARM架构上面使用了内存独占的LDXR和STXR指令，也使用了WFE指令，让ARM进入到低功耗状态[^10][^11], 而x86架构是PAUSE指令。
 * 在信号量内也使用了spin_lock，但是是raw_spinlock （arch_spin_lock）[^10][^13]。raw_spinlock禁止内核抢占，然后调用spin_lock。
 
+System V中提供的信号量接口更通用相比于POSIX标准的信号量[^15]。我们从后面的API介绍上面可以看出，system V中的提供的信号量接口是非常复杂和繁琐的，虽然接口少，但是标识符，标志位特别多，而且里面定义了很多自己的结构体的结构，甚至出现了变长参数。根据文献[^15]，我们大分部使用的都是二进制的信号量，但我相信，这些接口都不是白给的，肯定有更多的使用场景，可能需要以后工作情景上面进行挖掘了。
+
+### 2.1 APIs
+
+#### 2.1.1 semctl[^16]
+
+> **semctl**() performs the control operation specified by *cmd* on the System V semaphore set identified by *semid*, or on the *semnum*-th semaphore of that set. (The semaphores in a set are numbered starting at 0.)
+
+```C
+#include <sys/sem.h>
+
+int semctl(int semid, int semnum, int cmd, ...);
+```
+
+**Parameters:**
+
+| Params     | I/O   | Details                                                      |
+| ---------- | ----- | ------------------------------------------------------------ |
+| int semid  | Input | semid是由semget接口返回的标识符                              |
+| int semnum | Input | sem_num参数是信号量的编号，当需要用到成组的信号量时候，就需要合格参数，一般取值为0，表示这是一个也是唯一一个信号量。 |
+| int cmd    | Input | 将要采取动作，参考宏定义SETVAL, IPC_RMID, IPC_SET            |
+| ...        | Input | 为一个union结构体，根据X/OPEN规范的定义包含 val, *buf, *array |
+
+**Return:**
+
+根据cmd不同，返回值也不同。对于 SETVAL和IPC_RMID而言，成功时返回0，失败时返回-1。
+
+#### 2.1.2 semget[^17]
+
+创建一个新的信号量或取得一个已有的信号量的key。
+
+> The **semget**() system call returns the System V semaphore set identifier associated with the argument *key*. It may be used either to obtain the identifier of a previously created semaphore set (when *semflg* is zero and *key* does not have the value **IPC_PRIVATE**), or to create a new set.
+>
+> A new set of *nsems* semaphores is created if *key* has the value **IPC_PRIVATE** or if no existing semaphore set is associated with *key* and **IPC_CREAT** is specified in *semflg*.
+>
+> If *semflg* specifies both **IPC_CREAT** and **IPC_EXCL** and a semaphore set already exists for *key*, then **semget**() fails with *errno* set to **EEXIST**. (This is analogous to the effect of the combination **O_CREAT | O_EXCL** for [open(2)](https://man.archlinux.org/man/open.2.en).)
+
+```C
+#include <sys/sem.h>
+
+int semget(key_t key, int nsems, int semflg);
+```
+
+**Parameters:**
+
+| Params     | I/O   | Details                                                      |
+| ---------- | ----- | ------------------------------------------------------------ |
+| key_t key  | Input | 不相关的进程可以通过它访问同一个信号量。程序对所有的信号量访问都是间接的，先提供个key，接着系统生成一个对应的信号量标识符，只有semget函数直接使用key，其他的函数都适用semget返回的值。 |
+| int nsems  | Input | 指定需要的信号量数目，它几乎总是1                            |
+| int semflg | Input | 一组标识，和open类似，低9bit该信号的权限。可以通过联合使用IPC_CREAT和IPC_EXCL来确保创建一个新的，唯一的信号量。如果该信号量已经存在，则返回一个错误。 |
+
+**Return:**
+
+返回非零整数，为semctl,semop的标识符，返回<0失败。
+
+#### 2.1.3 semop[^18]
+
+改变信号量的值。
+
+> **semop**() performs operations on selected semaphores in the set indicated by *semid*. Each of the *nsops* elements in the array pointed to by *sops* is a structure that specifies an operation to be performed on a single semaphore. The elements of this structure are of type *struct sembuf*, containing the following members:
+
+```C
+#include <sys/sem.h>
+
+struct sembuf {
+  unsigned short sem_num;  /* semaphore number */
+	short          sem_op;   /* semaphore operation */
+	short          sem_flg;  /* operation flags */
+};
+
+int semop(int semid, struct sembuf *sops, size_t nsops);
+int semtimedop(int semid, struct sembuf *sops, size_t nsops,
+               const struct timespec *timeout);    // _GNU_SOURCE
+```
+
+**Parameters:**
+
+| Params              | I/O   | Details                                                      |
+| ------------------- | ----- | ------------------------------------------------------------ |
+| nt semid            | Input | semid是由semget接口返回的标识符                              |
+| struct sembuf* sops | Input | sem_num:信号量编号，一般取值为0，除非使用一组信号；sem_op:一次操作中需要改变的数值，+1为V操作，-1为P操作；sem_flg:通常被设置为SEM_UNDO，将使得操作系统跟踪当前进程对这个信号量的使用情况，如果一个进程没有释放该信号量终止，操作系统将自动释放进程持有的信号量。如果对信号量没有特殊要求，记得将sem_flg设置为SEM_UNDO，如果决定使用一个非SEM_UNDO的值，那就一定要注意保持设置的一致性，否则会搞不清楚内核在进程退出的时候是否清理信号。 |
+| size_t nsops        | Input | *nsops* elements in the array pointed to by *sops* is a structure that specifies an operation to be performed on a single semaphore. |
+
+**Return:**
+
+> On successful completion, the *sempid* value for each semaphore specified in the array pointed to by *sops* is set to the caller's process ID.
+
+### 2.2 Example
+
+根据文献[^15]提供的示例，完成使用System V级别的信号量，创建简单的二进制信号量，满足以下条件：
+
+* 创建一个进程，允许该进程多次reentrant，塑造临界区竞争的场景。
+* 在系统上创建一个文件common.txt，一个分行写入10x10的1, 一个分行写入10x10的0，通过输入参数实现。
+* 写入操作使用信号量进行保护。
+* 最后打开文件，需要看见1矩阵不会被破坏，0矩阵也不会被破坏。
+
+关于semun.h请参考https://man7.org/tlpi/code/online/dist/svsem/semun.h.html, MACOS里面自带了定义，但是在Ubuntu和ARM-Linux上面并没有这个定义。
+
+这里还要说一下，因为是使用的系统上的资源竞争（同一个文件），因此必须使用System V级别的信号量才能完成，而posix提供的同步的信号量的内存都是存在一个进程里面的。
+
+这个例子划分 写入文件十次为一个临界区。
+
+```C
+#include <stdint.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
+
+#include <sys/file.h>
+#include <sys/sem.h>
+
+#define debug_log printf("%s:%d--", __FUNCTION__, __LINE__);printf
+
+#if defined(__linux__)
+union semun {                   /* Used in calls to semctl() */
+    int                 val;
+    struct semid_ds *   buf;
+    unsigned short *    array;
+#if defined(__linux__)
+    struct seminfo *    __buf;
+#endif
+};
+#endif
+
+static int set_semvalue(int sem_id)
+{
+    int ret = 0;
+    union semun su;
+    su.val = 1;
+    ret = semctl(sem_id, 0, SETVAL, su);
+    if (ret != 0) {
+        debug_log("failed on semctl, ret = %d\n", ret);
+        goto finish;
+    }
+finish:
+    return ret;
+}
+
+static void del_semvalue(int sem_id)
+{
+    int ret = 0;
+    union semun su;
+    ret = semctl(sem_id, 0, IPC_RMID, su);
+    if (ret != 0) {
+        debug_log("failed on semctl, ret = %d\n", ret);
+    }
+}
+
+static int sem_p(int sem_id)
+{
+    struct sembuf sem_b;
+    int ret = 0;
+
+    sem_b.sem_num = 0;
+    sem_b.sem_op = -1;  /* P() */
+    sem_b.sem_flg = SEM_UNDO;
+    ret = semop(sem_id, &sem_b, 1);
+    if (ret != 0) {
+        debug_log("semop failed, ret = %d\n", ret);
+    }
+    return ret;
+}
+
+static int sem_v(int sem_id)
+{
+    struct sembuf sem_b;
+    int ret = 0;
+
+    sem_b.sem_num = 0;
+    sem_b.sem_op = 1;  /* V() */
+    sem_b.sem_flg = SEM_UNDO;
+    ret = semop(sem_id, &sem_b, 1);
+    if (ret != 0) {
+        debug_log("semop failed, ret = %d\n", ret);
+    }
+    return ret;
+}
+
+int main(int argc, char *argv[])
+{
+    int i, ret;
+    char op_chars[20];
+    FILE *fd = NULL;
+    int count = 0;
+    int sem_id = 0;
+
+    fd = fopen("common.txt", "a+");
+    if (NULL == fd) {
+        debug_log("failed on fopen\n");
+        goto finish1;
+    }
+    sem_id = semget((key_t)1234, 1, 0666|IPC_CREAT);
+
+    if (sem_id < 0) {
+        debug_log("failed on semget\n");
+        goto finish2;
+    }
+
+    if (argc > 1) {
+        strcpy(op_chars, "111111111\n");
+        debug_log("op char will write 1 to common.txt\n");
+        ret = set_semvalue(sem_id);
+        if (ret != 0) {
+            debug_log("set_semvalue failed\n");
+            goto finish2;
+        }
+    } else {
+        strcpy(op_chars, "000000000\n");
+        debug_log("op char will write 0 to common.txt\n");
+    }
+
+    debug_log("start write file.....\n");
+    debug_log("sem_p().....\n");
+    ret = sem_p(sem_id);
+    if (ret != 0) {
+        debug_log("failed on sem_p\n");
+        goto finish3;
+    }
+    for (i = 0; i < 10; i++) {
+        ret = fwrite(op_chars, 1, strlen(op_chars), fd);
+        if (ret < 0) {
+            debug_log("failed on fwrite\n");
+            goto finish3;
+        }
+        count += ret;
+        sleep(1);
+        debug_log("write 10 bytes to file. total = %d\n", count);
+    }
+    debug_log("sem_v().....\n");
+    ret = sem_v(sem_id);
+    if (ret != 0) {
+        debug_log("failed on sem_v\n");
+    }
+
+finish3:
+    if (argc > 1) {
+        // it is very important for another process using the semvalue.
+        debug_log("hold process .... 20s\n");
+        sleep(20);
+        del_semvalue(sem_id);
+    }
+finish2:
+    fclose(fd);
+finish1:
+    debug_log("finish test...\n");
+    return ret;
+}
+```
+
+`$ rm -rf common.txt`
+
+`$ ./test_sem.elf 1`
+
+`$ ./test_sem.elf`
+
+![image-20220401100544018](_media/image-20220401100544018.png)
+
 
 
 ## Reference
@@ -76,3 +334,8 @@ Following table lists the differences between System V IPC and POSIX IPC[^2].
 [^12]:[06_ARMv8_指令集_一些重要的指令 · Issue #12 · carloscn/blog (github.com)](https://github.com/carloscn/blog/issues/12)
 [^13]:[自旋锁spin_lock和raw_spin_lock](https://blog.csdn.net/DroidPhone/article/details/7395983)
 [^14]:[Linux-用户空间-多线程与同步](https://github.com/carloscn/blog/issues/9)
+[^15]:[Linux系统编程（第四版）- page490]()
+[^16]:[archlinux man page - semctl](https://man.archlinux.org/man/semctl.2) ↩
+[^17]:[archlinux man page - semget](https://man.archlinux.org/man/semget.2) ↩
+[^18]:[archlinux man page - semop](https://man.archlinux.org/man/semop.2) ↩
+

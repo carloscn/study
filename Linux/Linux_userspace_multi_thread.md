@@ -276,9 +276,72 @@ int pthread_cond_broadcast(pthread_cond_t *cond);
 
 这里创建了一个生产者和两个消费者，竞争cond状态。
 
+## 2 Topics
+
+我相信，关于多线程会有很多TOPIC值的探讨，这里遇到什么TOPIC都会整理下来。
+
+### 2.1 pthread使用多核
+
+之前我以为多核调度是进程层面的事情，也很好奇，后来查了多方材料，原来pthread在内核层面是支持多核心执行的，具体调度我给Linux内核的学习留白，但在Linux userspace，pthread是提供配置多核运行和获取在哪个核心的接口[^5]。
+
+```C
+#define _GNU_SOURCE             /* See feature_test_macros(7) */
+#include <pthread.h>
+int pthread_setaffinity_np(pthread_t thread, size_t cpusetsize,
+                           const cpu_set_t *cpuset);
+int pthread_getaffinity_np(pthread_t thread, size_t cpusetsize,
+                           cpu_set_t *cpuset);
+```
+
+这里也有相应的example来测试线程在哪个核心上面，配置8个核心，会根据实际配置核心输出。
+
+* 注意：_GNU_SOURCE务必define，否则CPU_SET_SIZE这些宏定义找不到
+
+```C
+#define _GNU_SOURCE
+#include <pthread.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <errno.h>
+#define handle_error_en(en, msg) \
+        do { errno = en; perror(msg); exit(EXIT_FAILURE); } while (0)
+int
+main(int argc, char *argv[])
+{
+    int s;
+    cpu_set_t cpuset;
+    pthread_t thread;
+    thread = pthread_self();
+    /* Set affinity mask to include CPUs 0 to 7. */
+    CPU_ZERO(&cpuset);
+    for (int j = 0; j < 8; j++)
+        CPU_SET(j, &cpuset);
+    s = pthread_setaffinity_np(thread, sizeof(cpuset), &cpuset);
+    if (s != 0)
+        handle_error_en(s, "pthread_setaffinity_np");
+    /* Check the actual affinity mask assigned to the thread. */
+    s = pthread_getaffinity_np(thread, sizeof(cpuset), &cpuset);
+    if (s != 0)
+        handle_error_en(s, "pthread_getaffinity_np");
+    printf("Set returned by pthread_getaffinity_np() contained:\n");
+    for (int j = 0; j < CPU_SETSIZE; j++)
+        if (CPU_ISSET(j, &cpuset))
+            printf("    CPU %d\n", j);
+    exit(EXIT_SUCCESS);
+}
+```
+
+我分别在ubuntu虚拟机和armv7(cortex-A7单核)上面测试得到不一样的结论：
+
+![image-20220331220717666](_media/image-20220331220717666.png)
+
+* 在ubuntu虚拟机上面这里面调度了两个core
+* 在armv7a(cortex-A7单核)上面测试只有一个核心
+
 ## Ref
 
 [^1]: [inux进程/线程调度策略(SCHED_OTHER,SCHED_FIFO,SCHED_RR)](https://blog.csdn.net/u012007928/article/details/40144089)
 [^2]: [archlinux-man-page-pthread-attr-init](https://man.archlinux.org/man/core/man-pages/pthread_attr_init.3.en)
 [^3]: [archlinux-man-page-pthread-cancel](https://man.archlinux.org/man/pthread_cancel.3) 
 [^4]: [Pthread_Mutex_t Vs Pthread_Spinlock_t （转载](https://www.cnblogs.com/diyunpeng/archive/2011/06/07/2074059.html)
+[^5]: [archlinux-man-pthread_setaffinity_np](https://man.archlinux.org/man/pthread_setaffinity_np.3)
