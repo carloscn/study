@@ -10,6 +10,12 @@
 
 ## 2 weekly summary
 
+### 04月11日-04月17日
+
+这周进入到内嵌汇编、ARM的异常处理的介绍还有linux的共享库，进度并不多，ARM的异常处理十分复杂，调试的时候经常遇到问题，所以并没有太多的进展。下周进MMU有点费劲，能把GIC中断和运行库搞定就不错了！
+
+![image-20220417212457557](https://raw.githubusercontent.com/carloscn/images/main/typoraimage-20220417212457557.png)
+
 ### 04月04 - 04月10日
 
 ![image-20220410155946213](README/_media/image-20220410155946213.png)
