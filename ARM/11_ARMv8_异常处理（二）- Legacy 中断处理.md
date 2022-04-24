@@ -168,19 +168,36 @@ CNTP_CTL_EL0, counter_timer physical timer control register.
 
 <img src="https://raw.githubusercontent.com/carloscn/images/main/typoraimage-20220417132038101.png" alt="image-20220417132038101" width="67%" />
 
-
-
 | bits       | function                                                     |
 | ---------- | ------------------------------------------------------------ |
 | 0: ENABLE  | Enables the timer. 0 关闭，1打开                             |
 | 1: IMASK   | interrupt 掩码位， 0不会被iMASK bit掩码；1会被 iMASK bit掩码 |
 | 2: ISTATUS | 定时器的状态，0定时器中断状态不满足，1定时器中断状态满足     |
 
+```assembly
+timer_ps0_enable:
+    ldr x4, =TIMER_CNTRL0_REG_ADDR
+    mov x5, #2
+    str x5, [x4]
+    ret
+```
+
 ##### ARM: CNTP_TVAL_EL0
 
 Timervalue的初始值，这个值会递减到0的时候会触发中断，还需要在handler里面重新赋值。
 
 <img src="https://raw.githubusercontent.com/carloscn/images/main/typoraimage-20220417134737306.png" alt="image-20220417134737306" width="67%" />
+
+```assembly
+#define ARM_LOCAL_REG_BASE_ADDR (0xFF800000)
+#define TIMER_CNTRL0_REG_ADDR   (ARM_LOCAL_REG_BASE_ADDR + 0x40)
+
+timer_ps0_enable:
+    ldr x4, =TIMER_CNTRL0_REG_ADDR
+    mov x5, #2
+    str x5, [x4]
+    ret
+```
 
 ##### CortexA72: TIMER_CNTRLx
 
@@ -190,15 +207,53 @@ Timervalue的初始值，这个值会递减到0的时候会触发中断，还需
 
 树莓派一共三个这样的寄存器，这个寄存器用于软件决定从ARM core接收一个FIQ的中断请求。我们关注的应该是BIT0，是cortex-A72处理器内核的PS定时器。
 
+```assembly
+timer_ps0_set_value:
+    msr cntp_tval_el0, x0
+    ret
+```
+
 ##### ARM: PSTATE
 
 配置PSTATE上面的DAIF使能总的中断开关。
 
+```assembly
+arch_enable_daif:
+		msr	daifclr, #2
+    ret
+
+arch_disable_daif:
+    msr	daifset, #2
+    ret
+```
+
 #### 2.1.3 process
 
+```c
+// IRQ_SOURCE0_REG_ADDR
+void irq_handle(void)
+{
+	unsigned int irq = 0;
+	unsigned int regs = IRQ_SOURCE0_REG_ADDR;
 
+	irq = readl(IRQ_SOURCE0_REG_ADDR);
+	switch (irq) {
+		case (CNT_PNS_IRQ):
+		handle_timer_irq(100);
+		break;
 
+		default:
+		printk("Unkown IRQ 0x%x\n", irq);
+		break;
+	}
+}
 
+void handle_timer_irq(unsigned int val)
+{
+	timer_ps0_set_value(val);
+	printk("Core0 timer interrupt recved\n\r");
+}
+```
 
 ## 3 Reference
 
@@ -206,20 +261,7 @@ Timervalue的初始值，这个值会递减到0的时候会触发中断，还需
 [^2]:[BCM2711 ARM Peripherals]()
 [^3]:[i.MX 8QuadMax Applications Processor Reference Manual - **3.1.2 Interrupt Interface**](https://www.nxp.com/webapp/Download?colCode=IMX8QMRM)
 [^4]:[ DRA829/TDA4VM Technical Reference Manual (Rev. C) - **9.1 Interrupt Architecture**](https://www.ti.com/lit/zip/spruil1)
-[^4]:[10_ARMv8_异常处理（一） - 入口与返回、栈选择、异常向量表](https://github.com/carloscn/blog/issues/47)
+[^5]:[10_ARMv8_异常处理（一） - 入口与返回、栈选择、异常向量表](https://github.com/carloscn/blog/issues/47)
 [^6]:[ARM Cortex-A72 MPCore Processor Technical Reference Manual r0p3 - Generic Timer functional description](https://developer.arm.com/documentation/100095/0003/Generic-Timer/Generic-Timer-functional-description?lang=en)
 [^7]:[ARM Cortex-A72 MPCore Processor Technical Reference Manual r0p3 - AArch64 Generic Timer register summary](https://developer.arm.com/documentation/100095/0003/Generic-Timer/Generic-Timer-register-summary/AArch64-Generic-Timer-register-summary?lang=en)
-[^8]:[]()
-[^9]:[]()
-[^10]:[]()
-
-
-
-
-
-
-
-
-
-
 

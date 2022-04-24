@@ -10,6 +10,12 @@
 
 ## 2 weekly summary
 
+### 04月18日-04月24日
+
+下周开始最重要的概念，MMU。
+
+![image-20220424184246238](https://raw.githubusercontent.com/carloscn/images/main/typoraimage-20220424184246238.png)
+
 ### 04月11日-04月17日
 
 这周进入到内嵌汇编、ARM的异常处理的介绍还有linux的共享库，进度并不多，ARM的异常处理十分复杂，调试的时候经常遇到问题，所以并没有太多的进展。下周进MMU有点费劲，能把GIC中断和运行库搞定就不错了！
