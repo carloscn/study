@@ -28,7 +28,7 @@ A32指令集提供了PUSH和POP指令来实现入栈和出栈[^1]，但是A64指
 
 For example:
 
-```
+```assembly
 // Broken AArch64 implementation of `push {x1}; push {x0};`.
   str   x1, [sp, #-8]!  // This works, but leaves `sp` with 8-byte alignment ...
   str   x0, [sp, #-8]!  // ... so the second `str` will fail.
@@ -36,7 +36,7 @@ For example:
 
 In this particular case, the stores could be combined:
 
-```
+```assembly
 // AArch64 implementation of `push {x0, x1}`.
   stp   x0, x1, [sp, #-16]!
 ```
@@ -45,7 +45,7 @@ However, in a simple compiler, it is not always easy to combine instructions in 
 
 If you're handling `w` registers, the problem will be even more apparent: these have to be pushed in sets of four to maintain stack pointer alignment, and since this isn't possible in a single instruction, the code can become difficult to follow. This is what [VIXL](https://github.com/armvixl/vixl/blob/330dc71/src/a64/macro-assembler-a64.cc#L1255) generates, for example:
 
-```
+```assembly
 // AArch64 implementation of `push {w0, w1, w2, w3}`.
   stp   w0, w1, [sp, #-16]!   // Allocate four words and store w0 and w1 at the lower addresses.
   stp   w2, w3, [sp, #8]      // Store w2 and w3 at the upper addresses.
@@ -540,7 +540,24 @@ Disassembly of section .text:
  116:   bf00            nop
 ```
 
+#### 1.4.3 ARMv8的函数调用标准
 
+函数调用标准（Procedure Call Standard, PCS）用来描述父/子函数是如何编译、链接的，尤其是父函数和子函数之间调用关系的约定，如栈的布局、参数的传递、还有C语言类型的长度等等。每个处理器体系结构都有不同的标准。下面以ARM64为例介绍函数调用的标准（参考： Procedure Call Standard for ARM 64-bit Architecture[^6] [^7] )
+
+ARM64体系结构的通用寄存器：
+
+| 寄存器         | 描述                                                     |
+| -------------- | -------------------------------------------------------- |
+| SP寄存器       | SP寄存器                                                 |
+| x30 (LR寄存器) | 链接寄存器                                               |
+| x29 (FP寄存器) | 栈帧指针（Frame Pointer）寄存器                          |
+| x19~x28        | 被调用函数保存的寄存器，在子函数中使用时需要保存到栈中。 |
+| x18            | 平台寄存器                                               |
+| x17            | 临时寄存器IPC（intra-precedure-call）临时寄存器          |
+| x16            | 临时寄存器或第一个IPC临时寄存器                          |
+| x9~x15         | 临时寄存器                                               |
+| x8             | 间接结果位置寄存器，用于保存程序返回的地址               |
+| x0~x7          | 用于传递子函数参数和结果，                               |
 
 ### 2 堆与内存管理
 
@@ -561,7 +578,7 @@ brk()系统调用实际上就设置进程数据段（data段+bss段的统称）�
 
 mmap()的作用是向操作系统申请一段虚拟内存地址，如果指定文件路径是可以将空间映射到文件，如果没有指定文件路径，那么就是匿名空间(Anonymous)，匿名空间就可以作为堆空间。mmap可以指定申请空间的大小和起始地址，如果起始地址设定为0，那么mmap会自动跳转到合适的位置，申请的空间还可以指定权限。
 
-```
+```c
 void *malloc(size_t nbytes)
 {
      void *ret = mmap(0, bytes, PROT_READ|PROT_WRITE, MAP_PRIVATE | MAP_ANONYMOUS, 0, 0);
@@ -753,3 +770,5 @@ void mem_pool_init(){
 [^3]:[如何看待malloc产生内存碎片](https://www.shuzhiduo.com/A/8Bz8A2kkJx/)
 [^4]:[linux malloc free 内存碎片_嵌入式裸机编程中使用malloc、free会怎样？](https://www.cxyzjd.com/article/weixin_39625747/113086126)
 [^5]:[FreeRTOS kernel - Memory Management](https://www.freertos.org/a00111.html#heap_1)
+[^6]:[**Procedure Call Standard for the Arm® 64-bit Architecture (AArch64).pdf**](https://github.com/carloscn/doclib/blob/master/man/arm/standard/Procedure%20Call%20Standard%20for%20the%20Arm%C2%AE%2064-bit%20%20Architecture%20(AArch64).pdf)
+[^7]:[https://github.com/ARM-software/abi-aa](https://github.com/ARM-software/abi-aa/releases)

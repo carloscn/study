@@ -1,5 +1,3 @@
-# ARMv8
-
 ## Introduction
 
 * 新一代64位处理
@@ -106,7 +104,7 @@ Note, in AArch32, the A32/T32 instruction sets were called `ARM and Thumb` instr
 * EL2
 * EL3
 
-![image-20220210211952137](/Users/carlos/workspace/work/study-2022/_media/image-20220210211952137.png)
+<img width="1178" alt="image-20220210211952137" src="https://user-images.githubusercontent.com/16836611/159121502-e03e558f-d920-4b39-832e-e9b36cc0335b.png">
 
 ### AArch64's Registers
 
@@ -114,6 +112,8 @@ Note, in AArch32, the A32/T32 instruction sets were called `ARM and Thumb` instr
 * SP
 * PC
 * V0-V31
+
+![image-20220630171323469](https://raw.githubusercontent.com/carloscn/images/main/typoraimage-20220630171323469.png)
 
 #### R0-R30
 
