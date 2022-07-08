@@ -71,18 +71,28 @@ The two kinds of `Execution State` are like the different containers for differe
 
 ### Instruction Sets
 
+arm的指令集有以下几种：
+
 * A64
 * A32/T32
 
-#### AArch64 (A64)
+##### AArch64 (A64)
 
 Uses 32-bit instruction encodings and fixed-length.
 
-#### AArch32 (A32/T32)
+##### AArch32 (A32/T32)
 
 A32 uses 32-bit instruction encodings samely, and fixed-length. However, the T32 is a variable-length instruction set that uses both 16-bit and 32-bit instruction encodings.
 
 Note, in AArch32, the A32/T32 instruction sets were called `ARM and Thumb` instruction sets. The ARMv8 instrcution set extends each of these instruction sets.
+
+#### 种类
+
+https://github.com/carloscn/doclib/blob/master/man/arm/armv8/arm64_quick_reference.pdf
+
+![image-20220707170044598](https://raw.githubusercontent.com/carloscn/images/main/typoraimage-20220707170044598.png)
+
+![image-20220707170110034](https://raw.githubusercontent.com/carloscn/images/main/typoraimage-20220707170110034.png)
 
 ### System Registers
 
@@ -151,3 +161,9 @@ A 64-bit Program Counter holding the address of the current instruction.  Softwa
 * EL
 * SP
 
+# Change log
+
+*   [2022年6月29日]： 更新arm寄存器分类的脑图
+*   [2022年7月7日]：
+    *   增加对arm指令集分类的介绍
+    *   指令分类图
