@@ -1,4 +1,4 @@
-# 01_bootloader/uboot
+# 01_ARMv7 boot Flow
 
 从学习uboot开始，就误以为一个板子的开启，上电后的所有操作都是uboot来做的，那时候只关注于uboot能把内核引导成功；工作之后又接触到了secure boot，而在我们的secure boot设计中有好几级引导，我知道了boot并不是只限于uboot，我们可以根据工程的需要设计多级的boot；再当学到SoC上面的知识的时候，在boot阶段除了引导之外还有很多很多工作要做。因此，我决定把boot这块所有的相关的内容整理出来，顺便把secure boot的一些做法写出来，看看在boot哪个阶段，我们可以用secure boot。
 
@@ -108,11 +108,6 @@ memory boot之后就开始进入到image的读取的过程。注意这里有个X
 通常状况的SPL是一个非常小的程序（64KB）以下，运行在SoC内部的SRAM上面。SPL通常存储在启动媒介里面，**因此这部分程序并不是由soc厂家负责开发的**。在uboot源程序中时机已经包含了这部分程序。
 
 
-
-
-
-[^9] [^10] [^11][^12][^13][^14][^15][^16][^17][^18][^19]
-
 # 3.Ref
 
 [^1]:[AM335x Sitara Processors datasheet.pdf](https://github.com/carloscn/doclib/blob/master/man/arm/ti/AM335x%20Sitara%20Processors%20datasheet.pdf)
@@ -123,17 +118,6 @@ memory boot之后就开始进入到image的读取的过程。注意这里有个X
 [^6]:[U-Boot 之五 详解 U-Boot 及 SPL 的启动流程](https://blog.csdn.net/ZCShouCSDN/article/details/121925283)
 [^7]:[Embedded Linux Booting Process (Multi-Stage Bootloaders, Kernel, Filesystem)](https://www.youtube.com/watch?v=DV5S_ZSdK0s)
 [^8]:[**i.MX 8QuadMax Applications Processor Reference Manual.pdf**](https://github.com/carloscn/doclib/blob/master/man/embedded/nxp/i.MX%208QuadMax%20Applications%20Processor%20Reference%20Manual.pdf)
-[^9]:[聊聊SOC启动（一）armv8启动总体流程 ](https://blog.csdn.net/lgjjeff/article/details/124786983?spm=1001.2014.3001.5502)
-[^10]:[聊聊SOC启动（二） BL1启动流程](https://blog.csdn.net/lgjjeff/article/details/124853411?spm=1001.2101.3001.6650.1&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7ECTRLIST%7Edefault-1-124853411-blog-124786983.pc_relevant_multi_platform_whitelistv1&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7ECTRLIST%7Edefault-1-124853411-blog-124786983.pc_relevant_multi_platform_whitelistv1&utm_relevant_index=2)
-[^11]:[聊聊SOC启动（三） BL2启动流程](https://blog.csdn.net/lgjjeff/article/details/124864918?spm=1001.2101.3001.6661.1&utm_medium=distribute.pc_relevant_t0.none-task-blog-2%7Edefault%7ECTRLIST%7Edefault-1-124864918-blog-124853411.pc_relevant_multi_platform_whitelistv2&depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-2%7Edefault%7ECTRLIST%7Edefault-1-124864918-blog-124853411.pc_relevant_multi_platform_whitelistv2&utm_relevant_index=1)
-[^12]:[聊聊SOC启动（四） BL31启动流程](https://blog.csdn.net/lgjjeff/article/details/124884825)
-[^13]:[聊聊SOC启动（五） uboot启动流程一](https://blog.csdn.net/lgjjeff/article/details/124937777?spm=1001.2014.3001.5502)
-[^14]:[聊聊SOC启动（六）uboot启动流程二](https://blog.csdn.net/lgjjeff/article/details/124967694?spm=1001.2014.3001.5502)
-[^15]:[聊聊SOC启动（七） uboot启动流程三](https://blog.csdn.net/lgjjeff/article/details/124994184?spm=1001.2014.3001.5502)
-[^16]:[聊聊SOC启动（八）spl启动流程](https://blog.csdn.net/lgjjeff/article/details/90702226?spm=1001.2014.3001.5502)
-[^17]:[聊聊SOC启动（九） 为uboot 添加新的board](https://blog.csdn.net/lgjjeff/article/details/125013403?spm=1001.2014.3001.5502)
-[^18]:[聊聊SOC启动（十） 内核启动先导知识](https://blog.csdn.net/lgjjeff/article/details/125052189?spm=1001.2014.3001.5502)
-[^19]:[聊聊SOC启动（十一） 内核初始化](https://blog.csdn.net/lgjjeff/article/details/125081790?spm=1001.2014.3001.5502)
 
 
 
