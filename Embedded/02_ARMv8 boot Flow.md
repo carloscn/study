@@ -4,7 +4,7 @@ ARMv7和ARMv8在引导流程上面完全不同的思路。ARMv8要兼容secure b
 
 # 1. boot high-level
 
-在ARMv8里面boot程序是有trustzone-firmware执行引导，参考https://github.com/carloscn/arm-trusted-firmware/里面设计boot armv8的所有流程。
+在ARMv8里面boot程序是有trustzone-firmware执行引导，参考：https://github.com/carloscn/arm-trusted-firmware/ 里面设计boot armv8的所有流程。
 
 ## 1.1 boot overview
 
@@ -462,7 +462,428 @@ msr	spsel, #0                                      （1）
 *	（2）设置运行栈，该函数会获取一个定义好的栈指针，并将其设置到当前栈指针寄存器sp中
 *	（3）在栈顶设置一个canary值，用于检测栈溢出。
 
+## 2.2 bl1_setup
 
+这部分是关于平台初始化的代码，主要调用的子函数：
+
+*   bl1_early_platform_setup函数
+*   bl1_plat_arch_setup函数
+
+### 2.2.1 bl1_early_platform_setup
+
+这部分代码都是平台相关部分的实现，我们从arm-trusted-firmware中搜寻到这部分代码的实现，全部都是在plat目录，而且这部分在文档中也提出了要求。
+
+<div align='center'>
+<img src="https://raw.githubusercontent.com/carloscn/images/main/typoraimage-20220713140142320.png" width="80%" />
+</div>
+
+```tex
+Function : bl1_early_platform_setup() [mandatory]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+::
+    Argument : void
+    Return   : void
+This function executes with the MMU and data caches disabled. It is only called
+by the primary CPU.
+On Arm standard platforms, this function:
+-  Enables a secure instance of SP805 to act as the Trusted Watchdog.
+-  Initializes a UART (PL011 console), which enables access to the ``printf``
+   family of functions in BL1.
+-  Enables issuing of snoop and DVM (Distributed Virtual Memory) requests to
+   the CCI slave interface corresponding to the cluster that includes the
+   primary CPU.
+```
+
+我们来参考一下marvell的：
+
+```c
+/*
+ * BL1 specific platform actions shared between Marvell standard platforms.
+ */
+void marvell_bl1_early_platform_setup(void)
+{
+	/* Initialize the console to provide early debug support */
+	marvell_console_boot_init();
+
+	/* Allow BL1 to see the whole Trusted RAM */
+	bl1_ram_layout.total_base = MARVELL_BL_RAM_BASE;
+	bl1_ram_layout.total_size = MARVELL_BL_RAM_SIZE;
+}
+```
+
+这部分的实现就是：
+
+*   控制台初始化
+*   设置secure ram的内存地址范围。
+
+### 2.2.2 bl1_plat_arch_setup
+
+同样的bl1_plat_arch_setup也是需要交给平台来porting的代码，在trusted firmware内部，要求的是：
+
+>Function : bl1_plat_arch_setup() [mandatory]
+>
+>This function performs any platform-specific and architectural setup that the
+>platform requires. Platform-specific setup might include configuration of
+>memory controllers and the interconnect.
+>
+>In Arm standard platforms, this function enables the MMU.
+>
+>This function helps fulfill requirement 2 above.
+
+```c
+/*
+ * Perform the very early platform specific architecture setup shared between
+ * MARVELL standard platforms. This only does basic initialization. Later
+ * architectural setup (bl1_arch_setup()) does not do anything platform
+ * specific.
+ */
+void marvell_bl1_plat_arch_setup(void)
+{
+	marvell_setup_page_tables(bl1_ram_layout.total_base,
+				  bl1_ram_layout.total_size,
+				  BL1_RO_BASE,
+				  BL1_RO_LIMIT,
+				  BL1_RO_DATA_BASE,
+				  BL1_RO_DATA_END
+#if USE_COHERENT_MEM
+				, BL_COHERENT_RAM_BASE,
+				  BL_COHERENT_RAM_END
+#endif
+				);
+	enable_mmu_el3(0);
+}
+```
+
+该函数用于为所有bl1需要访问地址建立MMU页表，并且使能d-cache。注意，bl1中的物理地址和虚拟地址属于恒等映射，之所以开启MMU主要是为了开启D-cache，以加快后面BL2镜像加载速度。
+
+## 2.3 bl1_main
+
+bl1_main函数属于真正意义的进入到了bl1的启动流程，前面都是做一些准备工作。bl1_main需要做的工作是：
+
+*   合法性检查，包括一些寄存器的配置，cache writeback granule
+*   Ensure that MMU/Caches and coherency are turned on
+*   Perform remaining generic architectural setup from EL3 
+*   Initialize authentication module
+*   Initialize the measured boot
+*   Perform platform setup in BL1.
+*   Get the image id of next image to load and run. 
+*   Teardown the measured boot driver 
+
+```C
+/*******************************************************************************
+ * Function to perform late architectural and platform specific initialization.
+ * It also queries the platform to load and run next BL image. Only called
+ * by the primary cpu after a cold boot.
+ ******************************************************************************/
+void bl1_main(void)
+{
+	unsigned int image_id;
+
+	/* Announce our arrival */
+	NOTICE(FIRMWARE_WELCOME_STR);
+	NOTICE("BL1: %s\n", version_string);
+	NOTICE("BL1: %s\n", build_message);
+
+	INFO("BL1: RAM %p - %p\n", (void *)BL1_RAM_BASE, (void *)BL1_RAM_LIMIT);
+
+	print_errata_status();
+
+#if ENABLE_ASSERTIONS
+	u_register_t val;
+	/*
+	 * Ensure that MMU/Caches and coherency are turned on
+	 */
+#ifdef __aarch64__
+	val = read_sctlr_el3();
+#else
+	val = read_sctlr();
+#endif
+	assert((val & SCTLR_M_BIT) != 0);
+	assert((val & SCTLR_C_BIT) != 0);
+	assert((val & SCTLR_I_BIT) != 0);
+	/*
+	 * Check that Cache Writeback Granule (CWG) in CTR_EL0 matches the
+	 * provided platform value
+	 */
+	val = (read_ctr_el0() >> CTR_CWG_SHIFT) & CTR_CWG_MASK;
+	/*
+	 * If CWG is zero, then no CWG information is available but we can
+	 * at least check the platform value is less than the architectural
+	 * maximum.
+	 */
+	if (val != 0)
+		assert(CACHE_WRITEBACK_GRANULE == SIZE_FROM_LOG2_WORDS(val));
+	else
+		assert(CACHE_WRITEBACK_GRANULE <= MAX_CACHE_LINE_SIZE);
+#endif /* ENABLE_ASSERTIONS */
+
+	/* Perform remaining generic architectural setup from EL3 */
+	bl1_arch_setup();
+
+	crypto_mod_init();
+
+	/* Initialize authentication module */
+	auth_mod_init();
+
+	/* Initialize the measured boot */
+	bl1_plat_mboot_init();
+
+	/* Perform platform setup in BL1. */
+	bl1_platform_setup();
+
+#if ENABLE_PAUTH
+	/* Store APIAKey_EL1 key */
+	bl1_apiakey[0] = read_apiakeylo_el1();
+	bl1_apiakey[1] = read_apiakeyhi_el1();
+#endif /* ENABLE_PAUTH */
+
+	/* Get the image id of next image to load and run. */
+	image_id = bl1_plat_get_next_image_id();
+
+	/*
+	 * We currently interpret any image id other than
+	 * BL2_IMAGE_ID as the start of firmware update.
+	 */
+	if (image_id == BL2_IMAGE_ID)
+		bl1_load_bl2();
+	else
+		NOTICE("BL1-FWU: *******FWU Process Started*******\n");
+
+	/* Teardown the measured boot driver */
+	bl1_plat_mboot_finish();
+
+	bl1_prepare_next_image(image_id);
+
+	console_flush();
+}
+```
+
+### 2.3.1 bl1_arch_setup
+
+```C
+void bl1_arch_setup(void) {
+	write_scr_el3(read_scr_el3() | SCR_RW_BIT);
+}
+```
+
+**该函数的作用为将下一个异常等级的执行状态设置为aarch64**
+
+### 2.3.2 secure boot init
+
+Secure boot用于校验镜像的合法性，它通常需要一个包含镜像签名信息的镜像头。签名信息可在打包时完成，一般包括计算镜像的hash值，然后使用非对称算法（如RSA或ECDSA）对该hash值执行签名操作，并将签名信息保存到镜像头中。在系统启动时，需要校验该签名是否合法，若不合法表明镜像被破坏或被替换了，因此系统需要停止启动流程。
+
+这部分包含两个为空的实现，**一个是对加密引擎的初始化操作 crypto_mod_init，还有secboot的auth_mod_init**。需要用户来实现这部分。我们的secure boot的bl1的初始化就在这个位置。
+
+### 2.3.3 bl1_platform_setup
+
+>Function : bl1_platform_setup() [mandatory]
+>
+>This function executes with the MMU and data caches enabled. It is responsible
+>for performing any remaining platform-specific setup that can occur after the
+>MMU and data cache have been enabled.
+>
+>if support for multiple boot sources is required, it initializes the boot
+>sequence used by plat_try_next_boot_source().
+>
+>In Arm standard platforms, this function initializes the storage abstraction
+>layer used to load the next bootloader image.
+>
+>This function helps fulfill requirement 4 above.
+
+这部分需要SoC厂商实现自己的平台初始化。并声明到这里，MMU和d-cache已经被打开了。需要注意这些问题。
+
+### 2.3.4 load image
+
+剩下就是获取image的id和对bl2的镜像的加载了，镜像加载流程包含了镜像从storage中的加载以及镜像合法性验证两部分，这部分就进入到了secboot的真正的逻辑部分。
+
+#### 2.3.4.1 get image id
+
+这部分由自己soc厂商负责，这个实现是hikey，作为一种参考。
+
+```c
+/*
+ * The following function checks if Firmware update is needed,
+ * by checking if TOC in FIP image is valid or not.
+ */
+unsigned int bl1_plat_get_next_image_id(void)
+{
+	int32_t boot_mode;
+	unsigned int ret;
+
+	boot_mode = mmio_read_32(ONCHIPROM_PARAM_BASE);
+	switch (boot_mode) {
+	case BOOT_USB_DOWNLOAD:
+	case BOOT_UART_DOWNLOAD:
+		ret = NS_BL1U_IMAGE_ID;
+		break;
+	default:
+		WARN("Invalid boot mode is found:%d\n", boot_mode);
+		panic();
+	}
+	return ret;
+}
+```
+
+#### 2.3.4.2  bl2 image load
+
+```c
+desc = bl1_plat_get_image_desc(BL2_IMAGE_ID);                                          （1）
+info = &desc->image_info;
+err = bl1_plat_handle_pre_image_load(BL2_IMAGE_ID);                                     （2）
+if (err != 0) {
+	ERROR("Failure in pre image load handling of BL2 (%d)\n", err);
+	plat_error_handler(err);
+}
+err = load_auth_image(BL2_IMAGE_ID, info);                                              （3）
+if (err != 0) {
+	ERROR("Failed to load BL2 firmware.\n");
+	plat_error_handler(err);
+}
+	err = bl1_plat_handle_post_image_load(BL2_IMAGE_ID);                                     （4）
+if (err != 0) {
+	ERROR("Failure in post image load handling of BL2 (%d)\n", err);
+	plat_error_handler(err);
+}
+```
+
+它主要包含以下几部分内容：
+
+*   获取待加载镜像描述信息。在atf中，镜像描述信息主要包含镜像id、镜像加载器使用的信息image_info和镜像跳转时使用的信息ep_info，其结构如下：
+
+    ![image-20220713153151555](https://raw.githubusercontent.com/carloscn/images/main/typoraimage-20220713153151555.png)
+
+*   bl1_plat_get_image_desc用于获取bl2镜像的信息；
+
+*   加载之前的处理，它由平台函数bl1_plat_handle_pre_image_load处理，qemu平台未对其做任何处理
+
+*   从storage中加载镜像，它会根据先前获取到的bl2镜像描述信息，从storage中将镜像数据加载到给定地址上。qemu支持fip和semihosting类型的加载方式
+
+*   加载之后的处理，它主要用于设置bl1向bl2传递的参数，上面结构体中的args即用于该目的，它一共包括8个参数，在bl1跳转到bl2之前会分别被设置到x0 – x7寄存器中。bl1只需通过x1寄存器向bl2传送其可用的secure内存region即可。以下为其代码主体流程：
+
+    ```c
+    image_desc = bl1_plat_get_image_desc(BL2_IMAGE_ID);
+    ep_info = &image_desc->ep_info;                                        （a）
+    bl1_secram_layout = bl1_plat_sec_mem_layout();                            （b）
+    bl2_secram_layout = (meminfo_t *) bl1_secram_layout->total_base;
+    bl1_calc_bl2_mem_layout(bl1_secram_layout, bl2_secram_layout);              （c）
+    ep_info->args.arg1 = (uintptr_t)bl2_secram_layout;                           （d）
+    ```
+
+    >a 获取bl2的ep信息
+    >b 获取bl1的secure内存region
+    >c 将总的内存减去bl1已使用的sram内存，作为bl2的可用内存
+    >d 将bl2的可用内存信息保存到参数传递信息中
+
+#### 2.3.4.3 next stage image preparing
+
+在atf中定义了一个异常等级切换相关的cpu context结构体，该结构体包含了切换时所需的所有的信息，如gp寄存器的值，el1、el2系统寄存器以及el3状态的值等。由于armv8包含secure和non secure两种安全状态，因此在el3中为这两种状态分别保留了一份独立的上下文信息，我们在执行上下文切换准备工作时，实际上就是填充对应security状态的结构体内容。以下是该结构体的定义：
+
+```c
+typedef struct cpu_context {
+	gp_regs_t gpregs_ctx;
+	el3_state_t el3state_ctx;
+	el1_sysregs_t el1_sysregs_ctx;
+#if CTX_INCLUDE_EL2_REGS
+	el2_sysregs_t el2_sysregs_ctx;
+#endif
+#if CTX_INCLUDE_FPREGS
+	fp_regs_t fpregs_ctx;
+#endif
+	cve_2018_3639_t cve_2018_3639_ctx;
+#if CTX_INCLUDE_PAUTH_REGS
+	pauth_t pauth_ctx;
+#endif
+} cpu_context_t;
+```
+
+bl1_prepare_next_image的主要工作就是初始化primary cpu的cpu_context上下文，并填充该结构体的相关信息，其主要流程如下：
+
+```c
+desc = bl1_plat_get_image_desc(image_id);
+	next_bl_ep = &desc->ep_info;                                                             （1）
+	security_state = GET_SECURITY_STATE(next_bl_ep->h.attr);                                  （2）
+
+	if (cm_get_context(security_state) == NULL)
+		cm_set_context(&bl1_cpu_context[security_state], security_state);                             （3）
+
+	if ((security_state != SECURE) && (el_implemented(2) != EL_IMPL_NONE)) {                     （4）
+		mode = MODE_EL2;
+	}
+	next_bl_ep->spsr = (uint32_t)SPSR_64((uint64_t) mode,
+		(uint64_t)MODE_SP_ELX, DISABLE_ALL_EXCEPTIONS);                                （5）
+
+	bl1_plat_set_ep_info(image_id, next_bl_ep);
+	cm_init_my_context(next_bl_ep);                                                            （6）
+	cm_prepare_el3_exit(security_state);                                                          （7）
+	desc->state = IMAGE_STATE_EXECUTED;
+```
+
+（1）获取bl2的ep信息
+（2）从bl2的ep信息中获取其security状态
+（3）若context内存未分配，则为其分配内存
+（4）默认的下一阶段镜像异常等级为其支持的最高等级，即若支持el2，则下一异常等级为EL2
+（5）计算spsr的值，即异常等级为step 4计算的值，栈指针使用sp_elx，关闭所有DAIF异常
+（6）该函数为待切换异常等级初始化上下文，如scr_el3，scr_el3，pc，spsr以及参数传递寄存器x0 – x7的值
+（7）将context中参数设置到实际的寄存器中
+
+## 2.4 el3_exit
+
+该函数执行实际的异常等级切换流程，包括设置scr_el3，spsr_el3，elr_el3寄存器，以及执行eret指令跳转到elr_el3设定的bl2入口函数处执行。其定义如下：
+
+```assembly
+func el3_exit
+	mov	x17, sp                                                                    （1）
+	msr	spsel, #MODE_SP_ELX                                                      （2）
+	str	x17, [sp, #CTX_EL3STATE_OFFSET + CTX_RUNTIME_SP]                       （3）
+
+	ldr	x18, [sp, #CTX_EL3STATE_OFFSET + CTX_SCR_EL3]
+	ldp	x16, x17, [sp, #CTX_EL3STATE_OFFSET + CTX_SPSR_EL3]                      （4）
+	msr	scr_el3, x18
+	msr	spsr_el3, x16
+	msr	elr_el3, x17                                                                 （5）
+
+#if IMAGE_BL31
+	ldp	x19, x20, [sp, #CTX_EL3STATE_OFFSET + CTX_CPTR_EL3]
+	msr	cptr_el3, x19
+
+	ands	x19, x19, #CPTR_EZ_BIT
+	beq	sve_not_enabled
+
+	isb
+	msr	S3_6_C1_C2_0, x20 /* zcr_el3 */
+sve_not_enabled:
+#endif
+
+#if IMAGE_BL31 && DYNAMIC_WORKAROUND_CVE_2018_3639
+	ldr	x17, [sp, #CTX_CVE_2018_3639_OFFSET + CTX_CVE_2018_3639_DISABLE]
+	cbz	x17, 1f
+	blr	x17
+1:
+#endif
+	restore_ptw_el1_sys_regs
+
+	bl	restore_gp_pmcr_pauth_regs                                                      （6）
+	ldr	x30, [sp, #CTX_GPREGS_OFFSET + CTX_GPREG_LR]
+
+#if IMAGE_BL31 && RAS_EXTENSION
+	esb
+#else
+	dsb	sy
+#endif
+#ifdef IMAGE_BL31
+	str	xzr, [sp, #CTX_EL3STATE_OFFSET + CTX_IS_IN_EL3]
+#endif
+	exception_return                                                                  （7）
+endfunc el3_exit
+```
+
+（1）将sp_el0栈指针暂存到x17寄存器中
+（2）将栈指针切换到sp_el3，其中sp_el3指向前面context的el3state_ctx指针，即它被用于保存el3的上下文
+（3）将sp_el0的值保存的el3 context中
+（4）从el3 context中加载scr_el3、spsr_el3和elr_el3寄存器的值
+（5）设置scr_el3、spsr_el3和elr_el3寄存器
+（6）恢复gp寄存器等寄存器的值
+（7）执行eret指令，此后cpu将离开bl1跳转到bl2的入口处执行了
 
 # 3. SoC BL2
 
