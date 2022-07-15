@@ -68,7 +68,7 @@ ARMv8关于启动的时候异常等级的切换如下所示，假定该系统支
 >   | SRAM | 0x0e001000 | 0x0e040000  | 252k | YES            | BL32           |
 >   | DDR  | 0x60000000 | 0x100000000 | 2.5G | NO             | BL33           |
 
-# 2. SoC BL1 Booting
+# 2. SoC BL1 Booting[^2]
 
 BL1是SoC系统启动的第一个阶段，其主要目的是初始化系统环境和启动第二阶段镜像BL2。在Trust zone firmware里面被定义为`Architectural initialization`，`platform initaliztion`, `firmware update detection and execution`阶段[^12]，顾名思义，在这个阶段需要对整个SoC完成初始化。需要包含以下流程：
 
@@ -885,11 +885,324 @@ endfunc el3_exit
 （6）恢复gp寄存器等寄存器的值
 （7）执行eret指令，此后cpu将离开bl1跳转到bl2的入口处执行了
 
-# 3. SoC BL2
+# 3. SoC BL2 Booting[^3]
+在ARM的而每一个启动阶段都是单独的一个镜像，BL2 boot stage也一样。BL2启动流程类似于bl1，流程上比较简单，但需要加载更多的image，由于BL31和BL32是可选的配置，因此在BL2 stage 还需要注意配置选项，是否启动了BL31和BL32，还是直接引导BL33阶段。另外，还需要注意，BL2可以被在secure-EL1层级，也可以被配置为EL3层级，他们的入口函数和处理流程肯定会有一些区别，本章参考[^3]，选取常见的secure-EL1的方式，其总体执行流程：
 
+![](https://raw.githubusercontent.com/carloscn/images/main/typorabl2_entrypoint_sig.svg)
 
+## 3.1 bl2 init
 
-# 4. SoC BL31
+在bl2 init流程包包含以下过程：
+* 保存参数
+* 异常设置
+* 设置sctlr_el1寄存器
+* 初始化bss段
+* 栈的初始化
+
+### 3.1.1 parameters 
+```assembly
+func bl2_entrypoint
+	/*---------------------------------------------
+	 * Save arguments x0 - x3 from BL1 for future
+	 * use.
+	 * ---------------------------------------------
+	 */
+	mov	x20, x0
+	mov	x21, x1
+	mov	x22, x2
+	mov	x23, x3
+```
+BL1通过x0-x3四个通用寄存器传递参数过来，从这里可以看出，boot不同的阶段并没有对寄存器的值进行reset。bl1阶段实际上定义了x0~x7寄存器向bl2传递参数。
+### 3.1.2 exception setting
+```assembly
+	/* ---------------------------------------------
+	 * Set the exception vector to something sane.
+	 * ---------------------------------------------
+	 */
+	adr	x0, early_exceptions
+	msr	vbar_el1, x0
+	isb
+
+	/* ---------------------------------------------
+	 * Enable the SError interrupt now that the
+	 * exception vectors have been setup.
+	 * ---------------------------------------------
+	 */
+	msr	daifclr, #DAIF_ABT_BIT
+```
+该流程是设定el1异常向量表的基地址，其定义位于 https://github.com/carloscn/arm-trusted-firmware/blob/master/common/aarch64/early_exceptions.S#L17 。从其定义可知，从定义上为空可以知道，不会对其进行实际的处理，而只是打印出相应的异常信息，然后设定系统为panic状态。
+
+异常向量表设定完成之后，bl2使能serror和external abort异常，显然这些异常一般意味着系统出现未定义指令、空指针等严重错误，因此需要捕获异常将系统设定为安全状态。
+
+### 3.1.3 set sctlr_el1 register
+```assembly
+	/* ---------------------------------------------
+	 * Enable the instruction cache, stack pointer
+	 * and data access alignment checks and disable
+	 * speculative loads.
+	 * ---------------------------------------------
+	 */
+	mov	x1, #(SCTLR_I_BIT | SCTLR_A_BIT | SCTLR_SA_BIT)
+	mrs	x0, sctlr_el1
+	orr	x0, x0, x1
+	bic	x0, x0, #SCTLR_DSSBS_BIT
+	msr	sctlr_el1, x0
+	isb
+
+	/* ---------------------------------------------
+	 * Invalidate the RW memory used by the BL2
+	 * image. This includes the data and NOBITS
+	 * sections. This is done to safeguard against
+	 * possible corruption of this memory by dirty
+	 * cache lines in a system cache as a result of
+	 * use by an earlier boot loader stage.
+	 * ---------------------------------------------
+	 */
+	adr	x0, __RW_START__
+	adr	x1, __RW_END__
+	sub	x1, x1, x0
+	bl	inv_dcache_range
+```
+这部分和bl1很像，配置如下：
+* 使能i-cache
+* 对齐检查
+* 栈对齐检查
+### 3.1.4 C env and stack
+```assembly
+	/* ---------------------------------------------
+	 * Zero out NOBITS sections. There are 2 of them:
+	 *   - the .bss section;
+	 *   - the coherent memory section.
+	 * ---------------------------------------------
+	 */
+	adrp	x0, __BSS_START__
+	add	x0, x0, :lo12:__BSS_START__
+	adrp	x1, __BSS_END__
+	add	x1, x1, :lo12:__BSS_END__
+	sub	x1, x1, x0
+	bl	zeromem
+
+#if USE_COHERENT_MEM
+	adrp	x0, __COHERENT_RAM_START__
+	add	x0, x0, :lo12:__COHERENT_RAM_START__
+	adrp	x1, __COHERENT_RAM_END_UNALIGNED__
+	add	x1, x1, :lo12:__COHERENT_RAM_END_UNALIGNED__
+	sub	x1, x1, x0
+	bl	zeromem
+#endif
+
+	/* --------------------------------------------
+	 * Allocate a stack whose memory will be marked
+	 * as Normal-IS-WBWA when the MMU is enabled.
+	 * There is no risk of reading stale stack
+	 * memory after enabling the MMU as only the
+	 * primary cpu is running at the moment.
+	 * --------------------------------------------
+	 */
+	bl	plat_set_my_stack
+
+	/* ---------------------------------------------
+	 * Initialize the stack protector canary before
+	 * any C code is called.
+	 * ---------------------------------------------
+	 */
+#if STACK_PROTECTOR_ENABLED
+	bl	update_stack_protector_canary
+#endif
+```
+C语言运行环境是有要求的，我们需要注意的是：
+* 对于bss段的初始化，对这段空间的空间分配和清零
+* 如果使用coherent mem区域[^15]，需要对这个区域清零 (coherent memory是对任何硬件GPU或者DMA可见的内存地址，一旦有一方对这个区域进行了写操作，所有观察者都可以看见)
+* 初始化stack区域（设定栈指针寄存器，并把栈指针存储在SP里面）
+* 设定canary值 （checksec linux工具可以查看是否开启了canary）
+
+## 3.2 bl2 platform setup
+它主要执行参数处理和平台初始化流程，后面的分析我们仍然以qemu平台为例。参数处理流程如下（plat/qemu/common/qemu_bl2_setup.c）：
+```c
+meminfo_t *mem_layout = (void *)arg1;               （1）
+qemu_console_init();                            	（2）
+bl2_tzram_layout = *mem_layout;                     （3）
+plat_qemu_io_setup();                               （4）
+```
+* （1）从x1参数中获取bl2的内存layout信息
+* （2）初始化串口控制台
+* （3）设置bl2的内存layout信息
+* （4）初始化qemu的storage加载驱动
+qemu平台初始化主要是为bl2内存建立MMU页表，并启动MMU和dcache，其主要目的是加快后面镜像加载的速度。其代码如下：
+```c
+	QEMU_CONFIGURE_BL2_MMU(bl2_tzram_layout.total_base,
+			      bl2_tzram_layout.total_size,
+			      BL_CODE_BASE, BL_CODE_END,
+			      BL_RO_DATA_BASE, BL_RO_DATA_END,
+			      BL_COHERENT_RAM_BASE, BL_COHERENT_RAM_END);
+```
+
+## 3.3 bl2 image load
+每一个boot stage实际上都有个image load，这个地方正好是我们secure boot运行的入口。
+
+### 3.3.1 before  load
+
+在镜像加载前需要做一些平台的准备，因为C语言环境已经准备完成，这部分已经可以运行C语言，所以你看到的都是C代码。aarch64架构下使能fp和simd寄存器访问权限，其代码如下：
+```C
+ write_cpacr(CPACR_EL1_FPEN(CPACR_EL1_FP_TRAP_NONE));
+```
+剩下就是对于secure boot和加密引擎的初始化。auth_mod_init
+
+### 3.3.2 behind load
+Bl2需要加载的镜像信息由平台定义，对于qemu平台其定义位于plat/qemu/common/qemu_bl2_mem_params_desc.c中，以下代码选取了其在aarch64架构下只加载bl31和bl33的典型配置：
+```c
+static bl_mem_params_node_t bl2_mem_params_descs[] = {
+#ifdef __aarch64__
+	{ .image_id = BL31_IMAGE_ID,
+
+	  SET_STATIC_PARAM_HEAD(ep_info, PARAM_EP, VERSION_2,
+				entry_point_info_t,
+				SECURE | EXECUTABLE | EP_FIRST_EXE),
+	  .ep_info.pc = BL31_BASE,
+	  .ep_info.spsr = SPSR_64(MODE_EL3, MODE_SP_ELX,
+				  DISABLE_ALL_EXCEPTIONS),
+# if DEBUG
+	  .ep_info.args.arg1 = QEMU_BL31_PLAT_PARAM_VAL,
+# endif
+	  SET_STATIC_PARAM_HEAD(image_info, PARAM_EP, VERSION_2, image_info_t,
+				IMAGE_ATTRIB_PLAT_SETUP),
+	  .image_info.image_base = BL31_BASE,
+	  .image_info.image_max_size = BL31_LIMIT - BL31_BASE,
+
+# ifdef QEMU_LOAD_BL32
+	  .next_handoff_image_id = BL32_IMAGE_ID,
+# else
+	  .next_handoff_image_id = BL33_IMAGE_ID,
+# endif
+	},
+#endif /* __aarch64__ */
+	{ .image_id = BL33_IMAGE_ID,
+	  SET_STATIC_PARAM_HEAD(ep_info, PARAM_EP, VERSION_2,
+				entry_point_info_t, NON_SECURE | EXECUTABLE),
+# ifdef PRELOADED_BL33_BASE
+	  .ep_info.pc = PRELOADED_BL33_BASE,
+
+	  SET_STATIC_PARAM_HEAD(image_info, PARAM_EP, VERSION_2, image_info_t,
+				IMAGE_ATTRIB_SKIP_LOADING),
+# else /* PRELOADED_BL33_BASE */
+	  .ep_info.pc = NS_IMAGE_OFFSET,
+
+	  SET_STATIC_PARAM_HEAD(image_info, PARAM_EP, VERSION_2, image_info_t,
+				0),
+	  .image_info.image_base = NS_IMAGE_OFFSET,
+	  .image_info.image_max_size = NS_IMAGE_MAX_SIZE,
+# endif /* !PRELOADED_BL33_BASE */
+
+	  .next_handoff_image_id = INVALID_IMAGE_ID,
+	}
+};
+```
+该结构和bl1镜像描述比较类似，只是多了下一个阶段的镜像id，以及加载参数链表的节点信息。该结构体定义完成后需要通过以下接口注册到系统中：
+REGISTER_BL_IMAGE_DESCS(bl2_mem_params_descs)
+ 在启动阶段，可通过plat_get_bl_image_load_info获取以上镜像加载信息，此后启动代码将遍历这些接在信息，并分别执行以下流程分别加载和处理这些镜像
+（1）bl2_platform_setup：该函数用于bl2平台相关的设置，如security设置，timer设置以及dtb设置等
+（2）bl2_plat_handle_pre_image_load：镜像加载前平台可以执行一些其特定的流程
+（3）load_auth_image：该接口用于实际的镜像加载流程，其与bl1的镜像加载流程完全一样
+（4）bl2_plat_handle_post_image_load：该接口用于设置镜像加载相关信息，qemu平台代码如下（plat/qemu/common/qemu_bl2_setup.c）：
+```c
+static int qemu_bl2_handle_post_image_load(unsigned int image_id)
+{
+	int err = 0;
+	bl_mem_params_node_t *bl_mem_params = get_bl_mem_params_node(image_id);
+	…
+	switch (image_id) {
+	case BL32_IMAGE_ID:
+        …                                                                               （a）
+	case BL33_IMAGE_ID:
+#if ARM_LINUX_KERNEL_AS_BL33
+		bl_mem_params->ep_info.args.arg0 =
+			(u_register_t)ARM_PRELOADED_DTB_BASE;
+		bl_mem_params->ep_info.args.arg1 = 0U;
+		bl_mem_params->ep_info.args.arg2 = 0U;
+		bl_mem_params->ep_info.args.arg3 = 0U;                                          （b）
+#else
+		bl_mem_params->ep_info.args.arg0 = 0xffff & read_mpidr();                       （c）
+#endif
+		bl_mem_params->ep_info.spsr = qemu_get_spsr_for_bl33_entry();                   （d）
+		break;
+	default:
+		break;
+	}
+
+	return err;
+}
+
+```
+a bl32用于加载trust os，在启动流程中不是必须的，此处暂时不讨论
+b 若由bl2直接启动linux，则设置linux的启动参数。我们知道armv8架构的linux启动参数都是通过dtb传递的，因此这里将dtb地址设置为其启动参数
+c 对于其它类型的bl33（如uboot），则将当前处理器的affinity信息作为其启动参数
+d 设置bl33的spsr
+### 3.3.3 params settings
+
+bl2可能会加载bl31、bl32、bl33镜像，因此其需要将这些被加载镜像的信息传给下一阶段。Bl2通过链表方式来组织这些参数，其中每一级镜像是链表的一个节点，其具体结构如下图所示：
+
+![](https://raw.githubusercontent.com/carloscn/images/main/typoratelegram-cloud-photo-size-5-6233049732335382981-x.jpg)
+
+bl2若运行在S-EL1下，则镜像加载完成并准备好参数后，需要通过smc异常再次进入bl1，由bl1的smc处理函数来执行实际的镜像切换流程。在执行smc命令之前，我们需要为其设置好参数，上面的bl_params->head->ep_info会设置为smc的调用参数，同时bl_params还需要被设置为第一级镜像的arg0参数，即在启动第一级镜像（如bl31）时，通过其x0寄存器传给它的也是bl_params指针，从而使bl31可以继续启动其后的镜像。
+
+由于bl_params位于sram内存中，而bl2开启了dcache，因此在跳转到smc之前，需要将这部分数据从cache刷到sram中。最后我们就可以调用下面的smc指令返回bl1了 :
+
+`smc(BL1_SMC_RUN_IMAGE, (unsigned long)next_bl_ep_info, 0, 0, 0, 0, 0, 0);`
+
+## 3.4 bl1 handle next-image
+bl1的smc处理流程如下：
+```c
+vector_entry SynchronousExceptionA64                -->
+smc_handler64 
+```
+其中smc_handler64会判断bl2传入的命令，若命令为BL1_SMC_RUN_IMAGE，则从x1寄存器中获取下一阶段镜像的ep_info，执行上下文切换的准备，并最终跳转到下一阶段镜像的入口执行。其代码流程如下：
+```assembly
+func smc_handler64
+	mov	x30, #BL1_SMC_RUN_IMAGE
+	cmp	x30, x0                                                               
+	b.ne	smc_handler                                                      （1）
+
+	mrs	x30, scr_el3
+	tst	x30, #SCR_NS_BIT                                                     （2）
+	b.ne	unexpected_sync_exception
+
+	ldr	x30, [sp, #CTX_EL3STATE_OFFSET + CTX_RUNTIME_SP]
+	msr	spsel, #MODE_SP_EL0
+	mov	sp, x30                                                              （3）
+
+	mov	x20, x1                                                              （4）
+
+	mov	x0, x20
+	bl	bl1_print_next_bl_ep_info                                            （5）
+
+	ldp	x0, x1, [x20, #ENTRY_POINT_INFO_PC_OFFSET]                         
+	msr	elr_el3, x0
+	msr	spsr_el3, x1                                                         （6）
+	ubfx	x0, x1, #MODE_EL_SHIFT, #2
+	cmp	x0, #MODE_EL3                                                        （7）
+	b.ne	unexpected_sync_exception
+    …
+	mov	x0, x20
+	bl	bl1_plat_prepare_exit                                                （8）
+
+	ldp	x6, x7, [x20, #(ENTRY_POINT_INFO_ARGS_OFFSET + 0x30)]
+	ldp	x4, x5, [x20, #(ENTRY_POINT_INFO_ARGS_OFFSET + 0x20)]
+	ldp	x2, x3, [x20, #(ENTRY_POINT_INFO_ARGS_OFFSET + 0x10)]
+	ldp	x0, x1, [x20, #(ENTRY_POINT_INFO_ARGS_OFFSET + 0x0)]                  （9）
+	exception_return                                                          （10）
+endfunc smc_handler64
+```
+（1）判断通过x0寄存器传入的smc命令是否为BL1_SMC_RUN_IMAGE，若不是则执行smc_handler，否则继续执行下面的镜像跳转流程
+（2）判断scr_el3的secure位是否为0。该值表示EL0 – EL2等级的secure状态，因此实际指的是smc跳转之前的执行状态。所以该值为0就表示smc跳转前bl2执行在secure状态，否则表示bl2执行在non secure状态。在atf架构中，为了系统的安全性bl2必须要运行在secure状态（因为通常在bl2需要执行一些secure相关的设置，如tzasc，tzma，tzpc等）
+（3）从sp_el3栈中获取先前el3_exit流程中保存的运行时栈的值，将其恢复回sp_el0，并将栈指针切换回sp_el0
+（4）获取smc指令通过x1寄存器传入的next_bl_ep_info参数
+（5）打印参数信息
+（6）从next_bl_ep_info参数中获取bl1的入口地址和spsr寄存器值，分别将其设置到elr_el3和spsr_el3，为跳转到下一阶段镜像做准备
+（7）判断下一阶段镜像是否运行于el3，若不是则出错
+（8）平台相关的跳转前自定义流程，该函数默认什么都不做
+（9）通过x0 – x7设置跳转参数，在bl2中只向arg0设置了bl_params指针这一个参数，因此bl2传给bl31的参数为描述镜像信息的bl_params指针
+（10）通过eret跳转到下一阶段镜像入口函数处执行
+# 4. SoC BL31 Booting[^4]
 
 
 
@@ -909,4 +1222,5 @@ endfunc el3_exit
 [^12]:[ARM Trusted Firmware Design ](https://chromium.googlesource.com/external/github.com/ARM-software/arm-trusted-firmware/+/v1.4-rc0/docs/firmware-design.md#bl1-architectural-initialization)
 [^13]:[SCTLR_EL3, System Control Register (EL3) ](https://developer.arm.com/documentation/ddi0601/2022-03/AArch64-Registers/SCTLR-EL3--System-Control-Register--EL3-?lang=en)
 [^14]:[地址无关代码 ](https://baike.baidu.com/item/%E5%9C%B0%E5%9D%80%E6%97%A0%E5%85%B3%E4%BB%A3%E7%A0%81/22702477?fr=aladdin)
+[^15]:[coherent memory](https://blog.csdn.net/denglin12315/article/details/120291393)
 
