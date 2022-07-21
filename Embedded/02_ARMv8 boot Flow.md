@@ -1,4 +1,4 @@
-# 02_ARMv8 ATF Boot Flow (BL1/BL2/BL31)
+# 02_Embedded_ARMv8 ATF Secure Boot Flow (BL1/BL2/BL31) 
 
 ARMv7和ARMv8在引导流程上面完全不同的思路。ARMv8要兼容secure boot，需要在不同的异常等级做相应的处理，而且还需要给SoC厂商一些可配的灵活度，所以在boot上会引入不同的概念，相应的，比ARMv7（及以前）设计层面的复杂度要高很多。
 
