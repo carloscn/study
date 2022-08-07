@@ -82,17 +82,30 @@ irq_stack_exit   @ ------ (4)
 内核中提供了等待事件`wait_event()`宏（以及它的几个变种），可用于实现简单的进程休眠，等待直至某个条件成立，主要包括如下几个定义：
 
 ```C
-DELARE_WAIT_QUEUE_HEAD(queue);
-DEFINE_WAIT(wait);
+int usb_hub_init(void)
+{
+	if (usb_register(&hub_driver) < 0) {
+		printk(KERN_ERR "%s: can't register hub driver\n",
+			usbcore_name);
+		return -1;
+	}
 
-while (! condition) {
-    prepare_to_wait(&queue, &wait, TASK_INTERRUPTIBLE);
-    if (! condition)
-        schedule();
-    finish_wait(&queue, &wait)
+	/*
+	 * The workqueue needs to be freezable to avoid interfering with
+	 * USB-PERSIST port handover. Otherwise it might see that a full-speed
+	 * device was gone before the EHCI controller had handed its port
+	 * over to the companion full-speed controller.
+	 */
+	hub_wq = alloc_workqueue("usb_hub_wq", WQ_FREEZABLE, 0);
+	if (hub_wq)
+		return 0;
+
+	/* Fall through if kernel_thread failed */
+	usb_deregister(&hub_driver);
+	pr_err("%s: can't allocate workqueue for usb hub\n", usbcore_name);
+
+	return -1;
 }
-
 ```
 
-上述所有形式函数中，`wq_head`是等待队列头（采用”值传递“的方式传输函数），`condition`是任意一个布尔表达式。使用`wait_event`，进程将被置于非中断休眠，而使用`wait_event_interruptible`时，进程可以被信号中断。
-另外两个版本`wait_event_timeout`和`wait_event_interruptible_timeout`会使进程只等待限定的时间（以**jiffy**表示，给定时间到期时，宏均会返回0，而无论`condition`为何值）。
+
