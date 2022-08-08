@@ -1,23 +1,46 @@
 ```C
-#define init_waitqueue_head(wq_head)                            \
-    do {                                                        \
-        static struct lock_class_key __key;                     \
-        __init_waitqueue_head((wq_head), #wq_head, &__key);     \
-    } while (0)
 
-void __init_waitqueue_head(struct wait_queue_head *wq_head, const char *name, struct lock_class_key *key)
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <sys/types.h>
+
+#define debug_log printf("%s:%s:%d--",__FILE__, __FUNCTION__, __LINE__);printf
+
+int main(int argc, char *argv[])
 {
-    spin_lock_init(&wq_head->lock);
-    lockdep_set_class_and_name(&wq_head->lock, key, name);
-    INIT_LIST_HEAD(&wq_head->head);
+    pid_t pid = fork();
+    u_int16_t count = 0;
+
+    while(1) {
+        if (0 == pid) {
+            debug_log("Current PID = %d, PPID = %d\n", getpid(), getppid());
+            debug_log("I'm Child process\n");
+            // just exit child process, and parent process don't call waitpid(),
+            // which to create zombie process
+            sleep(1);
+            count ++;
+            if (count > 10) {
+                debug_log("child will exit.\n");
+                exit(0);
+            }
+        } else if (pid > 0) {
+            // debug_log("-------------------> wait for child exiting.\n");
+            // WNOHANG is non block mode.
+            // WUNTRACED is block mode.
+            // mask the next line code, the zombie process will be generated.
+            // pid_t t_pid = waitpid(pid, NULL, WUNTRACED);
+            debug_log("-------------------> Current PID = %d, PPID = %d\n", getpid(), getppid());
+            debug_log("-------------------> I'm Parent process!\n");
+            sleep(2);
+        } else {
+            debug_log("fork() failed \n");
+        }
+    }
+
+    return 0;
 }
-
-#define DECLARE_WAIT_QUEUE_HEAD(name)                       \
-    struct wait_queue_head name = __WAIT_QUEUE_HEAD_INITIALIZER(name)
-
-#define __WAIT_QUEUE_HEAD_INITIALIZER(name) {               \
-    .lock       = __SPIN_LOCK_UNLOCKED(name.lock),          \
-    .head       = { &(name).head, &(name).head } }
 
 ```
 
