@@ -1,47 +1,41 @@
 ```C
-
-
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <sys/types.h>
-
-#define debug_log printf("%s:%s:%d--",__FILE__, __FUNCTION__, __LINE__);printf
-
-int main(int argc, char *argv[])
-{
-    pid_t pid = fork();
-    u_int16_t count = 0;
-
-    while(1) {
-        if (0 == pid) {
-            debug_log("Current PID = %d, PPID = %d\n", getpid(), getppid());
-            debug_log("I'm Child process\n");
-            // just exit child process, and parent process don't call waitpid(),
-            // which to create zombie process
-            sleep(1);
-            count ++;
-            if (count > 10) {
-                debug_log("child will exit.\n");
-                exit(0);
-            }
-        } else if (pid > 0) {
-            // debug_log("-------------------> wait for child exiting.\n");
-            // WNOHANG is non block mode.
-            // WUNTRACED is block mode.
-            // mask the next line code, the zombie process will be generated.
-            // pid_t t_pid = waitpid(pid, NULL, WUNTRACED);
-            debug_log("-------------------> Current PID = %d, PPID = %d\n", getpid(), getppid());
-            debug_log("-------------------> I'm Parent process!\n");
-            sleep(2);
-        } else {
-            debug_log("fork() failed \n");
-        }
-    }
-
-    return 0;
-}
-
+/* 0 */		CALL(sys_restart_syscall)
+		CALL(sys_exit)
+		CALL(sys_fork)
+		CALL(sys_read)
+		CALL(sys_write)
+/* 5 */		CALL(sys_open)
+		CALL(sys_close)
+		CALL(sys_ni_syscall)		/* was sys_waitpid */
+		CALL(sys_creat)
+		CALL(sys_link)
+/* 10 */	CALL(sys_unlink)
+		CALL(sys_execve)
+		CALL(sys_chdir)
+		CALL(OBSOLETE(sys_time))	/* used by libc4 */
+		CALL(sys_mknod)
+/* 15 */	CALL(sys_chmod)
+		CALL(sys_lchown16)
+		CALL(sys_ni_syscall)		/* was sys_break */
+		CALL(sys_ni_syscall)		/* was sys_stat */
+		CALL(sys_lseek)
+/* 20 */	CALL(sys_getpid)
+		CALL(sys_mount)
+		CALL(OBSOLETE(sys_oldumount))	/* used by libc4 */
+		CALL(sys_setuid16)
+		CALL(sys_getuid16)
+/* 25 */	CALL(OBSOLETE(sys_stime))
+		CALL(sys_ptrace)
+		CALL(OBSOLETE(sys_alarm))	/* used by libc4 */
+		CALL(sys_ni_syscall)		/* was sys_fstat */
+		CALL(sys_pause)
+/* 30 */	CALL(OBSOLETE(sys_utime))	/* used by libc4 */
+		CALL(sys_ni_syscall)		/* was sys_stty */
+		CALL(sys_ni_syscall)		/* was sys_getty */
+		CALL(sys_access)
+		CALL(sys_nice)
+/* 35 */	CALL(sys_ni_syscall)		/* was sys_ftime */
+		CALL(sys_sync)
 ```
 
 `asmlinkage void __exception asm_do_IRQ(unsigned int irq, struct pt_regs *regs)`
