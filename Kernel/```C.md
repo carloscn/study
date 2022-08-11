@@ -1,41 +1,11 @@
 ```C
-/* 0 */		CALL(sys_restart_syscall)
-		CALL(sys_exit)
-		CALL(sys_fork)
-		CALL(sys_read)
-		CALL(sys_write)
-/* 5 */		CALL(sys_open)
-		CALL(sys_close)
-		CALL(sys_ni_syscall)		/* was sys_waitpid */
-		CALL(sys_creat)
-		CALL(sys_link)
-/* 10 */	CALL(sys_unlink)
-		CALL(sys_execve)
-		CALL(sys_chdir)
-		CALL(OBSOLETE(sys_time))	/* used by libc4 */
-		CALL(sys_mknod)
-/* 15 */	CALL(sys_chmod)
-		CALL(sys_lchown16)
-		CALL(sys_ni_syscall)		/* was sys_break */
-		CALL(sys_ni_syscall)		/* was sys_stat */
-		CALL(sys_lseek)
-/* 20 */	CALL(sys_getpid)
-		CALL(sys_mount)
-		CALL(OBSOLETE(sys_oldumount))	/* used by libc4 */
-		CALL(sys_setuid16)
-		CALL(sys_getuid16)
-/* 25 */	CALL(OBSOLETE(sys_stime))
-		CALL(sys_ptrace)
-		CALL(OBSOLETE(sys_alarm))	/* used by libc4 */
-		CALL(sys_ni_syscall)		/* was sys_fstat */
-		CALL(sys_pause)
-/* 30 */	CALL(OBSOLETE(sys_utime))	/* used by libc4 */
-		CALL(sys_ni_syscall)		/* was sys_stty */
-		CALL(sys_ni_syscall)		/* was sys_getty */
-		CALL(sys_access)
-		CALL(sys_nice)
-/* 35 */	CALL(sys_ni_syscall)		/* was sys_ftime */
-		CALL(sys_sync)
+//kernel/fork.c
+long do_fork(unsigned long clone_flags,
+             unsigned long stack_start,
+             struct pt_regs *regs,
+             unsigned long stack_size,
+             int __user *parent_tidptr,
+             int __user *child_tidptr)
 ```
 
 `asmlinkage void __exception asm_do_IRQ(unsigned int irq, struct pt_regs *regs)`
@@ -99,30 +69,22 @@ irq_stack_exit   @ ------ (4)
 内核中提供了等待事件`wait_event()`宏（以及它的几个变种），可用于实现简单的进程休眠，等待直至某个条件成立，主要包括如下几个定义：
 
 ```C
-int usb_hub_init(void)
-{
-	if (usb_register(&hub_driver) < 0) {
-		printk(KERN_ERR "%s: can't register hub driver\n",
-			usbcore_name);
-		return -1;
-	}
-
-	/*
-	 * The workqueue needs to be freezable to avoid interfering with
-	 * USB-PERSIST port handover. Otherwise it might see that a full-speed
-	 * device was gone before the EHCI controller had handed its port
-	 * over to the companion full-speed controller.
-	 */
-	hub_wq = alloc_workqueue("usb_hub_wq", WQ_FREEZABLE, 0);
-	if (hub_wq)
-		return 0;
-
-	/* Fall through if kernel_thread failed */
-	usb_deregister(&hub_driver);
-	pr_err("%s: can't allocate workqueue for usb hub\n", usbcore_name);
-
-	return -1;
-}
+<binfmts.h>
+struct linux_binfmt {
+    struct linux_binfmt * next;
+    struct module *module;
+    int (*load_binary)(struct linux_binprm *, struct pt_regs * regs);
+    int (*load_shlib)(struct file *);
+    int (*core_dump)(long signr, struct pt_regs * regs, struct file * file);
+    unsigned long min_coredump; /* minimal dump size */
+};
 ```
+
+| 架构   | 实现                                                         |
+| ------ | ------------------------------------------------------------ |
+| arm    | [arch/arm/kernel/sys_arm.c, line 254](http://lxr.free-electrons.com/2.4.31/source/arch/arm/kernel/sys_arm.c?v=#L254) |
+| i386   | [arch/i386/kernel/process.c, line 737](http://lxr.free-electrons.com/source/arch/i386/kernel/process.c?v=2.4.31#L737) |
+| x86_64 | [arch/x86_64/kernel/process.c, line 728](http://lxr.free-electrons.com/source/arch/x86_64/kernel/process.c?v=2.4.31#L728) |
+
 
 
