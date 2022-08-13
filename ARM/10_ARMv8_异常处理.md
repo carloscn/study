@@ -2,12 +2,11 @@
 
 终于，我们从ARMv8的一些汇编指令的学习当中出来了，开始研究ARMv8体系架构的设计。这里面的机制十分的重要，所以不得不依赖笨叔的视频，同样自己也要阅读ARMv8的手册，希望自己一字一句的去理解，不懂的去搜索，争取把这部分知识补充完整。
 
-
 ## 1. ARMv8 fundamentals[^1]
 
 这部分在笨叔的视频和讲义里面只是粗略的讲了一下high-level的版图设计，但我觉得这个十分重要，没有这个基础后面很难去理解异常处理的过程，而且在high-level上面，人为的设定了很多规则，我觉得有必要整理一下。大纲总结如下：
 
-<img src="https://raw.githubusercontent.com/carloscn/images/main/typoraimage-20220412174235416.png" alt="image-20220412174235416" width="80%" />
+<img src="https://raw.githubusercontent.com/carloscn/images/main/typoraimage-20220412174235416.png" alt="image-20220412174235416" width="90%" />
 
 ### 1.1 EL/PL/secure/non-secure
 
@@ -22,7 +21,7 @@
 
 ARMv8提供了两个安全状态（Secure States），一个叫普通世界（normal world），一个叫安全世界（secure world），这两个世界并行的运行在同一个硬件设备上面，安全世界的工作重心是抵抗软件和硬件的攻击。在EL3下的secure monitor，游走于secure world和normal world。
 
-<img align="right" src="https://raw.githubusercontent.com/carloscn/images/main/typoraimage-20220412152247152.png" alt="image-20220412152247152" style="zoom:33%;" />
+<img src="https://raw.githubusercontent.com/carloscn/images/main/typoraimage-20220412152247152.png" alt="image-20220412152247152" width="80%" />
 
 在normal world的hypervisor（VMM）代码运行在系统上并且管理着多个Guest OS，所以每一个操作系统都运行在VMM上面，每个操作系统在同一时间都不知道有其他操作系统在运行。
 
@@ -38,7 +37,7 @@ ARMv8提供了两个安全状态（Secure States），一个叫普通世界（no
 
 ARMv8定义了两个执行状态，aarch64和aarch32。这两个执行状态和异常等级没有概念上面的交织，也就是aarch64和aarch32都有相应的异常等级和特权模式。在aarch64执行状态时，使用A64指令，在aarch32执行状态，使用A32或者T32（Thumb）指令集。
 
-<img align="right" src="https://raw.githubusercontent.com/carloscn/images/main/typoraimage-20220412153728651.png" alt="image-20220412153728651" style="zoom:33%;" />
+<img  src="https://raw.githubusercontent.com/carloscn/images/main/typoraimage-20220412153728651.png" alt="image-20220412153728651" width="80%" />
 
 AArch32模式，有一点不同的是关于trust-os的位置，trusted-os软件执行在secure EL3，在aarch64执行模式，是执行在EL1中的。ARMv7和aarch32很像。
 
@@ -81,9 +80,7 @@ ARM64处理器内部的中断分为两种，FIQ和IRQ，FIQ叫快速中断请求
 
 由于在执行32位程序的时候，处理器会升一个EL，因此即使AArch64状态能够支持AArch32，但是是在低一级的权利模式。一个AArch64的操作系统能够运行32/64两种类型的应用，hypervisor也是一样，AArch64的hypervisor能够管理AArch32和AArch64的guest操作系统。AArch32的并没有这个能力。
 
-<img align="right" src="https://raw.githubusercontent.com/carloscn/images/main/typoraimage-20220412171739974.png" alt="image-20220412171739974" style="zoom:33%;" />
-
-
+<img src="https://raw.githubusercontent.com/carloscn/images/main/typoraimage-20220412171739974.png" alt="image-20220412171739974" width="75%"/>
 
 ## 2. ARMv8 exception handling
 
@@ -122,18 +119,96 @@ reset异常有着最高的异常等级。当异常发生的时候ARM处理器就
 * 虚拟化权限请求（Hypervisor Call, HVC）：操作系统内核请求虚拟化监视器服务，EL1->EL2
 * 安全监视器权限请求（Secure Monitor Call，SMC）：非安全世界请求进入安全世界的服务，Normal world -> secure world
 
+<img align="right" src="https://raw.githubusercontent.com/carloscn/images/main/typoraimage-20220413092241821.png" alt="image-20220413092241821" width="40%"/>
+
 有几个需要注意的点：
 
 * 通常情况下，如果在EL0进行请求，那么异常会发生在EL1，有种特殊情况，就是`HCR_EL2.TGE`被置位的时候，这个时候异常会发生在EL2。
 * 异常和中断类似都有个异常向量表。程序发生异常的时候，CPU会会跳转到到更高层级的handler里面，查找异常向量表，找到本级异常的handler的地址，再跳转过去。这里先留个疑问，**为什么要找到lower level的handler？**
 
-<img align="right" src="https://raw.githubusercontent.com/carloscn/images/main/typoraimage-20220413092241821.png" alt="image-20220413092241821" style="zoom:33%;" />
+### 2.2 中断嵌套
 
-## 3. Exception handling registers[^2]
+我们要注意一个比较重要的概念，中断嵌套（中断抢占），从定义上来看[^11]：
+
+>   中断嵌套指中断系统正在执行一个中断服务L时，有另一个**优先级**更高的中断H触发，这时中断系统会**暂时**中止当前正在执行低优先级中断服务程序L，而去处理高级别中断H，待处理完毕，再返回被中断了的中断服务程序L继续执行。
+
+从处理器的角度来看，ARM64是支持中断嵌套的，我们可以从三个角度来看[^12]：
+
+*   ARM Core支持中断嵌套吗？支持！
+*   GIC中断控制器支持中断嵌套吗？支持！
+*   Linux Kernel有没有中断嵌套的使用呢？**不支持**！
+*   RTOS kernel哟没有中断嵌套的使用？支持！
+
+#### 2.2.1 ARM Core的中断嵌套
+
+首先来看ARM CORE支持中断嵌套吗？**答案 支持**！ 但是是有一个前提，在进入中断处理时，**PSTATE的I、F、A等比特位是MASK的**，软件中需要主动unmask后，那么就可以中断嵌套了。如下图所示，正是ARM Core支持中断嵌套的一个示例（或者叫模型）：
+
+<img align="right" src="https://raw.githubusercontent.com/carloscn/images/main/typoraimage-20220813091153754.png" alt="image-20220413092241821" width="60%"/>
+
+每次调用要保存中断的上下文。
+
+#### 2.2.2 GIC中断控制器中断嵌套
+
+继续看GIC中断控制器支持中断嵌套吗？**答案 支持中断抢占，支持中断嵌套**。介绍以下优先级和抢占的概念：
+
+*   每个 INTID(中断号) 都有一个优先级(用寄存器`GICD_IPRIORITYn` 或 `GICR_IPRIORITYn` 表示)，它是一个 8 位无符号值。 0x00 是可能的最高优先级，0xFF 是可能的最低优先级。
+*   每个 PE 在其 CPU interface中都有一个优先级掩码寄存器 (`ICC_PMR_EL1`)。 该寄存器设置将中断转发到该 PE 所需的最低优先级。 只有优先级高于寄存器值的中断才会发送给 PE
+*   GICv3具有**运行优先级**的概念。 当 PE 响应中断时，它的运行优先级变为该中断的优先级。 当 PE 写入 EOI 寄存器之一时，运行优先级将返回其先前值。 如果 PE 尚未处理中断，则运行优先级为空闲优先级 (0xFF)。 只有优先级高于运行优先级的中断才能抢占当前中断。
+
+**GIC中断控制器的中断嵌套是可以配置的**。分为Without preemption和With preemption两种模式：
+
+*   在**Without preemption**的情况下，高优先级的中断无法抢占正在active的中断，只能等active的中断执行完了、返回了，高优先级的中断才能发生"**抢占**"(这里还说抢占，合适吗？ 此种情况应属于抢占pendding中断)；
+*   **With preemption**，描述的其实就是：一个中断正在执行，然后另一个更高优先级的中断打断了它, 这也就是正是我们所说的中断嵌套。
+
+##### 那么对于一个gicv3的IP，优先级肯定是有的，它到底是Without preemption 还是With preemption呢？ 如何配置的呢？
+
+请查略`ICC_BPRn_EL1`寄存器，该寄存器定义优先级值字段分成两部分的点，即组优先级字段和子优先级字段。 组优先级字段确定组 1 中断抢占。 换句白话来解释就是，中断优先级被分成了两部分，如下图所示，`ICC_BPRn_EL1`寄存器的BIT[2:0]定义了下图中的N的值[^13]：
+
+>**Set priority mask and binary point registers.** The CPU interface contains the Priority Mask register (ICC_PMR_EL1) and the Binary Point registers (ICC_BPRn_EL1). The Priority Mask sets the minimum priority an interrupt must have in order to be forwarded to the PE. The Binary Point register is used for priority grouping and preemption. The use of both of these registers is described in more detail in Chapter 5. 
+
+<img align="right" src="https://raw.githubusercontent.com/carloscn/images/main/typoraimage-20220813092335800.png" alt="image-20220413092241821" width="35%"/>
+
+#### 2.2.3 Linux Kernel and RTOS
+
+##### Linux Kernel
+
+继续看Linux Kernel操作系统有没有使用中断嵌套？答案 没有使用！
+
+首先查看`ICC_BPRn_EL1`寄存器的配置：
+
+https://elixir.bootlin.com/linux/v5.13.19/source/drivers/irqchip/irq-gic-v3.c#L1005
+
+![image-20220813093047904](https://raw.githubusercontent.com/carloscn/images/main/typoraimage-20220813093047904.png)
+
+写入的是0，也就是意味着，N=0, 即下图的第一行，也就是说抢占是开启的。
+
+<img align="center" src="https://raw.githubusercontent.com/carloscn/images/main/typoraimage-20220813093110470.png" alt="image-20220413092241821" width="65%"/>
+
+继续看，针对每一个 INTID(中断号) 的priority的配置，如下所示，在gic初始化阶段，给每一个 INTID(中断号) 都配置成了一样的优先级，值位0XA5。 也就是所有中断的优先级都是一样的。
+
+https://elixir.bootlin.com/linux/v5.13.19/source/drivers/irqchip/irq-gic-v3.c#L803
+
+![image-20220813093913483](https://raw.githubusercontent.com/carloscn/images/main/typoraimage-20220813093913483.png)
+
+事实上，在gicv3代码中，提供了一个接口，可以单独针对某一中断设置优先级。查略该函数用途，仅仅是为NMI中断设置的(注：Linux Kernel中armv8体系目前还没有该中断，ARMV9新增了一类NMI中断)，其值为0Xa5 & 0x7f = 0x25，该值小于0XA0，所有该优先级大于其它中断的优先级。
+
+https://elixir.bootlin.com/linux/v5.13.19/source/drivers/irqchip/irq-gic-v3.c#L460
+
+![image-20220813094025953](https://raw.githubusercontent.com/carloscn/images/main/typoraimage-20220813094025953.png)
+
+#### ##### RTOS的中断抢占（ARM Cortex-CM3）[^11][^14][^15]
+
+>目前比较流行的几种嵌入式实时操作系统有uC/OS、RT-Thread、FreeRTOS等，对外都宣称它们是嵌入式实时操作系统，那么什么叫实时呢？所谓【实时】 其实就是【及时】，能够及时的处理各种任务和中断，而如何实现【实时/及时】呢，本质上就是要支持：高优先级任务/中断能够抢占低优先级任务/中断，这里的【抢占】本质上就是【中断嵌套】。
+
+<img align="center" src="https://raw.githubusercontent.com/carloscn/images/main/typora5b0d565b5e8841d6b76d514ebbf643f6.jpeg" alt="image-20220413092241821" width="65%"/>
+
+关于RTOS系统如何驱动CPU进行中断嵌套，参考[^14][^15]。内部使用了就绪链表的结构体，这部分暂时不在ARMv8中展开讨论。
+
+##  Exception handling registers[^2]
 
 我们在做加减乘除的指令的时候从`PSTATE`寄存器的高4位读取NZCV的值，来确定状态。今天要涉及的是`PSTATE`DAIF的值，这部分是异常处理标志位。根据手册的翻译，如果异常发生，PSTATE信息会被存入到*Saved program status register*（SPSR_ELn），只有3个，SPSR_EL1, SPSR_EL2, SPSR_EL3。
 
-<img src="https://raw.githubusercontent.com/carloscn/images/main/typoraimage-20220413094212731.png" alt="image-20220413094212731" style="zoom:50%;" />
+<img src="https://raw.githubusercontent.com/carloscn/images/main/typoraimage-20220413094212731.png" alt="image-20220413094212731" width="80%" />
 
 DAIF就是exception bit mask bits，还有SPSel
 
@@ -144,7 +219,7 @@ DAIF就是exception bit mask bits，还有SPSel
 
 当异常发生的时候，PSTATE寄存器的值（current EL, DAIF, NZCV etc）都会被复制到SPSR_ELn，返回的地址会被也会被存储到ELR_ELn中。
 
-<img align="right" src="https://raw.githubusercontent.com/carloscn/images/main/typoraimage-20220413102033518.png" alt="image-20220413102033518" style="zoom: 50%;" />
+<img align="right" src="https://raw.githubusercontent.com/carloscn/images/main/typoraimage-20220413102033518.png" alt="image-20220413102033518" width="30%" />
 
 有几点需要注意：
 
@@ -219,7 +294,7 @@ DAIF就是exception bit mask bits，还有SPSel
 
 #### EL0 call EL1
 
-执行应用程序想要使用特权指令这个时候就需要系统调用。<mark>其中的一种方法就是SVC指令</mark>。当应用程序call这个SVC的时候，就会产生异常，处理器理所应当的进入到了更高一级的EL。这个时候如果我们想传递一些参数，就通过写寄存器的方式。
+执行应用程序想要使用特权指令这个时候就需要系统调用。其中的一种方法就是SVC指令。当应用程序call这个SVC的时候，就会产生异常，处理器理所应当的进入到了更高一级的EL。这个时候如果我们想传递一些参数，就通过写寄存器的方式。
 
 #### EL1 call EL2/3
 
@@ -233,11 +308,10 @@ EL2可以call  EL3通过SMC指令。如果在EL2/3 向后call HVC指令，也会
 
 官方手册里面给了一个图表示EL0 如何 call进入EL1的，可以说这个是一个直接关系，EL0是没有任何异常处理机制的。
 
-<img align="right" src="https://raw.githubusercontent.com/carloscn/images/main/typoraimage-20220413152357009.png" alt="image-20220413152357009" style="zoom:50%;" />
+<img align="right" src="https://raw.githubusercontent.com/carloscn/images/main/typoraimage-20220413152357009.png" alt="image-20220413152357009" width="50%" />
+<img align="top"  src="https://raw.githubusercontent.com/carloscn/images/main/typoraimage-20220413153039923.png" alt="image-20220413153039923" width="40%" />
 
 我们补充一下关于EL1 call进EL2/3的图，对于同步的异常而言，没什么好说的了，就是一级一级的call进去，但是对于异步的异常而言，就有点不一样了，我们EL1需要call EL2或者EL3的时候，需要配置HCR寄存器决定路由信息，同样的EL3也是需要路由信息的配置的。否则会产生新的异常。
-
-<img align="right" src="https://raw.githubusercontent.com/carloscn/images/main/typoraimage-20220413153039923.png" alt="image-20220413153039923" style="zoom:33%;" />
 
 还有一个比较特殊的情况，当有一个从AARCH32发生的异常到AARCH64处理，必须做一些特殊的考虑，AARCH64需要访问32位的寄存器了，直接访问肯定会hang死，所以ARM处理做了一些映射处理：
 
@@ -727,18 +801,22 @@ void kernel_main(void)
 
 ```
 
-## Reference
-
 [^1]:[ARM Cortex-A Series Programmer's Guide for ARMv8-A - Fundamentals of ARMv8 ](https://developer.arm.com/documentation/den0024/a/Fundamentals-of-ARMv8?lang=en)
 [^2]:[ARM Cortex-A Series Programmer's Guide for ARMv8-A - AArch64 Exception Handling](https://developer.arm.com/documentation/den0024/a/AArch64-Exception-Handling?lang=en)
 [^3]:[【内核教程第六十四讲】Linux内核异常处理 - 16:51](https://www.bilibili.com/video/BV1iY4y1v7nZ)
-
 [^4]: [04_ELF文件_加载进程虚拟地址空间](https://github.com/carloscn/blog/issues/18)
-
 [^5]:[Arm Cortex‑A78AE Core Technical Reference Manual - HCR_EL2, Hypervisor Configuration Register, EL2](https://developer.arm.com/documentation/101779/0002/Register-descriptions/AArch64-system-registers/HCR-EL2--Hypervisor-Configuration-Register--EL2?lang=en)
 [^6]: [Arm A-profile Architecture Registers - CurrentEL, Current Exception Level ](https://developer.arm.com/documentation/ddi0601/2022-03/AArch64-Registers/CurrentEL--Current-Exception-Level?lang=en)
 [^7]:[Arm Armv8-A Architecture Registers  - SCTLR_EL1, System Control Register (EL1) ](https://developer.arm.com/documentation/ddi0595/2021-12/AArch64-Registers/SCTLR-EL1--System-Control-Register--EL1-?lang=en)
 [^8]:[Arm Armv8-A Architecture Registers - SPSR_EL2, Saved Program Status Register (EL2) ](https://developer.arm.com/documentation/ddi0595/2021-12/AArch64-Registers/SPSR-EL2--Saved-Program-Status-Register--EL2-?lang=en)
 [^9]: [Arm A-profile Architecture Registers  - ELR_EL2, Exception Link Register (EL2) ](https://developer.arm.com/documentation/ddi0601/2022-03/AArch64-Registers/ELR-EL2--Exception-Link-Register--EL2-?lang=en)
 [^10]:[ARM Cortex-A Series Programmer's Guide for ARMv7-A - ARM Processor Modes and Registers](https://developer.arm.com/documentation/den0013/d/ARM-Processor-Modes-and-Registers?lang=en)
+[^11]:[RTOS系列（1）：基础知识——中断嵌套 ](https://blog.csdn.net/u012351051/article/details/124788428)
+[^12]:[[ARM异常]-ARM体系中是否支持中断嵌套 ](https://blog.csdn.net/weixin_42135087/article/details/121472156)
+[^13]:[**GICv3_Software_Overview_Official_Release_B.pdf**](https://github.com/carloscn/doclib/blob/master/man/arm/armv8/GICv3_Software_Overview_Official_Release_B.pdf)
+[^14]:[**RTOS内功修炼记（一）—— 任务到底应该怎么写**](https://blog.51cto.com/u_13640625/3029145)
+[^15]:[RTOS内功修炼记（二）—— 优先级抢占调度到底是怎么回事？](https://blog.51cto.com/u_13640625/4905669)
 
+# Reference and Change Log
+
+[1]: 2022-8-13: 增加 2.3章节，解说中断嵌套机制
