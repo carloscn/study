@@ -139,7 +139,7 @@ struct irq_desc irq_desc[NR_IRQS] __cacheline_aligned_in_smp = {
 ## irq_chip
 
 irq_chip被称为IRQ控制器抽象，结构体定义为 https://elixir.bootlin.com/linux/v2.6.24/source/include/linux/irq.h#L98 
-
+ 
 ```C
 struct irq_chip {
 	const char	*name;
@@ -364,10 +364,8 @@ https://elixir.bootlin.com/linux/v2.6.24/source/arch/arm/kernel/irq.c#L111
 `asmlinkage void __exception asm_do_IRQ(unsigned int irq, struct pt_regs *regs)`
 
 * `pt_regs`：用于保存内核使用的寄存器信息
-
 	<div align='left'> <img src="https://raw.githubusercontent.com/carloscn/images/main/typora20220728153138.png" width="40%" /> </div>
 * `pt_regs`：定义在：https://elixir.bootlin.com/linux/v2.6.24/source/include/asm-arm/ptrace.h （这个是armv7的）
-
 	```C
 	struct pt_regs {
 		long uregs[18];
