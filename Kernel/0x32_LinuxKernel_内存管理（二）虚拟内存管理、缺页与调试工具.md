@@ -2,9 +2,86 @@
 
 我们经常在Linux的应用程序中使用malloc()这个函数分配内存，而这部分我们从来没有探究过它里面到底如何实现的。理论上，64位的操作系统可以访问到256T的内存空间地址，可以远远大于物理内存，我们在这章就要去弄懂，Linux内核如何去管理这些内存？出了malloc()动态分配的函数，还有mmap()是用户空间中用于建立文件映射或匿名映射的函数，这部分本章也需要讲解一些原理性的内容。
 
-## 1 进程地址空间
+# 0 内核内存分配
+先来回顾一下内核地址空间：
 
-### 1.1 温故ELF而知新
+<div align='center'>
+<img src="https://raw.githubusercontent.com/carloscn/images/main/typora20220913113131.png" width="80%" />
+</div>
+
+在**内核态申请内存比在用户态申请内存要更为直接**，它没有采用用户态那种延迟分配（通过缺页机制来反馈）内存技术。一旦有内核函数申请内存，那么就必须立刻满足该申请内存的请求，并且这个请求一定是正确合理的。相反，对于用户态申请内存的请求，内核总是尽量延后分配物理内存，用户进程总是先获得一个虚拟内存区的使用权，最终通过缺页异常获得一块真正的物理内存。
+
+内核虚拟地址空间只有 1GB 大小，因此可以直接将 1GB 大小的物理内存映射到内核地址空间，但超出 1GB 大小的物理内存（高端内存）就不能映射到内核空间。为此，内核采取了下面的方法使得内核可以使用所有的物理内存：
+
+* **高端内存不能全部映射到内核空间**，也就是说这些物理内存没有对应的线性地址。不过，内核为每个物理页都分配了对应的页描述符，所有的页框描述符都保存在 mem_map 数组中，因此每个页描述符的线性地址都是固定存在的。内核此时可以使用 alloc_pages() 和 alloc_page() 来分配高端内存，因为这些函数返回页框描述符的线性地址。
+
+* **内核地址空间的后 128MB 专门用于映射高端内存，否则，没有线性地址的高端内存不能被内核所访问**。这些高端内存的内核映射显然是暂时映射的，否则也只能映射 128MB 的高端内存。当内核需要访问高端内存时就临时在这个区域进行地址映射，使用完毕之后再用来进行其他高端内存的映射。
+
+由于要进行高端内存的内核映射，因此直接能够映射的物理内存大小只有 896MB，该值保存在 high_memory 中。内核地址空间的线性地址区间如下图所示：
+
+<div align='center'>
+<img src="https://raw.githubusercontent.com/carloscn/images/main/typora20220913113328.png" width="50%" />
+</div>
+
+从图中可以看出，内核采用了三种机制将**高端内存映射**到内核空间：**永久内核映射、固定映射和 vmalloc 机制**。
+
+而这些底层依赖于内核 API：
+* mempool_create：创建内存池对象
+* mempool_alloc：分配函数获得该对象
+* mempool_free：释放一个对象
+* mempool_destroy：销毁内存池
+
+这里就涉及了**内存池(memory pool) **的概念。
+
+## 0.1 内存池[^12]
+
+通常的进程发起申请内存的动作之后，会在系统的空闲内存区寻找合适大小的内存块（底层分配函数__alloc_node_mask），如果满足就直接分配，如果不满足就会向上查找。如果过大就会进行分裂，一部分分给申请进程，一部分放入空闲区。释放时需要找到这个块对应的伙伴，如果伙伴也为空闲，就进行合并，放入高阶空闲链表，如果不空闲就放入对应链表。同时对于多线程申请和释放内存，需要加锁。这样的默认的分配方式考虑到了系统中的大部分情况，具有通用性，但是无可避免的会产生内部碎片，而且加锁，解锁的开销也很大。**程序可以通过系统的内存分配方法预先分配一大块内存来做一个内存池，之后程序的内存分配和释放都由这个内存池来进行操作和管理，当内存池不足时再向系统申请内存**。
+
+我们通常使用malloc等函数来为用户进程分配内存。它的执行过程通常是由用户程序发起malloc申请内存的动作，在**标准库找到对应函数，对不满128k的调用brk()系统调用来申请内存（申请的内存是堆区内存），接着由操作系统来执行brk系统调用**。
+
+我们知道malloc是在标准库，真正的申请动作需要操作系统完成。所以由应用程序到操作系统就需要3层。内存池是专为应用程序提供的专属的内存管理器，它属于应用程序层。所以程序申请内存的时候就不需要通过标准库和操作系统，明显降低了开销。
+
+<div align='center'>
+<img src="https://raw.githubusercontent.com/carloscn/images/main/typora20220913113826.png" width="70%" />
+</div>
+
+这部分请参考： **[Linux机制之内存池.md](https://gist.github.com/carloscn/6db41fb72ec3504edb2c0208d9b99d51)**
+
+## 0.2 vmalloc和kmalloc函数[^14]
+vmalloc和kmalloc的分配内存的特点大概如下：
+
+![](https://raw.githubusercontent.com/carloscn/images/main/typora20220913115418.png)
+
+区别大概可总结为：
+1. vmalloc分配的一般为高端内存，只有当内存不够的时候才分配低端内存；kmallco从低端内存分配。
+2. vmalloc分配的物理地址一般不连续，而kmalloc分配的地址连续，两者分配的虚拟地址都是连续的；
+3. vmalloc分配的一般为大块内存，而kmalloc一般分配的为小块内存，（一般不超过128k);
+
+### 0.2.1 vmalloc
+vmalloc 分配的虚拟地址区间，位于 vmalloc_start 与 vmalloc_end 之间的**动态内存映射区**。一般用分配大块内存，释放内存对应于 vfree，分配的虚拟内存地址连续，**物理地址上不一定连续**。函数原型在 <linux/vmalloc.h> 中声明。一般用在为活动的交换区分配数据结构，为某些 I/O 驱动程序分配缓冲区，或为内核模块分配空间。
+
+内核通过它来申请非连续的物理内存，若申请成功，该函数返回连续内存区的起始地址，否则，返回 NULL。vmalloc() 和 kmalloc() 申请的内存有所不同，kmalloc() 所申请内存的线性地址与物理地址都是连续的，而 vmalloc() 所申请的内存线性地址连续而物理地址则是离散的，两个地址之间通过内核页表进行映射。vmalloc() 使得内核通过连续的线性地址来访问非连续的物理页，这样可以最大限度的使用高端物理内存。
+
+**vmalloc() 的工作方式理解起来很简单**：
+* 寻找一个新的连续线性地址空间；
+* 依次分配一组非连续的页框；
+* 为线性地址空间和非连续页框建立映射关系，即修改内核页表；
+
+vmalloc() **的内存分配原理与用户态的内存分配相似**，都是通过连续的虚拟内存来访问离散的物理内存，并且虚拟地址和物理地址之间是通过页表进行连接的，通过这种方式可以有效的使用物理内存。但是应该注意的是，v**malloc() 申请物理内存时是立即分配的，因为内核认为这种内存分配请求是正当而且紧急的；相反，用户态有内存请求时，内核总是尽可能的延后**，毕竟用户态跟内核态不在一个特权级。
+
+可见，vmalloc 的主要目的就是用多个碎片来拼凑出一个大内存，相当于收集一些 “边角料”，组装成一个成品后再 “出售”。
+
+### 0.2.2 kmalloc
+
+kmalloc() 分配的虚拟地址范围在内核空间的直接内存映射区。按字节为单位虚拟内存，一般用于**分配小块内存**，释放内存对应于 kfree ，可以分配连续的物理内存。函数原型在 <linux/kmalloc.h> 中声明，一般情况下在驱动程序中都是调用 kmalloc() 来给数据结构分配内存。
+
+kmalloc 是基于 Slab 分配器的，同样可以用 cat /proc/slabinfo 命令，查看 kmalloc 相关 slab 对象信息，下面的 kmalloc-8、kmalloc-16 等等就是基于 Slab 分配的 kmalloc 高速缓存。
+
+![](https://raw.githubusercontent.com/carloscn/images/main/typora20220913115653.png)
+
+
+# 1 进程地址空间
+## 1.1 温故ELF而知新
 
 我们在ELF动态链接部分实际上涉及了一部分进程地址空间的概念[04_ELF文件_加载进程虚拟地址空间](https://github.com/carloscn/blog/issues/18#top) ，而且当时我们还留了一个悬念：
 
@@ -36,7 +113,7 @@ ELF中的各种段会被映射到进程虚拟空间上，如下图所示，.text
 
 进程和进程之间还有一个进程内的内存区域不能重叠。但是我们经常看见一个现象，就是在两个进程中使用printf打印出变量的地址，会遇到碰撞的情况。实际上这样是合理的，每个进程都会自大的以为自己占用了所有的虚拟内存，可实际上这是操作系统的欺骗。操作系统会给每个进程一份单独的页表，而页表上有虚拟地址对应物理地址的空间映射关系，比如操作系统告诉进程A，虚拟地址0x1，对应的物理地址是0xffff1；转而在进程B的也表中告诉0x1虚拟地址对应的物理地址是0xaaaa1。操作系统依靠这种映射关系不一致的欺骗，造就了就算是两个进程的虚拟地址碰撞了也完全没有任何关系。操作系统“渣男”的行为脚踏N条船，让这些可怜的进程都洋洋得意的以为自己占据了整个操作系统。
 
-### 1.2 内存描述符mm_struct
+## 1.2 内存描述符mm_struct
 
 既然上面提到了说每个进程都有一份独立的页表，因此在进程的描述符task_struct中必然有一个结构体来表示内存信息，这个角色就是mm_struct。这里对于mm_struct的结构不展开了，用一个图来表示[^2]：
 
@@ -56,7 +133,7 @@ VMA有着很多属性这些属性都会被写入到页表中，属性可以参�
 <img src="https://raw.githubusercontent.com/carloscn/images/main/typora20220904160642.png" width="65%" />
 </div>
 
-### 1.3 malloc函数
+## 1.3 malloc函数
 
 malloc是从系统分配内存的函数。假设系统有进程A和进程B，分别使用testA()和testB()分配内存。
 
@@ -130,7 +207,7 @@ glibc库会调brk()系统调用，之后会寻找线性地址查找VMA的可插�
 
 ![](https://raw.githubusercontent.com/carloscn/images/main/typora20220904184034.png)
 
-### 1.4 mmap函数
+## 1.4 mmap函数
 
 mmap()/munmap()是用户空间最常用的两个系统调用，无论在用户空间分配内存、读写大文件、动态库，还是在多进程之间的共享内存，都有对mmap的使用。
 
@@ -239,6 +316,10 @@ mallopt(M_MMAP_MAX,0);//禁止malloc调用mmap分配内存
 mallopt(M_TRIM_THRESHOLD,-1);//禁止内存紧缩
 ```
 
+
+## 1.5 tmalloc函数（用户空间内存池）
+这部分请参考： **[Linux机制之内存池.md](https://gist.github.com/carloscn/6db41fb72ec3504edb2c0208d9b99d51)**
+
 # 2 缺页异常
 
 malloc和mmap是用户态的函数接口，他们只建立了进程空间内的虚拟内存，但没有建立虚拟内存和物理内存之间的映射关系。如果进程访问的内存刚好建立了关系，那就直接访问这个虚拟内存映射的物理内存，如果这个关系没有被建立，那就会触发缺页异常(异常处理在[10_ARMv8_异常处理（一） - 入口与返回、栈选择、异常向量表](https://github.com/carloscn/blog/issues/47) )。Linux对这部分异常必须要进行处理，一些工作也需要依赖于底层处理器，我们在ARM64中知道这种异常属于同步异常。
@@ -327,20 +408,20 @@ int main() {
 [Wed May 15 14:03:08 2019] Killed process 83446 (machine) total-vm:1920560kB, anon-rss:1177488kB, file-rss:1600kB
 ```
 
-# 3 内存工具
+# 4 内存工具
 
-## 3.1 meminfo
+## 4.1 meminfo
 `cat /proc/meminfo`
 ![](https://raw.githubusercontent.com/carloscn/images/main/typora20220905152841.png)
 
 查看系统内存最准确的方法就是使用meminfo。
 
-## 3.2 伙伴系统
+## 4.2 伙伴系统
 `cat /proc/buddyinfo`
 ![](https://raw.githubusercontent.com/carloscn/images/main/typora20220905153035.png)
 这个是ARMv7架构的，上面说了ARM没有DMA zone。
 
-## 3.3 内存管理区
+## 4.3 内存管理区
 `cat /proc/zoneinfo`
 ![](https://raw.githubusercontent.com/carloscn/images/main/typora20220905153142.png)
 
@@ -349,12 +430,17 @@ int main() {
 * zone的详细页面信息
 * 显示每个CPU内存分配器信息
 
-## 3.4 进程相关内存信息
+## 4.4 进程相关内存信息
 `cat /proc/pid/status | grep -E`
 
-## 3.5 查看系统内存工具
+## 4.5 查看系统内存工具
 top和vmstat
 ![](https://raw.githubusercontent.com/carloscn/images/main/typora20220905153406.png)
+
+# Change Log
+* 2022-9-13：
+	* 增加vmalloc和kmalloc的比较介绍；
+	* 增加线程池的概念，分别介绍内核中线程池的应用，及用户空间tmalloc线程池分配库。
 
 # Ref
 [^1]:[Linux可执行文件与进程的虚拟地址空间](https://blog.csdn.net/weixin_44395686/article/details/105907000)
@@ -367,10 +453,10 @@ top和vmstat
 [^8]:[# 11.1 do_page_fault()缺页中断核心函数](https://blog.csdn.net/dai_xiangjun/article/details/118863423)
 [^9]:[进程分配内存的两种方式—brk()和mmap()](https://blog.csdn.net/C1029323236/article/details/94320370)
 [^10]:[Linux内核OOM killer机制](https://blog.csdn.net/s_lisheng/article/details/82192613/)
-[^11]:[]()
-[^12]:[]()
-[^13]:[]()
-[^14]:[]()
+[^11]:[Linux 操作系统原理 — 内存 — 内存分配算法](https://blog.51cto.com/u_15301988/3081469)
+[^12]:[内存池（memory pool）](https://blog.csdn.net/weixin_48101150/article/details/121336318)
+[^13]:[libtalloc_pools (3) - Linux Man Pages](https://www.systutorials.com/docs/linux/man/3-libtalloc_pools/)
+[^14]:[malloc,vmalloc与kmalloc，kfree与vfree的区别和联系](https://www.cnblogs.com/Ph-one/p/4411423.html)
 [^15]:[]()
 [^16]:[]()
 [^17]:[]()
