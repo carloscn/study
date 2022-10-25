@@ -1,24 +1,9 @@
-# 2022 SP Promotion
+# Study Content
 
-## 1 plan and scope
+这里每年都会出1~3个Topics作为新一年的学习计划，用以提高自己知识的深度与广度。
+识；
 
-时间2月中旬-6月中旬，学习scope需要包含以下内容，任务跟进使用Git Project管理。
-
-* ARM64 : https://github.com/users/carloscn/projects/2
-* Linux kernel: https://github.com/users/carloscn/projects/4
-* Compiler linker: https://github.com/users/carloscn/projects/3
-
-## 2 result
-
-2022年10月，结束study-2022的内容。在这一期里面，我们学习了：
-
-*   ARM64的汇编、以及ARM64的架构基础知识；
-*   Linux内核的除了文件系统外的知识；
-*   ELF链接器相关的知识；
-
-## 3 hoping
-
-#### 知识论
+## 知识论
 
 耗时比较长，但这一切仅仅算作开始，而不是结束。根据学习计划，我们每年都要学习1~2个topics，可能也不会像2022年一样找出一段时间全职闭关学习。后面我们根据职业的发展方向对某个知识树的内容进行强化和补充。
 
@@ -30,7 +15,7 @@
 
 这些知识类似于金字塔一样存储在大脑中，就像是计算机体系结构中cache -> ddr -> storage。根据局部性原理，我们新入一家公司后，需要以最快的速度构建起1级热知识的框架，越细致越好；后续需要完成一般性知识的积累；这一步结束之后，我们需要继续扩充自己的储备知识。
 
-#### 方法论
+## 方法论
 
 <div align='center'>
 <img src="https://raw.githubusercontent.com/carloscn/images/main/typoraramon_llull_tree_of_knowledge.jpg" width="60%" />
